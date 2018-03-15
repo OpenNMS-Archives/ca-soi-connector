@@ -195,18 +195,14 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
                 entitySelector, itemTypeSelector, updateAfterSelector, idSelector, recursiveSelector));
 
         // Wait for the stores to be ready
-        if (latch != null && latch.getCount() <= 0) {
-            try {
-                LOG.info("Waiting for the stores to be ready.");
-                if (!latch.await(5, TimeUnit.MINUTES)) {
-                    throw new UCFException("Timed out while waiting for stores.");
-                }
-                LOG.info("Stores are ready.");
-            } catch (InterruptedException e) {
-                throw new UCFException("Interrupted while waiting for stores.");
+        try {
+            LOG.info("Waiting for the stores to be ready.");
+            if (!latch.await(5, TimeUnit.MINUTES)) {
+                throw new UCFException("Timed out while waiting for stores.");
             }
-        } else {
-            LOG.debug("Stores are already ready.");
+            LOG.info("Stores are ready.");
+        } catch (InterruptedException e) {
+            throw new UCFException("Interrupted while waiting for stores.");
         }
 
         // Retrieve the alarms
