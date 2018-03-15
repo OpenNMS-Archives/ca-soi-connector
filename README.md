@@ -6,6 +6,14 @@ This connector is used to forward alarms (and associated nodes) from OpenNMS to 
 
 ## Building
 
+Initialize and update submodules (compilation requires vendor artifacts which are stored in a private repository and are not publically accessible):
+
+```
+git submodule update --init --recursive --remote
+```
+
+Compile:
+
 ```
 mvn clean package
 ```
