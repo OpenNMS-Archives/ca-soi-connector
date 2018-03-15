@@ -1,5 +1,9 @@
 # OpenNMS Connector for CA SOI [![CircleCI](https://circleci.com/gh/OpenNMS/ca-soi-connector.svg?style=svg)](https://circleci.com/gh/OpenNMS/ca-soi-connector)
 
+## Overview
+
+This connector is used to forward alarms (and associated nodes) from OpenNMS to CA SOI.
+
 ## Building
 
 ```
