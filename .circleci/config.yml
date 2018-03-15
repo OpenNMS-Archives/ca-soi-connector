@@ -20,6 +20,11 @@ jobs:
 
       - checkout
 
+      - run:
+          name: Initialize submodules
+          command: |
+            git submodule update --init --recursive --remote
+
       # Save source cache
       - save_cache:
           key: source-v1-{{ .Branch }}-{{ .Revision }}
