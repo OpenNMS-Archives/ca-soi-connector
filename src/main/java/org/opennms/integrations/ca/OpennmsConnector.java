@@ -181,7 +181,11 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     private void handleNewOrUpdatedNode(OpennmsModelProtos.Node node) {
         if(LOG.isDebugEnabled()) {
-            LOG.debug(String.format("handleNewOrUpdatedNode(%s)", node));
+            LOG.debug(String.format("handleNewOrUpdatedNode(%s)", getNodeCriteria(node)));
+        }
+        if(LOG.isTraceEnabled()) {
+            // The node objects can be particularly verbose, so we log as TRACE instead of DEBUG
+            LOG.trace(String.format("handleNewOrUpdatedNode(%s)", node));
         }
         try {
             createEntity(createItemEntityForNode(node));
