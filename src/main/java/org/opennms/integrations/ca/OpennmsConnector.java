@@ -155,6 +155,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             }
         }
 
+        /* Debug code used to create static elements
         try {
             Thread.sleep(30000);
             OpennmsConnectorCodeSamples cs = new OpennmsConnectorCodeSamples(getChangeEvtMgr());
@@ -162,6 +163,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         } catch (InterruptedException e) {
             LOG.error("Interrupted.", e);
         }
+        */
     }
 
     private void handleNewOrUpdatedAlarm(String reductionKey, OpennmsModelProtos.Alarm alarm) {
@@ -276,7 +278,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         node.getIpInterfaceList().stream().findFirst().ifPresent(ip -> {
             map.put("ip_address", ip.getIpAddress());
         });
-        map.put("class", "ComputerSystem");
+        map.put("class", "System");
         if (node.getSysDescription() != null) {
             map.put("description", node.getSysDescription());
         }
