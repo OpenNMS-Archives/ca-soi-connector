@@ -54,6 +54,8 @@ public class OpennmsConnectorCodeSamples {
     public void createThings() {
         createEntity(OpennmsConnectorCodeSamples::createService);
         createEntity(OpennmsConnectorCodeSamples::createRouter);
+        createEntity(OpennmsConnectorCodeSamples::createComputer);
+        createEntity(OpennmsConnectorCodeSamples::createComputer2);
         createEntity(OpennmsConnectorCodeSamples::createRelationship);
         createEntity(OpennmsConnectorCodeSamples::createAlert);
     }
@@ -101,6 +103,32 @@ public class OpennmsConnectorCodeSamples {
         map.put("description", "Cisco Router");
         map.put("sysname", "router-RH1");
         map.put("dnsname", "router-RH1.xyz.com");
+        return USMSiloDataObjectType.extractFromMap(map);
+    }
+
+    private static DataObject createComputer() throws InvalidParameterException {
+        final Map<String, String> map = new LinkedHashMap<>();
+        map.put("entitytype", "Item");
+        map.put("id", "999");
+        map.put("name", "computer-C1");
+        map.put("ip_address", "123.322.149.102");
+        map.put("class", "ComputerSystem");
+        map.put("description", "Some computer");
+        map.put("sysname", "computer-C1");
+        map.put("dnsname", "computer-C1.xyz.com");
+        return USMSiloDataObjectType.extractFromMap(map);
+    }
+
+    private static DataObject createComputer2() throws InvalidParameterException {
+        final Map<String, String> map = new LinkedHashMap<>();
+        map.put("entitytype", "Item");
+        map.put("id", "9991");
+        map.put("name", "MA01");
+        map.put("ip_address", "10.0.0.1");
+        map.put("class", "ComputerSystem");
+        map.put("description", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        map.put("sysname", "MA01");
+        map.put("dnsname", "MA01");
         return USMSiloDataObjectType.extractFromMap(map);
     }
 
