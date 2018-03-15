@@ -78,8 +78,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     protected static String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
 
     private KafkaStreams streams;
-    private ReadOnlyKeyValueStore<String, byte[]> alarmView;
-    private ReadOnlyKeyValueStore<String, byte[]> nodeView;
+    private volatile ReadOnlyKeyValueStore<String, byte[]> alarmView;
+    private volatile ReadOnlyKeyValueStore<String, byte[]> nodeView;
     private final Map<String,OpennmsModelProtos.Node> nodeCache = new ConcurrentSkipListMap<>();
 
     private CountDownLatch latch;
