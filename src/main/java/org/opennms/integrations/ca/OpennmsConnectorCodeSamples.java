@@ -112,7 +112,7 @@ public class OpennmsConnectorCodeSamples {
         map.put("id", "999");
         map.put("name", "computer-C1");
         map.put("ip_address", "123.322.149.102");
-        map.put("class", "ComputerSystem");
+        map.put("class", "System");
         map.put("description", "Some computer");
         map.put("sysname", "computer-C1");
         map.put("dnsname", "computer-C1.xyz.com");
@@ -125,7 +125,7 @@ public class OpennmsConnectorCodeSamples {
         map.put("id", "9991");
         map.put("name", "MA01");
         map.put("ip_address", "10.0.0.1");
-        map.put("class", "ComputerSystem");
+        map.put("class", "Router");
         map.put("description", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         map.put("sysname", "MA01");
         map.put("dnsname", "MA01");
