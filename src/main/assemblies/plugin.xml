@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<assembly>
+    <id>plugin</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>./lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+        </dependencySet>
+    </dependencySets>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/resources/Configurations</directory>
+            <outputDirectory>./resources/Configurations</outputDirectory>
+            <includes>
+                <include>./opennmsConnector_connectorserver.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/core/catalogpolicy</directory>
+            <outputDirectory>./resources/Core/Catalogpolicy</outputDirectory>
+            <includes>
+                <include>./opennmsconnector_policy.en</include>
+                <include>./opennmsconnector_policy.xml</include>
+                <include>./opennmsconnector_policySB.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>

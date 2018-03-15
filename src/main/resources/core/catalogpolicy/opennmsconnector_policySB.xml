@@ -1,0 +1,396 @@
+<Catalog version='1.0'>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Item'>
+
+        <!-- Classify -->
+        <Classify>
+            <!-- Note: Alert & Relationship are specified directly by Connector
+       <Field input='ClassName' pattern='Alert' output='eventtype' outval='Alert' />
+       <Field input='ClassName' pattern='regexpattern' output='eventtype' outval='BinaryRelationship' /-->
+            <Field input='ClassName' pattern='^ComputerSystem$' output='eventtype'
+                   outval='ComputerSystem'/>
+            <Field input='ClassName' pattern='^BackgroundProcess$' output='eventtype'
+                   outval='BackgroundProcess'/>
+            <Field input='ClassName' pattern='^DatabaseInstance$' output='eventtype'
+                   outval='DatabaseInstance'/>
+            <Field input='ClassName' pattern='^File$' output='eventtype' outval='File'/>
+            <Field input='ClassName' pattern='^InterfaceCard$' output='eventtype'
+                   outval='InterfaceCard'/>
+            <Field input='ClassName' pattern='^Processor$' output='eventtype' outval='Processor'/>
+            <Field input='ClassName' pattern='^Router$' output='eventtype' outval='Router'/>
+            <Field input='ClassName' pattern='^Service$' output='eventtype' outval='Service'/>
+            <!-- Setting the default eventtype to USM-Entity to pass through;
+   This is to allow any CIs to be created... -->
+            <Field input='ClassName' pattern='.*' output='eventtype' outval='USM-Entity'/>
+        </Classify>
+
+        <Format>
+            <Field input='LastModActivity' format='{0}' output='action'/>
+            <Field output='CAProductIdentifier' format='09998' input=''/>
+            <Field conditional='MdrElementID' input='MdrElementID' format='{0}' output='id'/>
+            <Field conditional='Description' input='Description' format='{0}' output='description'/>
+            <Field conditional='Label' input='Label' format='{0}' output='name'/>
+
+            <!-- correlated properties -->
+            <Field conditional='SysName' input='SysName' format='{0}' output='sysname'/>
+            <Field conditional='PrimaryDnsName' input='PrimaryDnsName' format='{0}'
+                   output='dnsname'/>
+            <Field conditional='PrimaryMacAddress' input='PrimaryMacAddress' format='{0}'
+                   output='macaddress'/>
+            <Field conditional='PrimaryIPV4Address' input='PrimaryIPV4Address' format='{0}'
+                   output='ip_address'/>
+            <Field conditional='PrimaryIPV6Address' input='PrimaryIPV6Address' format='{0}'
+                   output='ipv6_address'/>
+
+            <!-- SSA properties required -->
+            <Field output='outfile' format='CA{0}_policySB' input='CAProductIdentifier'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache'
+                   properties='name,description,id,action,sysname,dnsname,macaddress,ip_address,ipv6_address'/>
+        </Write>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='BinaryRelationship' extends='Item'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Relationship' input=''/>
+
+            <!-- Correlatable properties -->
+            <Field conditional='Semantic' input='Semantic' format='{0}' output='semantic'/>          
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='SourceMdrElementID' input='SourceMdrElementID' format='{0}'
+                   output='parent_id'/>
+            <Field conditional='TargetMdrElementID' input='TargetMdrElementID' format='{0}'
+                   output='child_id'/>
+            <Field conditional='ScopeMdrElementID' input='ScopeMdrElementID' format='{0}'
+                   output='service_id'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,child_id,parent_id,service_id,semantic'/>
+        </Write>
+    </EventClass>
+    
+    <!-- ======Event Class====== -->
+    <EventClass name='Relationship' extends='BinaryRelationship'>
+    </EventClass>  
+
+    <!-- ======Event Class====== -->
+    <EventClass name='ComputerSystem' extends='Item'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='System' input=''/>
+
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='ComputerName' input='ComputerName' format='{0}' output='name'/>
+            <Field conditional='AdministrativeStatus' input='AdministrativeStatus' format='{0}' output='adminstatus'/>
+            <Field conditional='IsInMaintenance' input='IsInMaintenance' format='{0}' output='maintenanceflag'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,name,adminstatus,maintenanceflag'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='BackgroundProcess' extends='RunningSoftware'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Windows Service' input=''/>
+
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='ProcessName' input='ProcessName' format='{0}' output='processname'/>
+            <Field conditional='ProductName' input='ProductName' format='{0}' output='servicename'/>
+            <Field input='ProductName,ProcessName' format='Windows Service: {0}, {1}'
+                   output='field'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,processname,servicename,field'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='DatabaseInstance' extends='RunningSoftware'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Database' input=''/>
+
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='DBInstanceName' input='DBInstanceName' format='{0}' output='name'/>
+            <Field conditional='ProductName' input='ProductName' format='{0}' output='field'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,name,field'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='File' extends='Item'>
+        <Parse>
+            <Field input="Description" output="pathurl"
+                   pattern="^.*, (.*)$"/>
+        </Parse>
+
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Disk Partition' input=''/>
+
+            <!-- Correlatable properties -->
+            <Field conditional='DeviceIPV4Address' input='DeviceIPV4Address' format='{0}'
+                   output='ip_address'/>
+            <Field conditional='DeviceIPV6Address' input='DeviceIPV6Address' format='{0}'
+                   output='ipv6_address'/>
+            <Field conditional='DeviceSysName' input='DeviceSysName' format='{0}' output='sysname'/>
+            <Field conditional='DeviceDnsName' input='DeviceDnsName' format='{0}' output='dnsname'/>
+            <Field conditional='DeviceMacAddress' input='DeviceMacAddress' format='{0}'
+                   output='macaddress'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='AdministrativeStatus' input='AdministrativeStatus' format='{0}' output='adminstatus'/>
+            <Field conditional='IsInMaintenance' input='IsInMaintenance' format='{0}' output='maintenanceflag'/>
+            
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache'
+                   properties='class,pathurl,ip_address,ipv6_address,sysname,dnsname,macaddress,adminstatus,maintenanceflag'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='InterfaceCard' extends='RunningHardware'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='LAN Interface' input=''/>
+
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='OSNumeric' input='OSNumeric' format='{0}' output='index'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,index'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Processor' extends='RunningHardware'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Processor' input=''/>
+
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='OSNumeric' input='OSNumeric' format='{0}' output='number'/>
+            <!--Field input='ProcessorType' format='{0}' output='mdrproperty' /-->
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,number'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Router' extends='Item'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Router' input=''/>
+
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='AdministrativeStatus' input='AdministrativeStatus' format='{0}' output='adminstatus'/>
+            <Field conditional='IsInMaintenance' input='IsInMaintenance' format='{0}' output='maintenanceflag'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,adminstatus,maintenanceflag'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='RunningHardware' extends='Item'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='RunningHardware' input=''/>
+
+            <!-- Correlatable properties -->
+            <Field conditional='DeviceIPV4Address' input='DeviceIPV4Address' format='{0}'
+                   output='ip_address'/>
+            <Field conditional='DeviceIPV6Address' input='DeviceIPV6Address' format='{0}'
+                   output='ipv6_address'/>
+            <Field conditional='DeviceSysName' input='DeviceSysName' format='{0}' output='sysname'/>
+            <Field conditional='DeviceDnsName' input='DeviceDnsName' format='{0}' output='dnsname'/>
+            <Field conditional='DeviceMacAddress' input='DeviceMacAddress' format='{0}'
+                   output='macaddress'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='AdministrativeStatus' input='AdministrativeStatus' format='{0}' output='adminstatus'/>
+            <Field conditional='IsInMaintenance' input='IsInMaintenance' format='{0}' output='maintenanceflag'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='ip_address,ipv6_address,class,sysname,dnsname,macaddress,adminstatus,maintenanceflag'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='RunningSoftware' extends='Item'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='RunningSoftware' input=''/>
+
+            <!-- Correlatable properties -->
+            <Field conditional='DeviceIPV4Address' input='DeviceIPV4Address' format='{0}'
+                   output='ip_address'/>
+            <Field conditional='DeviceIPV6Address' input='DeviceIPV6Address' format='{0}'
+                   output='ipv6_address'/>
+            <Field conditional='DeviceSysName' input='DeviceSysName' format='{0}' output='sysname'/>
+            <Field conditional='DeviceDnsName' input='DeviceDnsName' format='{0}' output='dnsname'/>
+            <Field conditional='DeviceMacAddress' input='DeviceMacAddress' format='{0}'
+                   output='macaddress'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='AdministrativeStatus' input='AdministrativeStatus' format='{0}' output='adminstatus'/>
+            <Field conditional='IsInMaintenance' input='IsInMaintenance' format='{0}' output='maintenanceflag'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='ip_address,ipv6_address,class,sysname,dnsname,macaddress,adminstatus,maintenanceflag'/>
+        </Write>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Service' extends='Item'>
+        <Format>
+            <!-- Assign class name -->
+            <Field output='class' format='Service' input=''/>
+
+            <!-- Correlatable properties -->
+            <Field conditional='ServiceName' input='ServiceName' format='{0}' output='name'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='ServiceVersion' input='ServiceVersion' format='{0}'
+                   output='version'/>
+            <Field conditional='AdministrativeStatus' input='AdministrativeStatus' format='{0}' output='adminstatus'/>
+            <Field conditional='IsInMaintenance' input='IsInMaintenance' format='{0}' output='maintenanceflag'/>
+            
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='class,name,version,adminstatus,maintenanceflag'/>
+        </Write>
+    </EventClass>
+    
+    <!--  Default event class for CUD ops -->
+	<EventClass name='SiloData' extends='Item'>
+	</EventClass>
+	
+	<!-- ======Event Class====== -->
+    <EventClass name='Alert'>
+        <Format>
+        	<Field output='class' format='Alert' input=''/>
+            <Field conditional='LastModActivity' input='LastModActivity' format='{0}' output='action'/>
+            <Field conditional='MdrElementID' input='MdrElementID' format='{0}' output='mdr_id'/>
+            <Field conditional='AlertType' input='AlertType' format='{0}' output='mdr_alerttype'/>
+            <Field conditional='Severity' input='Severity' format='{0}' output='mdr_severity'/>
+            <Field conditional='Summary' input='Summary' format='{0}' output='mdr_summary'/>
+            <Field conditional='Message' input='Message' format='{0}' output='mdr_message'/>
+            <Field conditional='AlertedMdrElementID' input='AlertedMdrElementID' format='{0}' output='mdr_alerted_object_id'/>
+            <Field conditional='SeverityTrend' input='SeverityTrend' format='{0}' output='mdr_severitytrend'/>
+            <Field conditional='ImpactedEntities' input='ImpactedEntities' format='{0}' output='mdr_impactedentities'/>
+            <Field conditional='IsClearable' input='IsClearable' format='{0}' output='mdr_isclearable'/>
+            <Field conditional='IsCleared' input='IsCleared' format='{0}' output='mdr_iscleared'/>
+            <Field conditional='IsAcknowledged' input='IsAcknowledged' format='{0}' output='mdr_isacknowledged'/>
+            <Field conditional='IsAcknowledgeable' input='IsAcknowledgeable' format='{0}' output='mdr_isacknowledgeable'/>
+            <Field conditional='Assignee' input='Assignee' format='{0}' output='mdr_assignee'/>
+            <Field conditional='RelatedIncident' input='RelatedIncident' format='{0}' output='mdr_relatedincident'/>
+            <Field conditional='RelatedIncidentUrl' input='RelatedIncidentUrl' format='{0}' output='mdr_relatedincidenturl'/>
+            <Field conditional='RepeatCount' input='RepeatCount' format='{0}' output='mdr_repeatcount'/>
+            <!-- SSA properties required -->
+            <Field output='outfile' format='CA{0}_policySB' input='CAProductIdentifier'/>
+        </Format>
+
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache'
+                   properties='mdr_id,mdr_alerttype,mdr_severity,mdr_summary,mdr_message,mdr_alerted_object_id,mdr_severitytrend,mdr_impactedentities,
+                   			   mdr_isclearable,mdr_iscleared,mdr_isacknowledged,mdr_isacknowledgeable,mdr_assignee,mdr_relatedincident,mdr_relatedincidenturl,
+                   			   mdr_repeatcount,class,action'/>
+        </Write>
+    </EventClass>
+    <!-- ======Event Class====== -->
+    <!-- Empty (pass-through) transformation for entity instances (CIs, Alerts, and Relationships) -->
+    <!-- defined by the Java connector code using USM property names and values -->
+    <!-- which require no transformation -->
+    <EventClass name='USM-Entity'>
+        <Format>
+            <Field input='{replace([MdrProduct,:,_])}' output='outfile' format='{0}'/>
+            <Field input='' output='eventtype' format='USM-Entity'/>
+        </Format>
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='*'/>
+        </Write>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='SiloDataFilter'>
+        <!-- properties are as follows (with example below): -->
+        <!-- + id (xs:string) -->
+        <!-- + updatedAfter (xs:dateTime) -->
+        <!-- + entitytype (xs:string) Item, Relationship, or Alert -->
+        <!-- + itemtype (xs:string) -->
+        <!-- + recursive (xs:boolean) -->
+        <!--Format>
+          <Field output='mdrelementid' input='id' format='{0}' />
+        </Format-->
+        <Write>
+            <Field type='file' name='outfile' properties='*'/>
+            <Field type='publishcache' properties='id,updatedAfter,entitytype,itemtype,recursive'/>
+        </Write>
+    </EventClass>
+</Catalog>
+
+
+
+
+
+
+

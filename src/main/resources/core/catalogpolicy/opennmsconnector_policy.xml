@@ -1,0 +1,367 @@
+<Catalog version='1.0' globalextends='GLOBAL!'>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Item'>
+
+        <!-- Classify -->
+        <Classify>
+            <!-- Note: Alert is specified directly by Connector
+			<Field input='class' pattern='regexpattern' output='eventtype' outval='Alert' />
+			<Field input='class' pattern='regexpattern' output='eventtype' outval='BinaryRelationship' /-->
+            <Field input='class' pattern='^System$' output='eventtype' outval='ComputerSystem'/>
+            <Field input='class' pattern='^Windows Service$' output='eventtype'
+                   outval='BackgroundProcess'/>
+            <Field input='class' pattern='^Database$' output='eventtype' outval='DatabaseInstance'/>
+            <Field input='class' pattern='^Disk Partition$' output='eventtype' outval='File'/>
+            <Field input='class' pattern='^LAN Interface$' output='eventtype'
+                   outval='InterfaceCard'/>
+            <Field input='class' pattern='^Processor$' output='eventtype' outval='Processor'/>
+            <Field input='class' pattern='^Router$' output='eventtype' outval='Router'/>
+            <Field input='class' pattern='^Service$' output='eventtype' outval='Service'/>
+            <Field input='class' pattern='^Relationship$' output='eventtype' outval='Relationship'/>			
+        </Classify>
+
+        <Normalize>
+            <!-- Uncomment and use the most appropriate datetime conversion if necessary -->
+            <!-- uncomment below if no mdr property for datetime exists -->
+            <Field input='now' output='internal_datetime' type='methodcall'
+                   jclass='com.ca.eventplus.catalog.methods.TagFunctions' method='xsdateTime'/>
+            <!-- uncomment below if the mdr property is in millis since epoch -->
+            <!--Field input='mdrdatetime' output='internal_datetime' type='methodcall' jclass='com.ca.eventplus.catalog.methods.TagFunctions' method='xsdateTime' /-->
+            <!-- uncomment below if the mdr property is non-xsdateTime format, ie: MMM d yyyy, etc-->
+            <!--Field input='mdrdatetime,MMM d yyyy K:mm:ss a' output='internal_datetime' type='methodcall' jclass='com.ca.eventplus.catalog.methods.TagFunctions' method='convertxsdateTime' /-->
+            <!-- uncomment below if the mdrdatetime is already in correct xs:dateTime format -->
+            <!--Field output='internal_datetime' type='ref' input=''>
+             <mapentry mapin='.*' mapout='mdrdatetime' />
+           </Field -->
+
+            <Field output='LastModActivity' type='map' input='action'>
+                <mapentry mapin='[Cc][Rr][Ee][Aa][Tt][Ee]' mapout='Create'/>
+                <mapentry mapin='[Uu][Pp][Dd][Aa][Tt][Ee]' mapout='Update'/>
+                <mapentry mapin='[Dd][Ee][Ll][Ee][Tt][Ee]' mapout='Delete'/>
+                <mapentry mapin='^action$' mapout='Create'/>
+                <mapentry mapin='^.+$' mapout='ERROR:UNSUPPORTED_ACTION'/>
+            </Field>
+            <Field output='MdrProdInstance' outputtype='ref' type='map' input='MdrProdInstance'>
+                <mapentry mapin='^MdrProdInstance$' mapout='{fqdn(localhost)}'/>
+                <mapentry mapin='localhost' mapout='{fqdn(localhost)}'/>
+            </Field>
+        </Normalize>
+
+        <Format>
+            <!-- Five digit CA Product identifier as defined by the USM MdrProductEnum -->
+            <Field output='CAProductIdentifier' format='09998' input=''/>
+            <Field output='MdrProduct' format='CA:{0}' input='CAProductIdentifier'/>
+            <!-- MdrProdInstance setup above in normalize section 
+			Field output='MdrProdInstance' format='{0}' input='{fqdn(localhost)}' /-->
+            <Field conditional='id' output='MdrElementID' format='{0}' input='id'/>
+            <Field output="UrlParams" format="http://{0}:8080?id={1}"
+                   input="MdrProdInstance,MdrElementID"/>
+            <Field conditional='description' output='Description' format='{0}' input='description'/>
+            <Field conditional='name' output='Label' format='{0}' input='name'/>
+        </Format>
+    </EventClass>
+
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Alert'>
+        <Normalize>
+            <Field output='MdrProdInstance' outputtype='ref' type='map' input='MdrProdInstance'>
+                <mapentry mapin='^MdrProdInstance$' mapout='{fqdn(localhost)}'/>
+                <mapentry mapin='localhost' mapout='{fqdn(localhost)}'/>
+            </Field>
+        </Normalize>
+
+        <Format>
+            <!-- Correlatable properties -->
+
+            <!-- Non-Correlatable properties -->
+			<Field output='CAProductIdentifier' format='09998' input=''/>
+            <Field output='MdrProduct' format='CA:{0}' input='CAProductIdentifier'/>
+            <!-- MdrProdInstance setup above in normalize section 
+			Field output='MdrProdInstance' format='{0}' input='{fqdn(localhost)}' /-->
+            <Field conditional='mdr_id' output='MdrElementID' format='{0}' input='mdr_id'/>
+            <Field output="UrlParams" format="http://{0}:8080?id={1}"
+                   input="MdrProdInstance,MdrElementID"/>
+            <Field output='OccurrenceTimestamp' format='{0}' input='{xsdateTime(now)}'/>
+            <Field output='ReportTimestamp' format='{0}' input='{xsdateTime(now)}'/>
+            <Field conditional='mdr_alerttype' output='AlertType' format='{0}'
+                   input='mdr_alerttype'/>
+            <Field conditional='mdr_severity' output='Severity' format='{0}' input='mdr_severity'/>
+            <Field conditional='mdr_summary' output='Summary' format='{0}' input='mdr_summary'/>
+            <Field conditional='mdr_message' output='Message' format='{0}' input='mdr_message'/>
+            <Field conditional='mdr_alerted_object_id' output='AlertedMdrElementID' format='{0}'
+                   input='mdr_alerted_object_id'/>
+            <Field conditional='mdr_severitytrend' output='SeverityTrend' format='{0}' input='mdr_severitytrend'/>
+            <Field conditional='mdr_impactedentities' output='ImpactedEntities' format='{0}' input='mdr_impactedentities'/> 
+            <Field conditional='mdr_isclearable' output='IsClearable' format='{0}' input='mdr_isclearable'/>
+            <Field conditional='mdr_iscleared' output='IsCleared' format='{0}' input='mdr_iscleared'/>
+            <Field conditional='mdr_isacknowledged' output='IsAcknowledged' format='{0}' input='mdr_isacknowledged'/>
+            <Field conditional='mdr_isacknowledgeable' output='IsAcknowledgeable' format='{0}' input='mdr_isacknowledgeable'/>
+            <Field conditional='mdr_assignee' output='Assignee' format='{0}' input='mdr_assignee'/>
+            <Field conditional='mdr_relatedincident' output='RelatedIncident' format='{0}' input='mdr_relatedincident'/>
+            <Field conditional='mdr_relatedincidenturl' output='RelatedIncidentUrl' format='{0}' input='mdr_relatedincidenturl'/>
+            <Field conditional='mdr_repeatcount' output='RepeatCount' format='{0}' input='mdr_repeatcount'/>
+            <!-- The product and instance the alert refers to is the same as for the alert (this OpennmsSampleConnector instance) -->
+            <Field output='AlertedMdrProduct' format='{0}' input='MdrProduct'/>
+    		<Field output='AlertedMdrProdInstance' format='{0}' input='ConnectorConfigMdrProdInstance' />		
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='BinaryRelationship' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='semantic' output='Semantic' format='{0}' input='semantic'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field output='SourceMdrProduct' format='{0}' input='MdrProduct'/>
+            <Field output='SourceMdrProdInstance' format='{0}' input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='parent_id' output='SourceMdrElementID' format='{0}'
+                   input='parent_id'/>
+            <Field output='TargetMdrProduct' format='{0}' input='MdrProduct'/>
+            <Field output='TargetMdrProdInstance' format='{0}' input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='child_id' output='TargetMdrElementID' format='{0}'
+                   input='child_id'/>
+            <!--  Set all the Scope related properties only if this relationship is part of a service. -->
+            <Field conditional='service_id' output='ScopeMdrProduct' format='{0}'
+                   input='MdrProduct'/>
+            <Field conditional='service_id' output='ScopeMdrProdInstance' format='{0}'
+                   input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='service_id' output='ScopeMdrElementID' format='{0}'
+                   input='service_id'/>
+            <Field output='Significance' format='50' input=''/>
+        </Format>
+    </EventClass>
+
+    <!--  =======Event Class====== -->
+    <EventClass name='Relationship' extends='BinaryRelationship'>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='ComputerSystem' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='dnsname' output='PrimaryDnsName' format='{0}' input='dnsname'/>
+            <Field conditional='sysname' output='SysName' format='{0}' input='sysname'/>
+            <Field conditional='macaddress' output='PrimaryMacAddress' format='{0}'
+                   input='macaddress'/>
+            <Field conditional='ip_address' output='PrimaryIPV4Address' format='{0}'
+                   input='ip_address'/>
+            <Field conditional='ipv6_address' output='PrimaryIPV6Address' format='{0}'
+                   input='ipv6_address'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='name' output='ComputerName' format='{0}' input='name'/>
+            <Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+            <Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='BackgroundProcess' extends='RunningSoftware'>
+        <Parse>
+            <Field input="field" output="servicename,processname"
+                   pattern="^Windows Service: (.*), .*\\(.*)$"/>
+        </Parse>
+
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='processname' output='ProcessName' format='{0}' input='processname'/>
+            <Field conditional='servicename' output='ProductName' format='{0}' input='servicename'/>
+            <Field output='ProcessID' format='1' input=''/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='DatabaseInstance' extends='RunningSoftware'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='name' output='DBInstanceName' format='{0}' input='name'/>
+            <Field conditional='field' output='ProductName' format='{0}' input='field'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='File' extends='Item'>
+        <Parse>
+            <Field input="description" output="pathurl"
+                   pattern="^.*, (.*)$"/>
+        </Parse>
+
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='ip_address' output='DeviceIPV4Address' format='{0}'
+                   input='ip_address'/>
+            <Field conditional='ipv6_address' output='DeviceIPV6Address' format='{0}'
+                   input='ipv6_address'/>
+            <Field conditional='sysname' output='DeviceSysName' format='{0}' input='sysname'/>
+            <Field conditional='dnsname' output='DeviceDnsName' format='{0}' input='dnsname'/>
+            <Field conditional='macaddress' output='DeviceMacAddress' format='{0}'
+                   input='macaddress'/>
+            <Field output='FilePathUrl' format='{0}' input='{toUri(pathurl)}'/>
+
+            <!-- Non-Correlatable properties -->
+			<Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+			<Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
+            <!-- Assign instance name -->
+            <!-- InstanceName is set to the value of FilePathUrl. -->
+            <Field conditional='FilePathUrl' output='escaped_FilePathUrl' format='{0}'
+                   input='{replace([FilePathUrl,:,\:])}'/>
+            <Field output='InstanceName' format='{0}' input='escaped_FilePathUrl'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='InterfaceCard' extends='RunningHardware'>
+        <Parse>
+            <Field input="description" output="index"
+                   pattern="^interface: .*, index:\s?(\d+)$"/>
+        </Parse>
+
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+
+            <!-- Non-Correlatable properties -->
+            <Field output='OSNumeric' format='{0}' input='index'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Processor' extends='RunningHardware'>
+        <Parse>
+            <Field input="description" output="number" pattern="^.*: (.*)$"/>
+        </Parse>
+
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+
+            <!-- Non-Correlatable properties -->
+            <Field output='ProcessorType' format='x86-64-IA64' input=''/>
+            <Field output='OSNumeric' format='{0}' input='number'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Router' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='sysname' output='SysName' format='{0}' input='sysname'/>
+            <Field conditional='dnsname' output='PrimaryDnsName' format='{0}' input='dnsname'/>
+            <Field conditional='macaddress' output='PrimaryMacAddress' format='{0}'
+                   input='macaddress'/>
+            <Field conditional='ip_address' output='PrimaryIPV4Address' format='{0}'
+                   input='ip_address'/>
+            <Field conditional='ipv6_address' output='PrimaryIPV6Address' format='{0}'
+                   input='ipv6_address'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+            <Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='RunningHardware' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='sysname' output='DeviceSysName' format='{0}' input='sysname'/>
+            <Field conditional='dnsname' output='DeviceDnsName' format='{0}' input='dnsname'/>
+            <Field conditional='macaddress' output='DeviceMacAddress' format='{0}'
+                   input='macaddress'/>
+            <Field conditional='ip_address' output='DeviceIPV4Address' format='{0}'
+                   input='ip_address'/>
+            <Field conditional='ipv6_address' output='DeviceIPV6Address' format='{0}'
+                   input='ipv6_address'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+            <Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
+            <Field output='OSNumeric' format='0' input=''/>
+            <!--Field output='ContainingIndex' format='{0}' input='mdrproperty' /-->
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='RunningSoftware' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='sysname' output='DeviceSysName' format='{0}' input='sysname'/>
+            <Field conditional='dnsname' output='DeviceDnsName' format='{0}' input='dnsname'/>
+            <Field conditional='macaddress' output='DeviceMacAddress' format='{0}'
+                   input='macaddress'/>
+            <Field conditional='ip_address' output='DeviceIPV4Address' format='{0}'
+                   input='ip_address'/>
+            <Field conditional='ipv6_address' output='DeviceIPV6Address' format='{0}'
+                   input='ipv6_address'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field output='ProductName' format='Unknown' input=''/>
+            <Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+            <Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Service' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='name' output='ServiceName' format='{0}' input='name'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+            <Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
+            <Field conditional='version' output='ServiceVersion' format='{0}' input='version'/>
+        </Format>
+    </EventClass>
+    
+	<!--  Default event class for CUD ops -->
+	<EventClass name='SiloData' extends='Item'>
+	</EventClass>
+	
+    <!-- ======Event Class====== -->
+    <!-- Empty (pass-through) transformation for entity instances (CIs, Alerts, and Relationships) -->
+    <!-- defined by the Java connector code using USM property names and values -->
+    <!-- which require no transformation -->
+    <EventClass name='USM-Entity'>
+        <Normalize>
+            <Field output='MdrProdInstance' outputtype='ref' type='map' input='MdrProdInstance'>
+                <mapentry mapin='^MdrProdInstance$' mapout='{fqdn(localhost)}'/>
+                <mapentry mapin='localhost' mapout='{fqdn(localhost)}'/>
+            </Field>
+        </Normalize>
+
+        <Format>
+           <!--
+           OpennmsSampleConnector is deployed as an example in multiple nodes when testing SSA / Catalyst with multiple "real" connectors.
+           Each deployment needs to use a unique value for the MdrProdInstance properties.
+           Also set the ancillary MdrProduct
+         -->
+            <!-- MdrProdInstance setup above in normalize section
+				Field output='MdrProdInstance' format='{0}' input='{fqdn(localhost)}' /-->
+            <Field conditional='AlertedMdrElementID' output='AlertedMdrProdInstance' format='{0}'
+                   input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='SourceMdrElementID' output='SourceMdrProdInstance' format='{0}'
+                   input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='TargetMdrElementID' output='TargetMdrProdInstance' format='{0}'
+                   input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='ScopeMdrElementID' output='ScopeMdrProdInstance' format='{0}'
+                   input='ConnectorConfigMdrProdInstance'/>
+            <Field conditional='ScopeMdrProduct' output='escaped_ScopeMdrProduct' format='{0}'
+                   input='{replace([ScopeMdrProduct,:,\:])}'/>
+            <Field conditional='ScopeMdrElementID' output='InstanceName' format='{0}:{1}:{2}'
+                   input='escaped_ScopeMdrProduct,ScopeMdrProdInstance,ScopeMdrElementID'/>
+		    <!-- Replace the dummy value for the Alert timestamp with the current date/time. -->
+            <Field conditional='OccurrenceTimestamp' output='OccurrenceTimestamp' format='{0}' input='{xsdateTime(now)}'/>
+            <Field conditional='ReportTimestamp' output='ReportTimestamp' format='{0}' input='{xsdateTime(now)}'/>
+        </Format>
+    </EventClass>
+</Catalog>
+
+
+
+

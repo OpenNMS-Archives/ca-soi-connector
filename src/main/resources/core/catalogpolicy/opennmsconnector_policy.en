@@ -1,0 +1,20 @@
+# English localized version for sampleconnector_policy
+
+# northbound #############
+
+# Mdr classes are locale independent, so no need to localize.
+# One example is provided, but commented out
+#local.Item.Classify.pattern.^System$=^System$
+
+# Mdr action code is also locale independent, so no need to localize.
+# One example provided, but commented out
+#local.Item.Normalize.mapin.[Cc][Rr][Ee][Aa][Tt][Ee]=[Cc][Rr][Ee][Aa][Tt][Ee]
+#local.Item.Normalize.mapout.Create=Create
+
+# Legitimate cases where locale effects the regex parsing pattern
+local.BackgroundProcess.Parse.pattern.^Windows~Service:~(.*),~.*\\\\(.*)$=^Windows Service: (.*), .*\\\\(.*)$
+local.InterfaceCard.Parse.pattern.^interface:~.*,~index:\\s?(\\d+)$=^interface: .*, index:\\s?(\\d+)$
+
+# southbound ##############
+# Legitimate case where locale affects the formatting pattern
+local.BackgroundProcess.Format.format.Windows~Service:~{0},~{1}=Windows~Service:~{0},~{1}
