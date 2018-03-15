@@ -31,11 +31,17 @@ package org.opennms.integrations.ca;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -75,6 +81,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private ReadOnlyKeyValueStore<String, byte[]> alarmView;
     private ReadOnlyKeyValueStore<String, byte[]> nodeView;
     private final Map<String,OpennmsModelProtos.Node> nodeCache = new ConcurrentSkipListMap<>();
+
+    private CountDownLatch latch;
 
     @Override
     public void initialize(Map<String, String> configParam) throws UCFException {
@@ -117,11 +125,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         streams = new KafkaStreams(builder, props);
         streams.setUncaughtExceptionHandler((t, e) -> LOG.error(String.format("Stream error on thread: %s", t.getName()), e));
         streams.start();
+
+        // Create the latch, will be triggered once the stores are ready
+        latch = new CountDownLatch(1);
     }
 
     @Override
     public void shutdown() throws UCFException {
         streams.close();
+        latch.countDown();
         super.shutdown();
     }
 
@@ -145,19 +157,10 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
         LOG.info("Node store is ready.");
 
-        LOG.info(String.format("Processing %d (approximate) alarms in view.", alarmView.approximateNumEntries()));
-        try (KeyValueIterator<String, byte[]> it = alarmView.all()) {
-            while (it.hasNext()) {
-                final KeyValue<String, byte[]> kv = it.next();
-                try {
-                    handleNewOrUpdatedAlarm(kv.key, OpennmsModelProtos.Alarm.parseFrom(kv.value));
-                } catch (InvalidProtocolBufferException e) {
-                    LOG.error("Failed to parse alarm bytes.");
-                }
-            }
-        }
+        // The stores are all ready
+        latch.countDown();
 
-        /* Debug code used to create static elements */
+        /* Debug code used to create static elements
         try {
             Thread.sleep(30000);
             OpennmsConnectorCodeSamples cs = new OpennmsConnectorCodeSamples(getChangeEvtMgr());
@@ -165,6 +168,97 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         } catch (InterruptedException e) {
             LOG.error("Interrupted.", e);
         }
+        */
+    }
+
+    @Override
+    public Collection<DataObject> get(DataObject selector) throws UCFException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(String.format("get(%s)", objectDump(selector)));
+        }
+
+        // Parse the selector
+        String entitySelector = null;
+        String itemTypeSelector = null;
+        Date updateAfterSelector = null;
+        String idSelector = null;
+        boolean recursiveSelector = true;
+        if (selector != null) {
+            entitySelector = selector.getString("entitytype");
+            itemTypeSelector = selector.getString("itemtype");
+            updateAfterSelector = selector.getDate("updatedAfter");
+            idSelector = selector.getString("id");
+            recursiveSelector = selector.getBoolean("recursive");
+        }
+        LOG.info(String.format("Received GET request for entityType: %s, itemType: %s," +
+                        " updatedAfter: %s, id: %s, recursive: %s",
+                entitySelector, itemTypeSelector, updateAfterSelector, idSelector, recursiveSelector));
+
+        // Wait for the stores to be ready
+        if (latch.getCount() <= 0) {
+            try {
+                LOG.info("Waiting for the stores to be ready.");
+                if (!latch.await(5, TimeUnit.MINUTES)) {
+                    throw new UCFException("Timed out while waiting for stores.");
+                }
+                LOG.info("Stores are ready!");
+            } catch (InterruptedException e) {
+                throw new UCFException("Interrupted while waiting for stores.");
+            }
+        }
+
+        // Retrieve the alarms
+        final List<DataObject> entities = new ArrayList<>();
+        if (entitySelector == null || "Alert".equals(entitySelector)) {
+            List<DataObject> alarmEntities = new ArrayList<>();
+            LOG.info(String.format("Processing %d (approximate) alarms in view.", alarmView.approximateNumEntries()));
+            try (KeyValueIterator<String, byte[]> it = alarmView.all()) {
+                while (it.hasNext()) {
+                    final KeyValue<String, byte[]> kv = it.next();
+
+                    OpennmsModelProtos.Alarm alarm = null;
+                    try {
+                        alarm = OpennmsModelProtos.Alarm.parseFrom(kv.value);
+                    } catch (InvalidProtocolBufferException e) {
+                        LOG.error("Failed to parse alarm bytes. Skipping alarm at reduction key: " + kv.key);
+                    }
+
+                    if (alarm != null) {
+                        // Create the entity for the alarm
+                        alarmEntities.add(createAlertEntityForAlarm(alarm));
+                    }
+                }
+            }
+            LOG.info(String.format("Processed %d alarms.", alarmEntities.size()));
+            entities.addAll(alarmEntities);
+        }
+
+        // Retrieve the nodes
+        if (entitySelector == null || "Item".equals(entitySelector)) {
+            List<DataObject> nodeEntities = new ArrayList<>();
+            LOG.info(String.format("Processing %d (approximate) nodes in view.", nodeView.approximateNumEntries()));
+            try (KeyValueIterator<String, byte[]> it = nodeView.all()) {
+                while (it.hasNext()) {
+                    final KeyValue<String, byte[]> kv = it.next();
+
+                    OpennmsModelProtos.Node node = null;
+                    try {
+                        node = OpennmsModelProtos.Node.parseFrom(kv.value);
+                    } catch (InvalidProtocolBufferException e) {
+                        LOG.error("Failed to parse node bytes. Skipping node with id: " + kv.key);
+                    }
+
+                    if (node != null) {
+                        // Create the entity for the node
+                        nodeEntities.add(createItemEntityForNode(node));
+                    }
+                }
+            }
+            LOG.info(String.format("Processed %d nodes.", nodeEntities.size()));
+            entities.addAll(nodeEntities);
+        }
+
+        return entities;
     }
 
     private void handleNewOrUpdatedAlarm(String reductionKey, OpennmsModelProtos.Alarm alarm) {

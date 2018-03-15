@@ -203,6 +203,119 @@ public abstract class BaseConnectorLifecycle extends USMBaseConnector implements
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("get(%s)", objectDump(selector)));
         }
+
+
+
+        /*
+                List<DataObject> cis;
+        String entitySel = null;
+
+        if (selector == null) {
+            logger.debug(connInstName + ": Entering get(null)");
+        } else {
+            entitySel = selector.getString("entitytype");
+            logger.debug(connInstName + ": Entering get for entitytype " + entitySel);
+        }
+
+        //
+        // Note: This sample filtering logic first reads all the data from the XML file into memory (the cis list)
+        //       and then applies the filter criteria to select the objects which qualify (into the selectedCIs list).
+        //
+        //       This may not be practical for a typical connector with a very large number of objects.
+        //       Such a connector would translate the filter into one or more native queries to directly select
+        //       only the objects which satisfy the filter criteria.
+        //
+
+        try {
+            if ("Alert".equals(entitySel)) {
+                cis = mdr.getAlerts();
+            } else
+                cis = mdr.getData();
+            // There might be some more code here in a real connector...
+        } catch (Exception e) {
+            throw new UCFException("Couldn't get data from MDR", e);
+        }
+
+        // Return everything if no selector (or an empty list...)
+        // TODO: This is NOT correct as it should not return relations...
+        if ((selector == null) || cis.isEmpty())
+            return cis;
+
+        // extract specified filter elements
+        List<DataObject> selectedCIs = new ArrayList<DataObject>();
+        String itemtypeSel = selector.getString("itemtype");
+        Date dtUpdateSel = selector.getDate("updatedAfter");
+        String idSel = selector.getString("id");
+        boolean recursive = selector.getBoolean("recursive");
+
+        // Branch out for Service's recursive case
+
+        if (itemtypeSel != null && itemtypeSel.equals("Service") && recursive) {
+            return getServices(idSel, true, null);
+        }
+        // apply filter
+        for (DataObject ci : cis) {
+            boolean ok;
+
+            // check entitytype filter, if specified
+            if (entitySel != null) {
+                String entityType = ci.getString("entitytype");
+                ok = (entityType != null && entityType.equals(entitySel));
+                if (!ok) {
+                    logger.debug(connInstName + ": Get is omitting entity " + entityType
+                                 + ": does not match " + entitySel);
+                    continue;
+                }
+                logger.debug(connInstName + ": Get is accepting entity " + entityType);
+            }
+
+            if (itemtypeSel != null) {
+                // match on the item type?
+                if (!("Item".equals(entitySel))) {
+                    String msg = connInstName + ": Unexpected itemtype selector for entity type "
+                                 + entitySel;
+                    logger.error(msg);
+                    throw new IllegalArgumentException(msg);
+                }
+                String ciType = SampleConnectorHelper.extractCIType(ci);
+                ok = itemtypeSel.equals(ciType);
+                if (!ok) {
+                    logger.debug(connInstName + ": Get is omitting entity with type " + ciType
+                                 + ": not equal " + itemtypeSel);
+                    continue;
+                }
+                logger.debug(connInstName + ": Get is accepting entity with type " + ciType);
+            }
+
+            if (dtUpdateSel != null) {
+                // match on the date?
+                Date dtUpdate = ci.getDate("properties/property[name=lastUpdate]/value");
+                ok = dtUpdateSel.before(dtUpdate);
+                if (!ok) {
+                    logger.debug(connInstName + ": Get is omitting entity with date " + dtUpdate
+                                 + ": not updated after " + dtUpdateSel);
+                    continue;
+                }
+                logger.debug(connInstName + ": Get is accepting entity with date " + dtUpdate
+                             + ": is after " + dtUpdateSel);
+            }
+
+            if (idSel != null) {
+                // Match on the id?
+                String id = SampleConnectorHelper.extractId(ci);
+                ok = (id != null) && id.matches(idSel);
+                if (!ok) {
+                    logger.debug(connInstName + ": Get is omitting entity with id " + id
+                                 + ": not equal " + idSel);
+                    continue;
+                }
+                logger.debug(connInstName + ": Get is accepting entity with id " + id);
+            }
+
+            selectedCIs.add(ci);
+        }
+        return SampleConnectorHelper.createSiloData(selectedCIs);
+         */
         return Collections.emptySet();
     }
 
@@ -241,7 +354,7 @@ public abstract class BaseConnectorLifecycle extends USMBaseConnector implements
         }
         // if possible, this should be implemented to do paged fetches from the actual
         // silo (instead of fetching everything then looping)
-        return new Vector<DataObject>(get(selector)).elements();
+        return new Vector<>(get(selector)).elements();
     }
 
     /**
