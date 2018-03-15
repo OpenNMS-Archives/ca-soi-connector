@@ -1,4 +1,4 @@
-# OpenNMS Connector for CA SOI
+# OpenNMS Connector for CA SOI [![CircleCI](https://circleci.com/gh/OpenNMS/ca-soi-connector.svg?style=svg)](https://circleci.com/gh/OpenNMS/ca-soi-connector)
 
 ## Building
 

@@ -2,9 +2,10 @@ version: 2
 
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/openjdk:8-jdk
 
-    working_directory: /home/circleci/soi
+    working_directory: ~/soi
 
     environment:
       MAVEN_OPTS: -Xmx1024m
@@ -49,11 +50,6 @@ jobs:
 
       - store_artifacts:
           path: target/releases
-
-      - persist_to_workspace:
-          root: /home/circleci
-          paths:
-            - soi
 
 workflows:
   version: 2
