@@ -58,6 +58,8 @@ public class OpennmsConnectorCodeSamples {
         createEntity(OpennmsConnectorCodeSamples::createComputer2);
         createEntity(OpennmsConnectorCodeSamples::createRelationship);
         createEntity(OpennmsConnectorCodeSamples::createAlert);
+        createEntity(OpennmsConnectorCodeSamples::createAlert2);
+        createEntity(OpennmsConnectorCodeSamples::createAlert3);
     }
 
     private void createEntity(Callable<DataObject> entityCallable) {
@@ -149,6 +151,30 @@ public class OpennmsConnectorCodeSamples {
         map.put("mdr_alerted_object_id", "11");
         map.put("mdr_id", "1011");
         map.put("mdr_message", "Packet loss over 90%");
+        map.put("mdr_summary", "Packet loss");
+        map.put("mdr_severity", "Major");
+        map.put("mdr_alerttype", "Risk");
+        map.put("entitytype", "Alert");
+        return USMSiloDataObjectType.extractFromMap(map);
+    }
+
+    private static DataObject createAlert2() throws InvalidParameterException {
+        final Map<String, String> map = new LinkedHashMap<>();
+        map.put("mdr_alerted_object_id", "11");
+        map.put("mdr_id", "1012");
+        map.put("mdr_message", "Packet loss over 91%");
+        map.put("mdr_summary", "Packet loss");
+        map.put("mdr_severity", "WARNING");
+        map.put("mdr_alerttype", "Risk");
+        map.put("entitytype", "Alert");
+        return USMSiloDataObjectType.extractFromMap(map);
+    }
+
+    private static DataObject createAlert3() throws InvalidParameterException {
+        final Map<String, String> map = new LinkedHashMap<>();
+        map.put("mdr_alerted_object_id", "11");
+        map.put("mdr_id", "abc:1013");
+        map.put("mdr_message", "Packet loss over 92%");
         map.put("mdr_summary", "Packet loss");
         map.put("mdr_severity", "Major");
         map.put("mdr_alerttype", "Risk");

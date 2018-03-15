@@ -155,7 +155,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             }
         }
 
-        /* Debug code used to create static elements
+        /* Debug code used to create static elements */
         try {
             Thread.sleep(30000);
             OpennmsConnectorCodeSamples cs = new OpennmsConnectorCodeSamples(getChangeEvtMgr());
@@ -163,7 +163,6 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         } catch (InterruptedException e) {
             LOG.error("Interrupted.", e);
         }
-        */
     }
 
     private void handleNewOrUpdatedAlarm(String reductionKey, OpennmsModelProtos.Alarm alarm) {
