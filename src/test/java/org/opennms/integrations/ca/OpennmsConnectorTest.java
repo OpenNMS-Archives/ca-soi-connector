@@ -28,17 +28,63 @@
 
 package org.opennms.integrations.ca;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.isIn;
+import static org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.CLEARED;
+
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.opennms.features.kafka.producer.model.OpennmsModelProtos;
 
+import com.ca.ucf.api.InvalidParameterException;
 import com.ca.ucf.api.UCFException;
+import com.ca.usm.ucf.utils.USMSiloDataObjectType;
+
+import commonj.sdo.DataObject;
 
 public class OpennmsConnectorTest {
 
+    private OpennmsConnector connector;
+
+    @Before
+    public void setUp() {
+        // Create the connector before each test to ensure
+        // that the USM classes are properly initialized
+        connector = new OpennmsConnector();
+    }
+
     @Test(expected = UCFException.class)
     public void failsToLoadWithEmptyConfig() throws UCFException {
-        OpennmsConnector connector = new OpennmsConnector();
         connector.initialize(Collections.emptyMap());
+    }
+
+    @Test
+    public void canMapAlarmSeverity() throws InvalidParameterException {
+        // Build a set containing the valid string values: Normal, Minor, Major, Critical, Down.
+        final Set<String> validSeverities =  Arrays.stream(SOISeverity.values())
+                .map(SOISeverity::getStringValue)
+                .collect(Collectors.toSet());
+
+        // Build an alarm with each severity and
+        for (OpennmsModelProtos.Severity severity : OpennmsModelProtos.Severity.values()) {
+            if (OpennmsModelProtos.Severity.UNRECOGNIZED.equals(severity)) {
+                continue;
+            }
+            OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                    .setSeverity(severity)
+                    .build();
+            DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+            // Verify that the mapped entity contains a valid severity
+            Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
+            assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_SEVERITY_KEY), isIn(validSeverities));
+        }
+
     }
 }
