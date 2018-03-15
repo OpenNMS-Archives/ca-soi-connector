@@ -33,7 +33,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -70,6 +72,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private KafkaStreams streams;
     private ReadOnlyKeyValueStore<String, byte[]> alarmView;
     private ReadOnlyKeyValueStore<String, byte[]> nodeView;
+    private final Map<String,OpennmsModelProtos.Node> nodeCache = new ConcurrentSkipListMap<>();
 
     @Override
     public void initialize(Map<String, String> configParam) throws UCFException {
@@ -169,7 +172,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
         final OpennmsModelProtos.Node node = lookupNodeForAlarm(alarm);
         if (node != null) {
-            handleNewOrUpdatedNode(node);
+            handleNode(node);
         }
 
         try {
@@ -179,18 +182,31 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
     }
 
-    private void handleNewOrUpdatedNode(OpennmsModelProtos.Node node) {
+    private void handleNode(OpennmsModelProtos.Node node) {
+        final String nodeCriteria = getNodeCriteria(node);
         if(LOG.isDebugEnabled()) {
-            LOG.debug(String.format("handleNewOrUpdatedNode(%s)", getNodeCriteria(node)));
+            LOG.debug(String.format("handleNode(%s)", nodeCriteria));
         }
         if(LOG.isTraceEnabled()) {
             // The node objects can be particularly verbose, so we log as TRACE instead of DEBUG
-            LOG.trace(String.format("handleNewOrUpdatedNode(%s)", node));
+            LOG.trace(String.format("handleNode(%s)", node));
         }
-        try {
-            createEntity(createItemEntityForNode(node));
-        } catch (InvalidParameterException e) {
-            LOG.warn(String.format("Failed to create entity for node: %s", node));
+
+        // Lookup the node in the cache to see if it needs updating
+        final OpennmsModelProtos.Node existingNode = nodeCache.get(nodeCriteria);
+        if (existingNode == null || !existingNode.equals(node)) {
+            if(LOG.isDebugEnabled()) {
+                LOG.debug(String.format("Creating node '%s'.", nodeCriteria));
+            }
+            try {
+                createEntity(createItemEntityForNode(node));
+            } catch (InvalidParameterException e) {
+                LOG.warn(String.format("Failed to create entity for node: %s", node));
+            }
+            // Update the cache with the new node
+            nodeCache.put(nodeCriteria, node);
+        } else {
+            LOG.debug(String.format("Node '%s' is already up-to-date.", nodeCriteria));
         }
     }
 
