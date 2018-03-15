@@ -62,4 +62,3 @@ Edit $SOI_HOME/resources/log4j.xml, and add:
 * Generic logs (root logger) go to ssa.log
 * Connector generated logs appear in opennms.log
 * Kafka related logs appear in kafka.log
-
