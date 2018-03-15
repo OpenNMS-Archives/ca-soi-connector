@@ -95,6 +95,9 @@ public abstract class BaseConnectorLifecycle extends USMBaseConnector implements
     }
 
     public static String objectDump(DataObject obj) {
+        if (obj == null) {
+            return null;
+        }
         return BeanXmlHelper.objectDump(obj, "  ");
     }
 

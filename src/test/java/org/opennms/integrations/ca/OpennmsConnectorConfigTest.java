@@ -28,33 +28,38 @@
 
 package org.opennms.integrations.ca;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.util.HashMap;
 import java.util.Map;
 
-public class OpennmsConnectorConfig {
+import org.junit.Before;
+import org.junit.Test;
 
-    protected static final String STREAM_PROPERTIES_KEY = "stream-properties";
-    protected static final String ALARM_TOPIC_KEY = "alarm-topic";
-    protected static final String NODE_TOPIC_KEY = "node-topic";
+import com.ca.ucf.api.InvalidParameterException;
+import com.ca.usm.ucf.utils.KwdValuePairType;
+import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 
-    private final String streamProperties;
-    private final String alarmTopic;
-    private final String nodeTopic;
+import commonj.sdo.DataObject;
 
-    OpennmsConnectorConfig(Map<String, String> params) {
-        this.streamProperties = params.getOrDefault(STREAM_PROPERTIES_KEY, "stream.properties");
-        this.alarmTopic = params.getOrDefault(ALARM_TOPIC_KEY, "alarms");
-        this.nodeTopic = params.getOrDefault(NODE_TOPIC_KEY, "nodes");
+public class OpennmsConnectorConfigTest {
+
+    @Before
+    public void setUp() {
+        // Initialize USM
+        new OpennmsConnector();
     }
 
-    public String getStreamProperties() {
-        return streamProperties;
-    }
+    @Test
+    public void canParseConfig() throws InvalidParameterException {
+        Map<String, String> connectorConfig = new HashMap<>();
+        connectorConfig.put(OpennmsConnectorConfig.STREAM_PROPERTIES_KEY, "test.props");
 
-    public String getAlarmTopic() {
-        return alarmTopic;
-    }
+        DataObject entity = KwdValuePairType.extractFromMap(connectorConfig);
+        connectorConfig = KwdValuePairType.convertToMap(entity);
 
-    public String getNodeTopic() {
-        return nodeTopic;
+        OpennmsConnectorConfig config = new OpennmsConnectorConfig(connectorConfig);
+        assertThat(config.getStreamProperties(), equalTo("test.props"));
     }
 }

@@ -132,8 +132,12 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     @Override
     public void shutdown() throws UCFException {
-        streams.close();
-        latch.countDown();
+        if (streams != null) {
+            streams.close();
+        }
+        if (latch != null) {
+            latch.countDown();
+        }
         super.shutdown();
     }
 
@@ -172,7 +176,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     }
 
     @Override
-    public Collection<DataObject> get(DataObject selector) throws UCFException {
+    public List<DataObject> get(DataObject selector) throws UCFException {
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("get(%s)", objectDump(selector)));
         }
