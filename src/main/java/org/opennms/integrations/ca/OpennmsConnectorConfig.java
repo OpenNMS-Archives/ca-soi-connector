@@ -35,15 +35,18 @@ public class OpennmsConnectorConfig {
     protected static final String STREAM_PROPERTIES_KEY = "stream-properties";
     protected static final String ALARM_TOPIC_KEY = "alarm-topic";
     protected static final String NODE_TOPIC_KEY = "node-topic";
+    protected static final String STATE_DIR_KEY = "state-dir";
 
     private final String streamProperties;
     private final String alarmTopic;
     private final String nodeTopic;
+    private final String stateDir;
 
     OpennmsConnectorConfig(Map<String, String> params) {
-        this.streamProperties = params.getOrDefault(STREAM_PROPERTIES_KEY, "stream.properties");
-        this.alarmTopic = params.getOrDefault(ALARM_TOPIC_KEY, "alarms");
-        this.nodeTopic = params.getOrDefault(NODE_TOPIC_KEY, "nodes");
+        streamProperties = params.getOrDefault(STREAM_PROPERTIES_KEY, "stream.properties");
+        alarmTopic = params.getOrDefault(ALARM_TOPIC_KEY, "alarms");
+        nodeTopic = params.getOrDefault(NODE_TOPIC_KEY, "nodes");
+        stateDir = params.get(STATE_DIR_KEY);
     }
 
     public String getStreamProperties() {
@@ -56,5 +59,9 @@ public class OpennmsConnectorConfig {
 
     public String getNodeTopic() {
         return nodeTopic;
+    }
+
+    public String getStateDir() {
+        return stateDir;
     }
 }

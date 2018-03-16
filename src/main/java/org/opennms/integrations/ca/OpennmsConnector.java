@@ -75,6 +75,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final String ALARM_STORE_NAME = "alarm_store";
     private static final String NODE_STORE_NAME = "node_store";
 
+    protected static String ALARM_ENTITY_ID_KEY = "mdr_id";
     protected static String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
 
     private KafkaStreams streams;
@@ -103,6 +104,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         // Override the serializers/deserializers
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.ByteArray().getClass());
+        if (config.getStateDir() != null) {
+            props.put(StreamsConfig.STATE_DIR_CONFIG, config.getStateDir());
+        }
 
         final KStreamBuilder builder = new KStreamBuilder();
         // Build a view of the alarms to perform the initial synchronization
@@ -391,7 +395,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         if (nodeCriteria != null) {
             map.put("mdr_alerted_object_id", nodeCriteria);
         }
-        map.put("mdr_id", alarm.getReductionKey());
+        map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
         map.put("mdr_message", alarm.getDescription());
         map.put("mdr_summary", alarm.getLogMessage());
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.fromOpennmsSeverity(alarm.getSeverity()).getStringValue());
@@ -402,7 +406,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     private static DataObject createAlertEntityFromReductionKey(String reductionKey) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
-        map.put("mdr_id", reductionKey);
+        map.put(ALARM_ENTITY_ID_KEY, reductionKey);
         map.put("mdr_alerttype", "Risk");
         map.put("entitytype", "Alert");
         return USMSiloDataObjectType.extractFromMap(map);

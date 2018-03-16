@@ -28,18 +28,25 @@
 
 package org.opennms.integrations.ca;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.nullValue;
+import static org.opennms.integrations.ca.OpennmsConnector.ALARM_ENTITY_ID_KEY;
+import static org.opennms.integrations.ca.OpennmsConnector.ALARM_ENTITY_SEVERITY_KEY;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -55,9 +62,12 @@ import org.opennms.features.kafka.producer.model.OpennmsModelProtos;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 
+import com.ca.connector.runtime.EntityChangeSubscriber;
 import com.ca.ucf.api.InvalidParameterException;
 import com.ca.ucf.api.UCFException;
 import com.ca.usm.ucf.utils.KwdValuePairType;
+import com.ca.usm.ucf.utils.USMSiloDataFilterObjectType;
+import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 
 import commonj.sdo.DataObject;
 
@@ -69,6 +79,8 @@ public class OpennmsConnectorIT {
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
+    private Map<String, DataObject> alertsById = new LinkedHashMap<>();
 
     private KafkaProducer<String, byte[]> producer;
 
@@ -100,28 +112,113 @@ public class OpennmsConnectorIT {
                 .build();
         producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), alarm.toByteArray())).get();
 
+        // Create and subsequently delete another alarm
+        alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setReductionKey("interfaceDown")
+                .setSeverity(OpennmsModelProtos.Severity.MAJOR)
+                .build();
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), alarm.toByteArray())).get();
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), null)).get();
+
         // Initialize the connector
         connector.initialize(UUID.randomUUID(), getConnectorConfig(), new Properties());
 
         // Issue a GET
-        List<DataObject> entities = connector.get(null);
+        await().atMost(15, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(1));
 
-        // We should get back a single alarm
-        assertThat(entities, hasSize(1));
+        // The map should be empty
+        assertThat(alertsById.keySet(), hasSize(0));
+
+        // Subscribe to alert changes
+        subscribeToAlerts();
+
+        // Now let's walk through a basic alarm lifecyle
+        alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setReductionKey("bgpPeerDown")
+                .setSeverity(OpennmsModelProtos.Severity.MINOR)
+                .build();
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), alarm.toByteArray())).get();
+
+        // Wait for the alarm to be created by the change events
+        await().atMost(15, TimeUnit.SECONDS).until(getSeverityForAlarm("bgpPeerDown"), equalTo("Minor"));
+
+        // Now clear the alarm
+        alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setReductionKey("bgpPeerDown")
+                .setSeverity(OpennmsModelProtos.Severity.CLEARED)
+                .build();
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), alarm.toByteArray())).get();
+
+        // Wait for the alarm to be created by the change events
+        await().atMost(15, TimeUnit.SECONDS).until(getSeverityForAlarm("bgpPeerDown"), equalTo("Normal"));
+
+        // Delete the alarm
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), null)).get();
+        await().atMost(15, TimeUnit.SECONDS).until(() -> alertsById.get("bgpPeerDown"), nullValue());
+
+        // Now trigger the alarm again
+        alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setReductionKey("bgpPeerDown")
+                .setSeverity(OpennmsModelProtos.Severity.MINOR)
+                .build();
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), alarm.toByteArray())).get();
+        await().atMost(15, TimeUnit.SECONDS).until(getSeverityForAlarm("bgpPeerDown"), equalTo("Minor"));
+
+        // Issue a GET
+        await().atMost(15, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(2));
     }
 
-    private DataObject getConnectorConfig() throws IOException, InvalidParameterException {
+    private Callable<String> getSeverityForAlarm(String reductionKey) {
+        return () -> {
+            final DataObject alarm = alertsById.get(reductionKey);
+            if (alarm == null) {
+                return null;
+            }
+            final Map<String, String> alarmMap = USMSiloDataObjectType.convertToMap(alarm);
+            return alarmMap.get(ALARM_ENTITY_SEVERITY_KEY);
+        };
+    }
+
+    private DataObject getConnectorConfig() throws IOException {
         File streamPropertiesFile = temporaryFolder.newFile();
         try (FileOutputStream fos = new FileOutputStream(streamPropertiesFile)) {
             final Properties props = new Properties();
             KafkaTestUtils.consumerProps("connector", "false", embeddedKafka)
                     .forEach((key, value) -> props.put(key, value.toString()));
             props.put("application.id", "connector");
+            props.put("commit.interval.ms", "500");
             props.remove("enable.auto.commit"); // remove this since we use streams
             props.store(fos, "kafka");
         }
         Map<String, String> connectorConfig = new HashMap<>();
         connectorConfig.put(OpennmsConnectorConfig.STREAM_PROPERTIES_KEY, streamPropertiesFile.getAbsolutePath());
+        connectorConfig.put(OpennmsConnectorConfig.STATE_DIR_KEY, temporaryFolder.newFolder().getAbsolutePath());
         return KwdValuePairType.extractFromMap(connectorConfig);
+    }
+
+    private void subscribeToAlerts() throws InvalidParameterException {
+        final EntityChangeSubscriber subscriber = new EntityChangeSubscriber() {
+            @Override
+            public void onCreate(DataObject dataObject) throws InvalidParameterException {
+                final String id = USMSiloDataObjectType.convertToMap(dataObject).get(ALARM_ENTITY_ID_KEY);
+                alertsById.put(id, dataObject);
+            }
+
+            @Override
+            public void onDelete(DataObject dataObject) throws InvalidParameterException {
+                final String id = USMSiloDataObjectType.convertToMap(dataObject).get(ALARM_ENTITY_ID_KEY);
+                alertsById.remove(id);
+            }
+
+            @Override
+            public void onUpdate(DataObject dataObject) throws InvalidParameterException {
+                final String id = USMSiloDataObjectType.convertToMap(dataObject).get(ALARM_ENTITY_ID_KEY);
+                alertsById.put(id, dataObject);
+            }
+        };
+        final Map<String, String> filterMap = new HashMap<>();
+        filterMap.put("entitytype", "Alert");
+        final DataObject selector = USMSiloDataFilterObjectType.extractFromMap(filterMap);
+        connector.subscribeToChanges(selector, subscriber);
     }
 }

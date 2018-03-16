@@ -6,10 +6,7 @@
           name="ONMS:00001_@instance">
         <ImplementationClass name="org.opennms.integrations.ca.OpennmsConnector"
                              policy="opennmsconnector_policy.xml"/>
-        <ConnectionInfo url="http://127.0.0.1:8980/opennms"
-                        username="admin"
-                        password="admin"
-                        alarm-topic="alarms"
+        <ConnectionInfo alarm-topic="alarms"
                         event-topic="events"
                         node-topic="nodes"
                         stream-properties="/path/to/stream.properties"/>
@@ -17,7 +14,7 @@
                            getCIsAtStartUp="1"
                            getRelationshipsAtStartup="0"
                            isRemotable="1"
-                           performDeltaProcessing="1"
+                           performDeltaProcessing="0"
                            useAlertFilter="1"
                            useEventStore="1"
                            useServiceFilter="1"/>
