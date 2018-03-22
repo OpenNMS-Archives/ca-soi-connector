@@ -23,42 +23,105 @@ mvn clean package
 After compiling, copy `target/releases/opennms-ca-soi-connector-*.zip` to the target system.
 Extract the contents over `$SOI_HOME`.
 
-### Configure log file
+### Connector configuration
+
+TODO: Document necessary changes to `opennmsConnecot_connectorserver.xml`
+
+### Configure logging
 
 Edit $SOI_HOME/resources/log4j.xml, and add:
 
 ```
-    <appender name="ONMS" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="&logDir;/opennms.log"/>
-        <param name="Append" value="true"/>
-        <param name="MaxFileSize" value="20MB"/>
-        <param name="MaxBackupIndex" value="10"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="&filePattern;"/>
-        </layout>
-    </appender>
-    <appender name="KAFKA" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="&logDir;/kafka.log"/>
-        <param name="Append" value="true"/>
-        <param name="MaxFileSize" value="20MB"/>
-        <param name="MaxBackupIndex" value="10"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="&filePattern;"/>
-        </layout>
-    </appender>
+<appender name="ONMS" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="&logDir;/opennms.log"/>
+    <param name="Append" value="true"/>
+    <param name="MaxFileSize" value="20MB"/>
+    <param name="MaxBackupIndex" value="10"/>
+    <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="&filePattern;"/>
+    </layout>
+</appender>
+<appender name="KAFKA" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="&logDir;/kafka.log"/>
+    <param name="Append" value="true"/>
+    <param name="MaxFileSize" value="20MB"/>
+    <param name="MaxBackupIndex" value="10"/>
+    <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="&filePattern;"/>
+    </layout>
+</appender>
 
-    <logger name="org.opennms.integrations.ca" additivity="false">
-        <level value="DEBUG" />
-       	<appender-ref ref="ONMS" />
-    </logger>
-    <logger name="org.apache.kafka" additivity="false">
-        <level value="INFO" />
-       	<appender-ref ref="KAFKA" />
-    </logger>
+<logger name="org.opennms.integrations.ca" additivity="false">
+    <level value="DEBUG" />
+    <appender-ref ref="ONMS" />
+</logger>
+<logger name="org.apache.kafka" additivity="false">
+    <level value="INFO" />
+    <appender-ref ref="KAFKA" />
+</logger>
 ```
+
+## Mappings
+
+## Alarm Mapping
+
+Alarms are mapped to alerts as follows:
+
+* mdr_id
+   * alarm reduction key
+* mdr_alerted_object_id
+   * node criteria (node id or fs:fid) for the node associated with the alarm
+* mdr_message
+   * alarm description
+* mdr_summary
+   * alarm log message
+* mdr_severity
+   * alarm severity (see severity mapping)
+* mdr_alerttype
+   * "Risk" (constant)
+* entitytype
+   * "Alert" (constant)
+
+## Node Mapping
+
+Nodes are mapped to item entities as follows:
+
+* id
+   * node criteria (node id or fs:fid) 
+* name
+   * node label
+* ip_address
+   * first IP interface on the node
+* class
+   * "System" (constant)
+* description
+   * node sysDescription
+* sysname
+   * node label
+* dnsname
+   * node label
+
+## Severity Mapping
+
+In SOI, there are 4 different severities: Normal, Minor, Major and Critical
+These are mapped from the corresponding severities in OpenNMS as follows:
+
+* Normal
+   * Indeterminate
+   * Cleared
+   * Normal
+* Minor
+   * Warning
+   * Minor
+* Major
+   * Major
+* Critical
+   * Critical
+   * Any other unrecognized value
 
 ## Debugging
 
+If the logging was configured using the appenders above, the logs will be structured as follows:
 * Generic logs (root logger) go to ssa.log
 * Connector generated logs appear in opennms.log
 * Kafka related logs appear in kafka.log

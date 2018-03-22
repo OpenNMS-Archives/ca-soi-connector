@@ -32,8 +32,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -372,6 +370,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
     }
 
+    /**
+     * Creates an item entity for the corresponding node.
+     *
+     * NOTE: Make sure to update the README file when changing any of the mappings here.
+     *
+     * @param node the node
+     * @return an item entity
+     * @throws InvalidParameterException
+     */
     private static DataObject createItemEntityForNode(OpennmsModelProtos.Node node) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
         map.put("entitytype", "Item");
@@ -389,6 +396,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return USMSiloDataObjectType.extractFromMap(map);
     }
 
+    /**
+     * Creates an alert entity for the corresponding alarm.
+     *
+     * NOTE: Make sure to update the README file when changing any of the mappings here.
+     *
+     * @param alarm the alarm
+     * @return an alert entity
+     * @throws InvalidParameterException
+     */
     protected static DataObject createAlertEntityForAlarm(OpennmsModelProtos.Alarm alarm) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
         final String nodeCriteria = getNodeCriteria(alarm);
