@@ -77,6 +77,9 @@ Alarms are mapped to alerts as follows:
    * alarm log message
 * mdr_severity
    * alarm severity (see severity mapping)
+* mdr_alert_parm_$name
+   * key/value pairs for the event parameters of the last event associated with the alarm
+   * i.e. mdr_alert_parm_key1 = val1, mdr_alert_parm_key2 = val2, etc...
 * mdr_alerttype
    * "Risk" (constant)
 * entitytype

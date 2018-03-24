@@ -75,6 +75,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     protected static String ALARM_ENTITY_ID_KEY = "mdr_id";
     protected static String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
+    protected static String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
 
     private KafkaStreams streams;
     private volatile ReadOnlyKeyValueStore<String, byte[]> alarmView;
@@ -415,6 +416,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         map.put("mdr_message", alarm.getDescription());
         map.put("mdr_summary", alarm.getLogMessage());
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.fromOpennmsSeverity(alarm.getSeverity()).getStringValue());
+        final OpennmsModelProtos.Event lastEvent = alarm.getLastEvent();
+        if (lastEvent != null) {
+            for (OpennmsModelProtos.EventParameter parm : lastEvent.getParametersList()) {
+                if (parm.getName() == null) {
+                    continue;
+                }
+                map.put(ALARM_ENTITY_EVENT_PARM_PREFIX_KEY + parm.getName(), parm.getValue());
+            }
+        }
         map.put("mdr_alerttype", "Risk");
         map.put("entitytype", "Alert");
         return USMSiloDataObjectType.extractFromMap(map);

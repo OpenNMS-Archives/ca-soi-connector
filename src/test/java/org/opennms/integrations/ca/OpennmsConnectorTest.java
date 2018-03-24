@@ -29,12 +29,13 @@
 package org.opennms.integrations.ca;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.isIn;
-import static org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.CLEARED;
+import static org.hamcrest.Matchers.not;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -86,5 +87,26 @@ public class OpennmsConnectorTest {
             assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_SEVERITY_KEY), isIn(validSeverities));
         }
 
+    }
+
+    @Test
+    public void canMapEventParameters() throws InvalidParameterException {
+        // Build an alarm with some event params
+        OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setSeverity(OpennmsModelProtos.Severity.MINOR)
+                .setLastEvent(OpennmsModelProtos.Event.newBuilder()
+                        .addParameters(OpennmsModelProtos.EventParameter.newBuilder()) // no key, no value
+                        .addParameters(OpennmsModelProtos.EventParameter.newBuilder().setName("key1")) // no value
+                        .addParameters(OpennmsModelProtos.EventParameter.newBuilder() // both a key and value
+                                .setName("key2")
+                                .setValue("value2")))
+                .build();
+
+        DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        // Verify that the mapped entity contains the expected parameters
+        Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
+        assertThat(alarmEntityMap, not(hasKey("key1")));
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_EVENT_PARM_PREFIX_KEY + "key2"),
+                equalTo("value2"));
     }
 }
