@@ -394,6 +394,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
         map.put("sysname", node.getLabel());
         map.put("dnsname", node.getLabel());
+        map.put("sysoid", node.getSysObjectId());
+        map.put("sysdescr", node.getSysDescription());
         return USMSiloDataObjectType.extractFromMap(map);
     }
 

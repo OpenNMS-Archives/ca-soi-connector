@@ -5,7 +5,8 @@
           State="Enabled"
           name="ONMS:00001_@instance">
         <ImplementationClass name="org.opennms.integrations.ca.OpennmsConnector"
-                             policy="opennmsconnector_policy.xml"/>
+                             policy="opennmsconnector_policy.xml"
+                             sbpolicy="opennmsconnector_policySB.xml"/>
         <ConnectionInfo alarm-topic="alarms"
                         event-topic="events"
                         node-topic="nodes"
