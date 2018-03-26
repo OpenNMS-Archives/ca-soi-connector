@@ -420,7 +420,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.fromOpennmsSeverity(alarm.getSeverity()).getStringValue());
         final OpennmsModelProtos.Event lastEvent = alarm.getLastEvent();
         if (lastEvent != null) {
-            for (OpennmsModelProtos.EventParameter parm : lastEvent.getParametersList()) {
+            for (OpennmsModelProtos.EventParameter parm : lastEvent.getParameterList()) {
                 if (parm.getName() == null) {
                     continue;
                 }

@@ -1722,37 +1722,37 @@ public final class OpennmsModelProtos {
     long getTime();
 
     /**
-     * <code>string soure = 5;</code>
+     * <code>string source = 5;</code>
      */
-    java.lang.String getSoure();
+    java.lang.String getSource();
     /**
-     * <code>string soure = 5;</code>
+     * <code>string source = 5;</code>
      */
     com.google.protobuf.ByteString
-        getSoureBytes();
+        getSourceBytes();
 
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
     java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> 
-        getParametersList();
+        getParameterList();
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter getParameters(int index);
+    org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter getParameter(int index);
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    int getParametersCount();
+    int getParameterCount();
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
     java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder> 
-        getParametersOrBuilderList();
+        getParameterOrBuilderList();
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder getParametersOrBuilder(
+    org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder getParameterOrBuilder(
         int index);
 
     /**
@@ -1800,25 +1800,15 @@ public final class OpennmsModelProtos {
     boolean getDisplay();
 
     /**
-     * <code>string location = 13;</code>
-     */
-    java.lang.String getLocation();
-    /**
-     * <code>string location = 13;</code>
-     */
-    com.google.protobuf.ByteString
-        getLocationBytes();
-
-    /**
-     * <code>.NodeCriteria node_criteria = 14;</code>
+     * <code>.NodeCriteria node_criteria = 13;</code>
      */
     boolean hasNodeCriteria();
     /**
-     * <code>.NodeCriteria node_criteria = 14;</code>
+     * <code>.NodeCriteria node_criteria = 13;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria getNodeCriteria();
     /**
-     * <code>.NodeCriteria node_criteria = 14;</code>
+     * <code>.NodeCriteria node_criteria = 13;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder getNodeCriteriaOrBuilder();
   }
@@ -1839,15 +1829,14 @@ public final class OpennmsModelProtos {
       uei_ = "";
       label_ = "";
       time_ = 0L;
-      soure_ = "";
-      parameters_ = java.util.Collections.emptyList();
+      source_ = "";
+      parameter_ = java.util.Collections.emptyList();
       createTime_ = 0L;
       description_ = "";
       logMessage_ = "";
       severity_ = 0;
       log_ = false;
       display_ = false;
-      location_ = "";
     }
 
     @java.lang.Override
@@ -1906,15 +1895,15 @@ public final class OpennmsModelProtos {
             case 42: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              soure_ = s;
+              source_ = s;
               break;
             }
             case 50: {
               if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
-                parameters_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter>();
+                parameter_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter>();
                 mutable_bitField0_ |= 0x00000020;
               }
-              parameters_.add(
+              parameter_.add(
                   input.readMessage(org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.parser(), extensionRegistry));
               break;
             }
@@ -1952,12 +1941,6 @@ public final class OpennmsModelProtos {
               break;
             }
             case 106: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              location_ = s;
-              break;
-            }
-            case 114: {
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder subBuilder = null;
               if (nodeCriteria_ != null) {
                 subBuilder = nodeCriteria_.toBuilder();
@@ -1979,7 +1962,7 @@ public final class OpennmsModelProtos {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
-          parameters_ = java.util.Collections.unmodifiableList(parameters_);
+          parameter_ = java.util.Collections.unmodifiableList(parameter_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2084,73 +2067,73 @@ public final class OpennmsModelProtos {
       return time_;
     }
 
-    public static final int SOURE_FIELD_NUMBER = 5;
-    private volatile java.lang.Object soure_;
+    public static final int SOURCE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object source_;
     /**
-     * <code>string soure = 5;</code>
+     * <code>string source = 5;</code>
      */
-    public java.lang.String getSoure() {
-      java.lang.Object ref = soure_;
+    public java.lang.String getSource() {
+      java.lang.Object ref = source_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        soure_ = s;
+        source_ = s;
         return s;
       }
     }
     /**
-     * <code>string soure = 5;</code>
+     * <code>string source = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getSoureBytes() {
-      java.lang.Object ref = soure_;
+        getSourceBytes() {
+      java.lang.Object ref = source_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        soure_ = b;
+        source_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int PARAMETERS_FIELD_NUMBER = 6;
-    private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> parameters_;
+    public static final int PARAMETER_FIELD_NUMBER = 6;
+    private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> parameter_;
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> getParametersList() {
-      return parameters_;
+    public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> getParameterList() {
+      return parameter_;
     }
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
     public java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder> 
-        getParametersOrBuilderList() {
-      return parameters_;
+        getParameterOrBuilderList() {
+      return parameter_;
     }
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    public int getParametersCount() {
-      return parameters_.size();
+    public int getParameterCount() {
+      return parameter_.size();
     }
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter getParameters(int index) {
-      return parameters_.get(index);
+    public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter getParameter(int index) {
+      return parameter_.get(index);
     }
     /**
-     * <code>repeated .EventParameter parameters = 6;</code>
+     * <code>repeated .EventParameter parameter = 6;</code>
      */
-    public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder getParametersOrBuilder(
+    public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder getParameterOrBuilder(
         int index) {
-      return parameters_.get(index);
+      return parameter_.get(index);
     }
 
     public static final int CREATE_TIME_FIELD_NUMBER = 7;
@@ -2264,56 +2247,22 @@ public final class OpennmsModelProtos {
       return display_;
     }
 
-    public static final int LOCATION_FIELD_NUMBER = 13;
-    private volatile java.lang.Object location_;
-    /**
-     * <code>string location = 13;</code>
-     */
-    public java.lang.String getLocation() {
-      java.lang.Object ref = location_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        location_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string location = 13;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLocationBytes() {
-      java.lang.Object ref = location_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        location_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NODE_CRITERIA_FIELD_NUMBER = 14;
+    public static final int NODE_CRITERIA_FIELD_NUMBER = 13;
     private org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria nodeCriteria_;
     /**
-     * <code>.NodeCriteria node_criteria = 14;</code>
+     * <code>.NodeCriteria node_criteria = 13;</code>
      */
     public boolean hasNodeCriteria() {
       return nodeCriteria_ != null;
     }
     /**
-     * <code>.NodeCriteria node_criteria = 14;</code>
+     * <code>.NodeCriteria node_criteria = 13;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria getNodeCriteria() {
       return nodeCriteria_ == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.getDefaultInstance() : nodeCriteria_;
     }
     /**
-     * <code>.NodeCriteria node_criteria = 14;</code>
+     * <code>.NodeCriteria node_criteria = 13;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder getNodeCriteriaOrBuilder() {
       return getNodeCriteria();
@@ -2343,11 +2292,11 @@ public final class OpennmsModelProtos {
       if (time_ != 0L) {
         output.writeUInt64(4, time_);
       }
-      if (!getSoureBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, soure_);
+      if (!getSourceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, source_);
       }
-      for (int i = 0; i < parameters_.size(); i++) {
-        output.writeMessage(6, parameters_.get(i));
+      for (int i = 0; i < parameter_.size(); i++) {
+        output.writeMessage(6, parameter_.get(i));
       }
       if (createTime_ != 0L) {
         output.writeUInt64(7, createTime_);
@@ -2367,11 +2316,8 @@ public final class OpennmsModelProtos {
       if (display_ != false) {
         output.writeBool(12, display_);
       }
-      if (!getLocationBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, location_);
-      }
       if (nodeCriteria_ != null) {
-        output.writeMessage(14, getNodeCriteria());
+        output.writeMessage(13, getNodeCriteria());
       }
       unknownFields.writeTo(output);
     }
@@ -2395,12 +2341,12 @@ public final class OpennmsModelProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(4, time_);
       }
-      if (!getSoureBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, soure_);
+      if (!getSourceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, source_);
       }
-      for (int i = 0; i < parameters_.size(); i++) {
+      for (int i = 0; i < parameter_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, parameters_.get(i));
+          .computeMessageSize(6, parameter_.get(i));
       }
       if (createTime_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -2424,12 +2370,9 @@ public final class OpennmsModelProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(12, display_);
       }
-      if (!getLocationBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, location_);
-      }
       if (nodeCriteria_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, getNodeCriteria());
+          .computeMessageSize(13, getNodeCriteria());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2455,10 +2398,10 @@ public final class OpennmsModelProtos {
           .equals(other.getLabel());
       result = result && (getTime()
           == other.getTime());
-      result = result && getSoure()
-          .equals(other.getSoure());
-      result = result && getParametersList()
-          .equals(other.getParametersList());
+      result = result && getSource()
+          .equals(other.getSource());
+      result = result && getParameterList()
+          .equals(other.getParameterList());
       result = result && (getCreateTime()
           == other.getCreateTime());
       result = result && getDescription()
@@ -2470,8 +2413,6 @@ public final class OpennmsModelProtos {
           == other.getLog());
       result = result && (getDisplay()
           == other.getDisplay());
-      result = result && getLocation()
-          .equals(other.getLocation());
       result = result && (hasNodeCriteria() == other.hasNodeCriteria());
       if (hasNodeCriteria()) {
         result = result && getNodeCriteria()
@@ -2498,11 +2439,11 @@ public final class OpennmsModelProtos {
       hash = (37 * hash) + TIME_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTime());
-      hash = (37 * hash) + SOURE_FIELD_NUMBER;
-      hash = (53 * hash) + getSoure().hashCode();
-      if (getParametersCount() > 0) {
-        hash = (37 * hash) + PARAMETERS_FIELD_NUMBER;
-        hash = (53 * hash) + getParametersList().hashCode();
+      hash = (37 * hash) + SOURCE_FIELD_NUMBER;
+      hash = (53 * hash) + getSource().hashCode();
+      if (getParameterCount() > 0) {
+        hash = (37 * hash) + PARAMETER_FIELD_NUMBER;
+        hash = (53 * hash) + getParameterList().hashCode();
       }
       hash = (37 * hash) + CREATE_TIME_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
@@ -2519,8 +2460,6 @@ public final class OpennmsModelProtos {
       hash = (37 * hash) + DISPLAY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getDisplay());
-      hash = (37 * hash) + LOCATION_FIELD_NUMBER;
-      hash = (53 * hash) + getLocation().hashCode();
       if (hasNodeCriteria()) {
         hash = (37 * hash) + NODE_CRITERIA_FIELD_NUMBER;
         hash = (53 * hash) + getNodeCriteria().hashCode();
@@ -2650,7 +2589,7 @@ public final class OpennmsModelProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getParametersFieldBuilder();
+          getParameterFieldBuilder();
         }
       }
       public Builder clear() {
@@ -2663,13 +2602,13 @@ public final class OpennmsModelProtos {
 
         time_ = 0L;
 
-        soure_ = "";
+        source_ = "";
 
-        if (parametersBuilder_ == null) {
-          parameters_ = java.util.Collections.emptyList();
+        if (parameterBuilder_ == null) {
+          parameter_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000020);
         } else {
-          parametersBuilder_.clear();
+          parameterBuilder_.clear();
         }
         createTime_ = 0L;
 
@@ -2682,8 +2621,6 @@ public final class OpennmsModelProtos {
         log_ = false;
 
         display_ = false;
-
-        location_ = "";
 
         if (nodeCriteriaBuilder_ == null) {
           nodeCriteria_ = null;
@@ -2719,15 +2656,15 @@ public final class OpennmsModelProtos {
         result.uei_ = uei_;
         result.label_ = label_;
         result.time_ = time_;
-        result.soure_ = soure_;
-        if (parametersBuilder_ == null) {
+        result.source_ = source_;
+        if (parameterBuilder_ == null) {
           if (((bitField0_ & 0x00000020) == 0x00000020)) {
-            parameters_ = java.util.Collections.unmodifiableList(parameters_);
+            parameter_ = java.util.Collections.unmodifiableList(parameter_);
             bitField0_ = (bitField0_ & ~0x00000020);
           }
-          result.parameters_ = parameters_;
+          result.parameter_ = parameter_;
         } else {
-          result.parameters_ = parametersBuilder_.build();
+          result.parameter_ = parameterBuilder_.build();
         }
         result.createTime_ = createTime_;
         result.description_ = description_;
@@ -2735,7 +2672,6 @@ public final class OpennmsModelProtos {
         result.severity_ = severity_;
         result.log_ = log_;
         result.display_ = display_;
-        result.location_ = location_;
         if (nodeCriteriaBuilder_ == null) {
           result.nodeCriteria_ = nodeCriteria_;
         } else {
@@ -2797,33 +2733,33 @@ public final class OpennmsModelProtos {
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
-        if (!other.getSoure().isEmpty()) {
-          soure_ = other.soure_;
+        if (!other.getSource().isEmpty()) {
+          source_ = other.source_;
           onChanged();
         }
-        if (parametersBuilder_ == null) {
-          if (!other.parameters_.isEmpty()) {
-            if (parameters_.isEmpty()) {
-              parameters_ = other.parameters_;
+        if (parameterBuilder_ == null) {
+          if (!other.parameter_.isEmpty()) {
+            if (parameter_.isEmpty()) {
+              parameter_ = other.parameter_;
               bitField0_ = (bitField0_ & ~0x00000020);
             } else {
-              ensureParametersIsMutable();
-              parameters_.addAll(other.parameters_);
+              ensureParameterIsMutable();
+              parameter_.addAll(other.parameter_);
             }
             onChanged();
           }
         } else {
-          if (!other.parameters_.isEmpty()) {
-            if (parametersBuilder_.isEmpty()) {
-              parametersBuilder_.dispose();
-              parametersBuilder_ = null;
-              parameters_ = other.parameters_;
+          if (!other.parameter_.isEmpty()) {
+            if (parameterBuilder_.isEmpty()) {
+              parameterBuilder_.dispose();
+              parameterBuilder_ = null;
+              parameter_ = other.parameter_;
               bitField0_ = (bitField0_ & ~0x00000020);
-              parametersBuilder_ = 
+              parameterBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getParametersFieldBuilder() : null;
+                   getParameterFieldBuilder() : null;
             } else {
-              parametersBuilder_.addAllMessages(other.parameters_);
+              parameterBuilder_.addAllMessages(other.parameter_);
             }
           }
         }
@@ -2846,10 +2782,6 @@ public final class OpennmsModelProtos {
         }
         if (other.getDisplay() != false) {
           setDisplay(other.getDisplay());
-        }
-        if (!other.getLocation().isEmpty()) {
-          location_ = other.location_;
-          onChanged();
         }
         if (other.hasNodeCriteria()) {
           mergeNodeCriteria(other.getNodeCriteria());
@@ -3072,313 +3004,313 @@ public final class OpennmsModelProtos {
         return this;
       }
 
-      private java.lang.Object soure_ = "";
+      private java.lang.Object source_ = "";
       /**
-       * <code>string soure = 5;</code>
+       * <code>string source = 5;</code>
        */
-      public java.lang.String getSoure() {
-        java.lang.Object ref = soure_;
+      public java.lang.String getSource() {
+        java.lang.Object ref = source_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          soure_ = s;
+          source_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string soure = 5;</code>
+       * <code>string source = 5;</code>
        */
       public com.google.protobuf.ByteString
-          getSoureBytes() {
-        java.lang.Object ref = soure_;
+          getSourceBytes() {
+        java.lang.Object ref = source_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          soure_ = b;
+          source_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string soure = 5;</code>
+       * <code>string source = 5;</code>
        */
-      public Builder setSoure(
+      public Builder setSource(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        soure_ = value;
+        source_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string soure = 5;</code>
+       * <code>string source = 5;</code>
        */
-      public Builder clearSoure() {
+      public Builder clearSource() {
         
-        soure_ = getDefaultInstance().getSoure();
+        source_ = getDefaultInstance().getSource();
         onChanged();
         return this;
       }
       /**
-       * <code>string soure = 5;</code>
+       * <code>string source = 5;</code>
        */
-      public Builder setSoureBytes(
+      public Builder setSourceBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        soure_ = value;
+        source_ = value;
         onChanged();
         return this;
       }
 
-      private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> parameters_ =
+      private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> parameter_ =
         java.util.Collections.emptyList();
-      private void ensureParametersIsMutable() {
+      private void ensureParameterIsMutable() {
         if (!((bitField0_ & 0x00000020) == 0x00000020)) {
-          parameters_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter>(parameters_);
+          parameter_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter>(parameter_);
           bitField0_ |= 0x00000020;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder> parametersBuilder_;
+          org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder> parameterBuilder_;
 
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> getParametersList() {
-        if (parametersBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(parameters_);
+      public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> getParameterList() {
+        if (parameterBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(parameter_);
         } else {
-          return parametersBuilder_.getMessageList();
+          return parameterBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public int getParametersCount() {
-        if (parametersBuilder_ == null) {
-          return parameters_.size();
+      public int getParameterCount() {
+        if (parameterBuilder_ == null) {
+          return parameter_.size();
         } else {
-          return parametersBuilder_.getCount();
+          return parameterBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter getParameters(int index) {
-        if (parametersBuilder_ == null) {
-          return parameters_.get(index);
+      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter getParameter(int index) {
+        if (parameterBuilder_ == null) {
+          return parameter_.get(index);
         } else {
-          return parametersBuilder_.getMessage(index);
+          return parameterBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder setParameters(
+      public Builder setParameter(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter value) {
-        if (parametersBuilder_ == null) {
+        if (parameterBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureParametersIsMutable();
-          parameters_.set(index, value);
+          ensureParameterIsMutable();
+          parameter_.set(index, value);
           onChanged();
         } else {
-          parametersBuilder_.setMessage(index, value);
+          parameterBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder setParameters(
+      public Builder setParameter(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder builderForValue) {
-        if (parametersBuilder_ == null) {
-          ensureParametersIsMutable();
-          parameters_.set(index, builderForValue.build());
+        if (parameterBuilder_ == null) {
+          ensureParameterIsMutable();
+          parameter_.set(index, builderForValue.build());
           onChanged();
         } else {
-          parametersBuilder_.setMessage(index, builderForValue.build());
+          parameterBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder addParameters(org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter value) {
-        if (parametersBuilder_ == null) {
+      public Builder addParameter(org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter value) {
+        if (parameterBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureParametersIsMutable();
-          parameters_.add(value);
+          ensureParameterIsMutable();
+          parameter_.add(value);
           onChanged();
         } else {
-          parametersBuilder_.addMessage(value);
+          parameterBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder addParameters(
+      public Builder addParameter(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter value) {
-        if (parametersBuilder_ == null) {
+        if (parameterBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureParametersIsMutable();
-          parameters_.add(index, value);
+          ensureParameterIsMutable();
+          parameter_.add(index, value);
           onChanged();
         } else {
-          parametersBuilder_.addMessage(index, value);
+          parameterBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder addParameters(
+      public Builder addParameter(
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder builderForValue) {
-        if (parametersBuilder_ == null) {
-          ensureParametersIsMutable();
-          parameters_.add(builderForValue.build());
+        if (parameterBuilder_ == null) {
+          ensureParameterIsMutable();
+          parameter_.add(builderForValue.build());
           onChanged();
         } else {
-          parametersBuilder_.addMessage(builderForValue.build());
+          parameterBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder addParameters(
+      public Builder addParameter(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder builderForValue) {
-        if (parametersBuilder_ == null) {
-          ensureParametersIsMutable();
-          parameters_.add(index, builderForValue.build());
+        if (parameterBuilder_ == null) {
+          ensureParameterIsMutable();
+          parameter_.add(index, builderForValue.build());
           onChanged();
         } else {
-          parametersBuilder_.addMessage(index, builderForValue.build());
+          parameterBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder addAllParameters(
+      public Builder addAllParameter(
           java.lang.Iterable<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter> values) {
-        if (parametersBuilder_ == null) {
-          ensureParametersIsMutable();
+        if (parameterBuilder_ == null) {
+          ensureParameterIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, parameters_);
+              values, parameter_);
           onChanged();
         } else {
-          parametersBuilder_.addAllMessages(values);
+          parameterBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder clearParameters() {
-        if (parametersBuilder_ == null) {
-          parameters_ = java.util.Collections.emptyList();
+      public Builder clearParameter() {
+        if (parameterBuilder_ == null) {
+          parameter_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
-          parametersBuilder_.clear();
+          parameterBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public Builder removeParameters(int index) {
-        if (parametersBuilder_ == null) {
-          ensureParametersIsMutable();
-          parameters_.remove(index);
+      public Builder removeParameter(int index) {
+        if (parameterBuilder_ == null) {
+          ensureParameterIsMutable();
+          parameter_.remove(index);
           onChanged();
         } else {
-          parametersBuilder_.remove(index);
+          parameterBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder getParametersBuilder(
+      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder getParameterBuilder(
           int index) {
-        return getParametersFieldBuilder().getBuilder(index);
+        return getParameterFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder getParametersOrBuilder(
+      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder getParameterOrBuilder(
           int index) {
-        if (parametersBuilder_ == null) {
-          return parameters_.get(index);  } else {
-          return parametersBuilder_.getMessageOrBuilder(index);
+        if (parameterBuilder_ == null) {
+          return parameter_.get(index);  } else {
+          return parameterBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
       public java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder> 
-           getParametersOrBuilderList() {
-        if (parametersBuilder_ != null) {
-          return parametersBuilder_.getMessageOrBuilderList();
+           getParameterOrBuilderList() {
+        if (parameterBuilder_ != null) {
+          return parameterBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(parameters_);
+          return java.util.Collections.unmodifiableList(parameter_);
         }
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder addParametersBuilder() {
-        return getParametersFieldBuilder().addBuilder(
+      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder addParameterBuilder() {
+        return getParameterFieldBuilder().addBuilder(
             org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.getDefaultInstance());
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
-      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder addParametersBuilder(
+      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder addParameterBuilder(
           int index) {
-        return getParametersFieldBuilder().addBuilder(
+        return getParameterFieldBuilder().addBuilder(
             index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.getDefaultInstance());
       }
       /**
-       * <code>repeated .EventParameter parameters = 6;</code>
+       * <code>repeated .EventParameter parameter = 6;</code>
        */
       public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder> 
-           getParametersBuilderList() {
-        return getParametersFieldBuilder().getBuilderList();
+           getParameterBuilderList() {
+        return getParameterFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder> 
-          getParametersFieldBuilder() {
-        if (parametersBuilder_ == null) {
-          parametersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+          getParameterFieldBuilder() {
+        if (parameterBuilder_ == null) {
+          parameterBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameter.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventParameterOrBuilder>(
-                  parameters_,
+                  parameter_,
                   ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
                   isClean());
-          parameters_ = null;
+          parameter_ = null;
         }
-        return parametersBuilder_;
+        return parameterBuilder_;
       }
 
       private long createTime_ ;
@@ -3641,86 +3573,17 @@ public final class OpennmsModelProtos {
         return this;
       }
 
-      private java.lang.Object location_ = "";
-      /**
-       * <code>string location = 13;</code>
-       */
-      public java.lang.String getLocation() {
-        java.lang.Object ref = location_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          location_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string location = 13;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLocationBytes() {
-        java.lang.Object ref = location_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          location_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string location = 13;</code>
-       */
-      public Builder setLocation(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        location_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string location = 13;</code>
-       */
-      public Builder clearLocation() {
-        
-        location_ = getDefaultInstance().getLocation();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string location = 13;</code>
-       */
-      public Builder setLocationBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        location_ = value;
-        onChanged();
-        return this;
-      }
-
       private org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria nodeCriteria_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder> nodeCriteriaBuilder_;
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public boolean hasNodeCriteria() {
         return nodeCriteriaBuilder_ != null || nodeCriteria_ != null;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria getNodeCriteria() {
         if (nodeCriteriaBuilder_ == null) {
@@ -3730,7 +3593,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public Builder setNodeCriteria(org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria value) {
         if (nodeCriteriaBuilder_ == null) {
@@ -3746,7 +3609,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public Builder setNodeCriteria(
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder builderForValue) {
@@ -3760,7 +3623,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public Builder mergeNodeCriteria(org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria value) {
         if (nodeCriteriaBuilder_ == null) {
@@ -3778,7 +3641,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public Builder clearNodeCriteria() {
         if (nodeCriteriaBuilder_ == null) {
@@ -3792,7 +3655,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder getNodeCriteriaBuilder() {
         
@@ -3800,7 +3663,7 @@ public final class OpennmsModelProtos {
         return getNodeCriteriaFieldBuilder().getBuilder();
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder getNodeCriteriaOrBuilder() {
         if (nodeCriteriaBuilder_ != null) {
@@ -3811,7 +3674,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>.NodeCriteria node_criteria = 14;</code>
+       * <code>.NodeCriteria node_criteria = 13;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder> 
@@ -3895,180 +3758,150 @@ public final class OpennmsModelProtos {
         getUeiBytes();
 
     /**
-     * <code>string location = 3;</code>
-     */
-    java.lang.String getLocation();
-    /**
-     * <code>string location = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getLocationBytes();
-
-    /**
-     * <code>.NodeCriteria node_criteria = 4;</code>
+     * <code>.NodeCriteria node_criteria = 3;</code>
      */
     boolean hasNodeCriteria();
     /**
-     * <code>.NodeCriteria node_criteria = 4;</code>
+     * <code>.NodeCriteria node_criteria = 3;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria getNodeCriteria();
     /**
-     * <code>.NodeCriteria node_criteria = 4;</code>
+     * <code>.NodeCriteria node_criteria = 3;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder getNodeCriteriaOrBuilder();
 
     /**
-     * <code>string node_label = 5;</code>
-     */
-    java.lang.String getNodeLabel();
-    /**
-     * <code>string node_label = 5;</code>
-     */
-    com.google.protobuf.ByteString
-        getNodeLabelBytes();
-
-    /**
-     * <code>string ip_address = 6;</code>
+     * <code>string ip_address = 4;</code>
      */
     java.lang.String getIpAddress();
     /**
-     * <code>string ip_address = 6;</code>
+     * <code>string ip_address = 4;</code>
      */
     com.google.protobuf.ByteString
         getIpAddressBytes();
 
     /**
-     * <code>string service_name = 8;</code>
+     * <code>string service_name = 5;</code>
      */
     java.lang.String getServiceName();
     /**
-     * <code>string service_name = 8;</code>
+     * <code>string service_name = 5;</code>
      */
     com.google.protobuf.ByteString
         getServiceNameBytes();
 
     /**
-     * <code>string reduction_key = 9;</code>
+     * <code>string reduction_key = 6;</code>
      */
     java.lang.String getReductionKey();
     /**
-     * <code>string reduction_key = 9;</code>
+     * <code>string reduction_key = 6;</code>
      */
     com.google.protobuf.ByteString
         getReductionKeyBytes();
 
     /**
-     * <code>.Alarm.Type type = 10;</code>
+     * <code>.Alarm.Type type = 7;</code>
      */
     int getTypeValue();
     /**
-     * <code>.Alarm.Type type = 10;</code>
+     * <code>.Alarm.Type type = 7;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type getType();
 
     /**
-     * <code>uint64 count = 11;</code>
+     * <code>uint64 count = 8;</code>
      */
     long getCount();
 
     /**
-     * <code>.Severity severity = 12;</code>
+     * <code>.Severity severity = 9;</code>
      */
     int getSeverityValue();
     /**
-     * <code>.Severity severity = 12;</code>
+     * <code>.Severity severity = 9;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity getSeverity();
 
     /**
-     * <code>uint64 first_event_time = 13;</code>
+     * <code>uint64 first_event_time = 10;</code>
      */
     long getFirstEventTime();
 
     /**
-     * <code>string description = 14;</code>
+     * <code>string description = 11;</code>
      */
     java.lang.String getDescription();
     /**
-     * <code>string description = 14;</code>
+     * <code>string description = 11;</code>
      */
     com.google.protobuf.ByteString
         getDescriptionBytes();
 
     /**
-     * <code>string log_message = 15;</code>
+     * <code>string log_message = 12;</code>
      */
     java.lang.String getLogMessage();
     /**
-     * <code>string log_message = 15;</code>
+     * <code>string log_message = 12;</code>
      */
     com.google.protobuf.ByteString
         getLogMessageBytes();
 
     /**
-     * <code>uint64 supressed_until = 16;</code>
-     */
-    long getSupressedUntil();
-
-    /**
-     * <code>uint64 supressed_time = 17;</code>
-     */
-    long getSupressedTime();
-
-    /**
-     * <code>string ack_user = 18;</code>
+     * <code>string ack_user = 13;</code>
      */
     java.lang.String getAckUser();
     /**
-     * <code>string ack_user = 18;</code>
+     * <code>string ack_user = 13;</code>
      */
     com.google.protobuf.ByteString
         getAckUserBytes();
 
     /**
-     * <code>uint64 ack_time = 19;</code>
+     * <code>uint64 ack_time = 14;</code>
      */
     long getAckTime();
 
     /**
-     * <code>.Event last_event = 20;</code>
+     * <code>.Event last_event = 15;</code>
      */
     boolean hasLastEvent();
     /**
-     * <code>.Event last_event = 20;</code>
+     * <code>.Event last_event = 15;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event getLastEvent();
     /**
-     * <code>.Event last_event = 20;</code>
+     * <code>.Event last_event = 15;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventOrBuilder getLastEventOrBuilder();
 
     /**
-     * <code>uint64 last_event_time = 21;</code>
+     * <code>uint64 last_event_time = 16;</code>
      */
     long getLastEventTime();
 
     /**
-     * <code>uint32 if_index = 22;</code>
+     * <code>uint32 if_index = 17;</code>
      */
     int getIfIndex();
 
     /**
-     * <code>string operator_instructions = 23;</code>
+     * <code>string operator_instructions = 18;</code>
      */
     java.lang.String getOperatorInstructions();
     /**
-     * <code>string operator_instructions = 23;</code>
+     * <code>string operator_instructions = 18;</code>
      */
     com.google.protobuf.ByteString
         getOperatorInstructionsBytes();
 
     /**
-     * <code>string clear_key = 24;</code>
+     * <code>string clear_key = 19;</code>
      */
     java.lang.String getClearKey();
     /**
-     * <code>string clear_key = 24;</code>
+     * <code>string clear_key = 19;</code>
      */
     com.google.protobuf.ByteString
         getClearKeyBytes();
@@ -4088,8 +3921,6 @@ public final class OpennmsModelProtos {
     private Alarm() {
       id_ = 0L;
       uei_ = "";
-      location_ = "";
-      nodeLabel_ = "";
       ipAddress_ = "";
       serviceName_ = "";
       reductionKey_ = "";
@@ -4099,8 +3930,6 @@ public final class OpennmsModelProtos {
       firstEventTime_ = 0L;
       description_ = "";
       logMessage_ = "";
-      supressedUntil_ = 0L;
-      supressedTime_ = 0L;
       ackUser_ = "";
       ackTime_ = 0L;
       lastEventTime_ = 0L;
@@ -4152,12 +3981,6 @@ public final class OpennmsModelProtos {
               break;
             }
             case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              location_ = s;
-              break;
-            }
-            case 34: {
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder subBuilder = null;
               if (nodeCriteria_ != null) {
                 subBuilder = nodeCriteria_.toBuilder();
@@ -4170,86 +3993,70 @@ public final class OpennmsModelProtos {
 
               break;
             }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              nodeLabel_ = s;
-              break;
-            }
-            case 50: {
+            case 34: {
               java.lang.String s = input.readStringRequireUtf8();
 
               ipAddress_ = s;
               break;
             }
-            case 66: {
+            case 42: {
               java.lang.String s = input.readStringRequireUtf8();
 
               serviceName_ = s;
               break;
             }
-            case 74: {
+            case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
               reductionKey_ = s;
               break;
             }
-            case 80: {
+            case 56: {
               int rawValue = input.readEnum();
 
               type_ = rawValue;
               break;
             }
-            case 88: {
+            case 64: {
 
               count_ = input.readUInt64();
               break;
             }
-            case 96: {
+            case 72: {
               int rawValue = input.readEnum();
 
               severity_ = rawValue;
               break;
             }
-            case 104: {
+            case 80: {
 
               firstEventTime_ = input.readUInt64();
               break;
             }
-            case 114: {
+            case 90: {
               java.lang.String s = input.readStringRequireUtf8();
 
               description_ = s;
               break;
             }
-            case 122: {
+            case 98: {
               java.lang.String s = input.readStringRequireUtf8();
 
               logMessage_ = s;
               break;
             }
-            case 128: {
-
-              supressedUntil_ = input.readUInt64();
-              break;
-            }
-            case 136: {
-
-              supressedTime_ = input.readUInt64();
-              break;
-            }
-            case 146: {
+            case 106: {
               java.lang.String s = input.readStringRequireUtf8();
 
               ackUser_ = s;
               break;
             }
-            case 152: {
+            case 112: {
 
               ackTime_ = input.readUInt64();
               break;
             }
-            case 162: {
+            case 122: {
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event.Builder subBuilder = null;
               if (lastEvent_ != null) {
                 subBuilder = lastEvent_.toBuilder();
@@ -4262,23 +4069,23 @@ public final class OpennmsModelProtos {
 
               break;
             }
-            case 168: {
+            case 128: {
 
               lastEventTime_ = input.readUInt64();
               break;
             }
-            case 176: {
+            case 136: {
 
               ifIndex_ = input.readUInt32();
               break;
             }
-            case 186: {
+            case 146: {
               java.lang.String s = input.readStringRequireUtf8();
 
               operatorInstructions_ = s;
               break;
             }
-            case 194: {
+            case 154: {
               java.lang.String s = input.readStringRequireUtf8();
 
               clearKey_ = s;
@@ -4458,99 +4265,31 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int LOCATION_FIELD_NUMBER = 3;
-    private volatile java.lang.Object location_;
-    /**
-     * <code>string location = 3;</code>
-     */
-    public java.lang.String getLocation() {
-      java.lang.Object ref = location_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        location_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string location = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLocationBytes() {
-      java.lang.Object ref = location_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        location_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NODE_CRITERIA_FIELD_NUMBER = 4;
+    public static final int NODE_CRITERIA_FIELD_NUMBER = 3;
     private org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria nodeCriteria_;
     /**
-     * <code>.NodeCriteria node_criteria = 4;</code>
+     * <code>.NodeCriteria node_criteria = 3;</code>
      */
     public boolean hasNodeCriteria() {
       return nodeCriteria_ != null;
     }
     /**
-     * <code>.NodeCriteria node_criteria = 4;</code>
+     * <code>.NodeCriteria node_criteria = 3;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria getNodeCriteria() {
       return nodeCriteria_ == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.getDefaultInstance() : nodeCriteria_;
     }
     /**
-     * <code>.NodeCriteria node_criteria = 4;</code>
+     * <code>.NodeCriteria node_criteria = 3;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder getNodeCriteriaOrBuilder() {
       return getNodeCriteria();
     }
 
-    public static final int NODE_LABEL_FIELD_NUMBER = 5;
-    private volatile java.lang.Object nodeLabel_;
-    /**
-     * <code>string node_label = 5;</code>
-     */
-    public java.lang.String getNodeLabel() {
-      java.lang.Object ref = nodeLabel_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nodeLabel_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string node_label = 5;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNodeLabelBytes() {
-      java.lang.Object ref = nodeLabel_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nodeLabel_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int IP_ADDRESS_FIELD_NUMBER = 6;
+    public static final int IP_ADDRESS_FIELD_NUMBER = 4;
     private volatile java.lang.Object ipAddress_;
     /**
-     * <code>string ip_address = 6;</code>
+     * <code>string ip_address = 4;</code>
      */
     public java.lang.String getIpAddress() {
       java.lang.Object ref = ipAddress_;
@@ -4565,7 +4304,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string ip_address = 6;</code>
+     * <code>string ip_address = 4;</code>
      */
     public com.google.protobuf.ByteString
         getIpAddressBytes() {
@@ -4581,10 +4320,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int SERVICE_NAME_FIELD_NUMBER = 8;
+    public static final int SERVICE_NAME_FIELD_NUMBER = 5;
     private volatile java.lang.Object serviceName_;
     /**
-     * <code>string service_name = 8;</code>
+     * <code>string service_name = 5;</code>
      */
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
@@ -4599,7 +4338,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string service_name = 8;</code>
+     * <code>string service_name = 5;</code>
      */
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
@@ -4615,10 +4354,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int REDUCTION_KEY_FIELD_NUMBER = 9;
+    public static final int REDUCTION_KEY_FIELD_NUMBER = 6;
     private volatile java.lang.Object reductionKey_;
     /**
-     * <code>string reduction_key = 9;</code>
+     * <code>string reduction_key = 6;</code>
      */
     public java.lang.String getReductionKey() {
       java.lang.Object ref = reductionKey_;
@@ -4633,7 +4372,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string reduction_key = 9;</code>
+     * <code>string reduction_key = 6;</code>
      */
     public com.google.protobuf.ByteString
         getReductionKeyBytes() {
@@ -4649,60 +4388,60 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int TYPE_FIELD_NUMBER = 10;
+    public static final int TYPE_FIELD_NUMBER = 7;
     private int type_;
     /**
-     * <code>.Alarm.Type type = 10;</code>
+     * <code>.Alarm.Type type = 7;</code>
      */
     public int getTypeValue() {
       return type_;
     }
     /**
-     * <code>.Alarm.Type type = 10;</code>
+     * <code>.Alarm.Type type = 7;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type getType() {
       org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type result = org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type.valueOf(type_);
       return result == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type.UNRECOGNIZED : result;
     }
 
-    public static final int COUNT_FIELD_NUMBER = 11;
+    public static final int COUNT_FIELD_NUMBER = 8;
     private long count_;
     /**
-     * <code>uint64 count = 11;</code>
+     * <code>uint64 count = 8;</code>
      */
     public long getCount() {
       return count_;
     }
 
-    public static final int SEVERITY_FIELD_NUMBER = 12;
+    public static final int SEVERITY_FIELD_NUMBER = 9;
     private int severity_;
     /**
-     * <code>.Severity severity = 12;</code>
+     * <code>.Severity severity = 9;</code>
      */
     public int getSeverityValue() {
       return severity_;
     }
     /**
-     * <code>.Severity severity = 12;</code>
+     * <code>.Severity severity = 9;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity getSeverity() {
       org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity result = org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.valueOf(severity_);
       return result == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.UNRECOGNIZED : result;
     }
 
-    public static final int FIRST_EVENT_TIME_FIELD_NUMBER = 13;
+    public static final int FIRST_EVENT_TIME_FIELD_NUMBER = 10;
     private long firstEventTime_;
     /**
-     * <code>uint64 first_event_time = 13;</code>
+     * <code>uint64 first_event_time = 10;</code>
      */
     public long getFirstEventTime() {
       return firstEventTime_;
     }
 
-    public static final int DESCRIPTION_FIELD_NUMBER = 14;
+    public static final int DESCRIPTION_FIELD_NUMBER = 11;
     private volatile java.lang.Object description_;
     /**
-     * <code>string description = 14;</code>
+     * <code>string description = 11;</code>
      */
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
@@ -4717,7 +4456,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string description = 14;</code>
+     * <code>string description = 11;</code>
      */
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
@@ -4733,10 +4472,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int LOG_MESSAGE_FIELD_NUMBER = 15;
+    public static final int LOG_MESSAGE_FIELD_NUMBER = 12;
     private volatile java.lang.Object logMessage_;
     /**
-     * <code>string log_message = 15;</code>
+     * <code>string log_message = 12;</code>
      */
     public java.lang.String getLogMessage() {
       java.lang.Object ref = logMessage_;
@@ -4751,7 +4490,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string log_message = 15;</code>
+     * <code>string log_message = 12;</code>
      */
     public com.google.protobuf.ByteString
         getLogMessageBytes() {
@@ -4767,28 +4506,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int SUPRESSED_UNTIL_FIELD_NUMBER = 16;
-    private long supressedUntil_;
-    /**
-     * <code>uint64 supressed_until = 16;</code>
-     */
-    public long getSupressedUntil() {
-      return supressedUntil_;
-    }
-
-    public static final int SUPRESSED_TIME_FIELD_NUMBER = 17;
-    private long supressedTime_;
-    /**
-     * <code>uint64 supressed_time = 17;</code>
-     */
-    public long getSupressedTime() {
-      return supressedTime_;
-    }
-
-    public static final int ACK_USER_FIELD_NUMBER = 18;
+    public static final int ACK_USER_FIELD_NUMBER = 13;
     private volatile java.lang.Object ackUser_;
     /**
-     * <code>string ack_user = 18;</code>
+     * <code>string ack_user = 13;</code>
      */
     public java.lang.String getAckUser() {
       java.lang.Object ref = ackUser_;
@@ -4803,7 +4524,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string ack_user = 18;</code>
+     * <code>string ack_user = 13;</code>
      */
     public com.google.protobuf.ByteString
         getAckUserBytes() {
@@ -4819,58 +4540,58 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int ACK_TIME_FIELD_NUMBER = 19;
+    public static final int ACK_TIME_FIELD_NUMBER = 14;
     private long ackTime_;
     /**
-     * <code>uint64 ack_time = 19;</code>
+     * <code>uint64 ack_time = 14;</code>
      */
     public long getAckTime() {
       return ackTime_;
     }
 
-    public static final int LAST_EVENT_FIELD_NUMBER = 20;
+    public static final int LAST_EVENT_FIELD_NUMBER = 15;
     private org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event lastEvent_;
     /**
-     * <code>.Event last_event = 20;</code>
+     * <code>.Event last_event = 15;</code>
      */
     public boolean hasLastEvent() {
       return lastEvent_ != null;
     }
     /**
-     * <code>.Event last_event = 20;</code>
+     * <code>.Event last_event = 15;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event getLastEvent() {
       return lastEvent_ == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event.getDefaultInstance() : lastEvent_;
     }
     /**
-     * <code>.Event last_event = 20;</code>
+     * <code>.Event last_event = 15;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventOrBuilder getLastEventOrBuilder() {
       return getLastEvent();
     }
 
-    public static final int LAST_EVENT_TIME_FIELD_NUMBER = 21;
+    public static final int LAST_EVENT_TIME_FIELD_NUMBER = 16;
     private long lastEventTime_;
     /**
-     * <code>uint64 last_event_time = 21;</code>
+     * <code>uint64 last_event_time = 16;</code>
      */
     public long getLastEventTime() {
       return lastEventTime_;
     }
 
-    public static final int IF_INDEX_FIELD_NUMBER = 22;
+    public static final int IF_INDEX_FIELD_NUMBER = 17;
     private int ifIndex_;
     /**
-     * <code>uint32 if_index = 22;</code>
+     * <code>uint32 if_index = 17;</code>
      */
     public int getIfIndex() {
       return ifIndex_;
     }
 
-    public static final int OPERATOR_INSTRUCTIONS_FIELD_NUMBER = 23;
+    public static final int OPERATOR_INSTRUCTIONS_FIELD_NUMBER = 18;
     private volatile java.lang.Object operatorInstructions_;
     /**
-     * <code>string operator_instructions = 23;</code>
+     * <code>string operator_instructions = 18;</code>
      */
     public java.lang.String getOperatorInstructions() {
       java.lang.Object ref = operatorInstructions_;
@@ -4885,7 +4606,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string operator_instructions = 23;</code>
+     * <code>string operator_instructions = 18;</code>
      */
     public com.google.protobuf.ByteString
         getOperatorInstructionsBytes() {
@@ -4901,10 +4622,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int CLEAR_KEY_FIELD_NUMBER = 24;
+    public static final int CLEAR_KEY_FIELD_NUMBER = 19;
     private volatile java.lang.Object clearKey_;
     /**
-     * <code>string clear_key = 24;</code>
+     * <code>string clear_key = 19;</code>
      */
     public java.lang.String getClearKey() {
       java.lang.Object ref = clearKey_;
@@ -4919,7 +4640,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string clear_key = 24;</code>
+     * <code>string clear_key = 19;</code>
      */
     public com.google.protobuf.ByteString
         getClearKeyBytes() {
@@ -4953,68 +4674,56 @@ public final class OpennmsModelProtos {
       if (!getUeiBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, uei_);
       }
-      if (!getLocationBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, location_);
-      }
       if (nodeCriteria_ != null) {
-        output.writeMessage(4, getNodeCriteria());
-      }
-      if (!getNodeLabelBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, nodeLabel_);
+        output.writeMessage(3, getNodeCriteria());
       }
       if (!getIpAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, ipAddress_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, ipAddress_);
       }
       if (!getServiceNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, serviceName_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, serviceName_);
       }
       if (!getReductionKeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, reductionKey_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, reductionKey_);
       }
       if (type_ != org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type.PROBLEM_WITH_CLEAR.getNumber()) {
-        output.writeEnum(10, type_);
+        output.writeEnum(7, type_);
       }
       if (count_ != 0L) {
-        output.writeUInt64(11, count_);
+        output.writeUInt64(8, count_);
       }
       if (severity_ != org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.INDETERMINATE.getNumber()) {
-        output.writeEnum(12, severity_);
+        output.writeEnum(9, severity_);
       }
       if (firstEventTime_ != 0L) {
-        output.writeUInt64(13, firstEventTime_);
+        output.writeUInt64(10, firstEventTime_);
       }
       if (!getDescriptionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 14, description_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, description_);
       }
       if (!getLogMessageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 15, logMessage_);
-      }
-      if (supressedUntil_ != 0L) {
-        output.writeUInt64(16, supressedUntil_);
-      }
-      if (supressedTime_ != 0L) {
-        output.writeUInt64(17, supressedTime_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, logMessage_);
       }
       if (!getAckUserBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, ackUser_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, ackUser_);
       }
       if (ackTime_ != 0L) {
-        output.writeUInt64(19, ackTime_);
+        output.writeUInt64(14, ackTime_);
       }
       if (lastEvent_ != null) {
-        output.writeMessage(20, getLastEvent());
+        output.writeMessage(15, getLastEvent());
       }
       if (lastEventTime_ != 0L) {
-        output.writeUInt64(21, lastEventTime_);
+        output.writeUInt64(16, lastEventTime_);
       }
       if (ifIndex_ != 0) {
-        output.writeUInt32(22, ifIndex_);
+        output.writeUInt32(17, ifIndex_);
       }
       if (!getOperatorInstructionsBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 23, operatorInstructions_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, operatorInstructions_);
       }
       if (!getClearKeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 24, clearKey_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 19, clearKey_);
       }
       unknownFields.writeTo(output);
     }
@@ -5031,79 +4740,65 @@ public final class OpennmsModelProtos {
       if (!getUeiBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, uei_);
       }
-      if (!getLocationBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, location_);
-      }
       if (nodeCriteria_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getNodeCriteria());
-      }
-      if (!getNodeLabelBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, nodeLabel_);
+          .computeMessageSize(3, getNodeCriteria());
       }
       if (!getIpAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, ipAddress_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, ipAddress_);
       }
       if (!getServiceNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, serviceName_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, serviceName_);
       }
       if (!getReductionKeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, reductionKey_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, reductionKey_);
       }
       if (type_ != org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type.PROBLEM_WITH_CLEAR.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(10, type_);
+          .computeEnumSize(7, type_);
       }
       if (count_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(11, count_);
+          .computeUInt64Size(8, count_);
       }
       if (severity_ != org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.INDETERMINATE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(12, severity_);
+          .computeEnumSize(9, severity_);
       }
       if (firstEventTime_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(13, firstEventTime_);
+          .computeUInt64Size(10, firstEventTime_);
       }
       if (!getDescriptionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, description_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, description_);
       }
       if (!getLogMessageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, logMessage_);
-      }
-      if (supressedUntil_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(16, supressedUntil_);
-      }
-      if (supressedTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(17, supressedTime_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, logMessage_);
       }
       if (!getAckUserBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, ackUser_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, ackUser_);
       }
       if (ackTime_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(19, ackTime_);
+          .computeUInt64Size(14, ackTime_);
       }
       if (lastEvent_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(20, getLastEvent());
+          .computeMessageSize(15, getLastEvent());
       }
       if (lastEventTime_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(21, lastEventTime_);
+          .computeUInt64Size(16, lastEventTime_);
       }
       if (ifIndex_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(22, ifIndex_);
+          .computeUInt32Size(17, ifIndex_);
       }
       if (!getOperatorInstructionsBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, operatorInstructions_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, operatorInstructions_);
       }
       if (!getClearKeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(24, clearKey_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(19, clearKey_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5125,15 +4820,11 @@ public final class OpennmsModelProtos {
           == other.getId());
       result = result && getUei()
           .equals(other.getUei());
-      result = result && getLocation()
-          .equals(other.getLocation());
       result = result && (hasNodeCriteria() == other.hasNodeCriteria());
       if (hasNodeCriteria()) {
         result = result && getNodeCriteria()
             .equals(other.getNodeCriteria());
       }
-      result = result && getNodeLabel()
-          .equals(other.getNodeLabel());
       result = result && getIpAddress()
           .equals(other.getIpAddress());
       result = result && getServiceName()
@@ -5150,10 +4841,6 @@ public final class OpennmsModelProtos {
           .equals(other.getDescription());
       result = result && getLogMessage()
           .equals(other.getLogMessage());
-      result = result && (getSupressedUntil()
-          == other.getSupressedUntil());
-      result = result && (getSupressedTime()
-          == other.getSupressedTime());
       result = result && getAckUser()
           .equals(other.getAckUser());
       result = result && (getAckTime()
@@ -5187,14 +4874,10 @@ public final class OpennmsModelProtos {
           getId());
       hash = (37 * hash) + UEI_FIELD_NUMBER;
       hash = (53 * hash) + getUei().hashCode();
-      hash = (37 * hash) + LOCATION_FIELD_NUMBER;
-      hash = (53 * hash) + getLocation().hashCode();
       if (hasNodeCriteria()) {
         hash = (37 * hash) + NODE_CRITERIA_FIELD_NUMBER;
         hash = (53 * hash) + getNodeCriteria().hashCode();
       }
-      hash = (37 * hash) + NODE_LABEL_FIELD_NUMBER;
-      hash = (53 * hash) + getNodeLabel().hashCode();
       hash = (37 * hash) + IP_ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getIpAddress().hashCode();
       hash = (37 * hash) + SERVICE_NAME_FIELD_NUMBER;
@@ -5215,12 +4898,6 @@ public final class OpennmsModelProtos {
       hash = (53 * hash) + getDescription().hashCode();
       hash = (37 * hash) + LOG_MESSAGE_FIELD_NUMBER;
       hash = (53 * hash) + getLogMessage().hashCode();
-      hash = (37 * hash) + SUPRESSED_UNTIL_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSupressedUntil());
-      hash = (37 * hash) + SUPRESSED_TIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSupressedTime());
       hash = (37 * hash) + ACK_USER_FIELD_NUMBER;
       hash = (53 * hash) + getAckUser().hashCode();
       hash = (37 * hash) + ACK_TIME_FIELD_NUMBER;
@@ -5372,16 +5049,12 @@ public final class OpennmsModelProtos {
 
         uei_ = "";
 
-        location_ = "";
-
         if (nodeCriteriaBuilder_ == null) {
           nodeCriteria_ = null;
         } else {
           nodeCriteria_ = null;
           nodeCriteriaBuilder_ = null;
         }
-        nodeLabel_ = "";
-
         ipAddress_ = "";
 
         serviceName_ = "";
@@ -5399,10 +5072,6 @@ public final class OpennmsModelProtos {
         description_ = "";
 
         logMessage_ = "";
-
-        supressedUntil_ = 0L;
-
-        supressedTime_ = 0L;
 
         ackUser_ = "";
 
@@ -5446,13 +5115,11 @@ public final class OpennmsModelProtos {
         org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm result = new org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm(this);
         result.id_ = id_;
         result.uei_ = uei_;
-        result.location_ = location_;
         if (nodeCriteriaBuilder_ == null) {
           result.nodeCriteria_ = nodeCriteria_;
         } else {
           result.nodeCriteria_ = nodeCriteriaBuilder_.build();
         }
-        result.nodeLabel_ = nodeLabel_;
         result.ipAddress_ = ipAddress_;
         result.serviceName_ = serviceName_;
         result.reductionKey_ = reductionKey_;
@@ -5462,8 +5129,6 @@ public final class OpennmsModelProtos {
         result.firstEventTime_ = firstEventTime_;
         result.description_ = description_;
         result.logMessage_ = logMessage_;
-        result.supressedUntil_ = supressedUntil_;
-        result.supressedTime_ = supressedTime_;
         result.ackUser_ = ackUser_;
         result.ackTime_ = ackTime_;
         if (lastEventBuilder_ == null) {
@@ -5523,16 +5188,8 @@ public final class OpennmsModelProtos {
           uei_ = other.uei_;
           onChanged();
         }
-        if (!other.getLocation().isEmpty()) {
-          location_ = other.location_;
-          onChanged();
-        }
         if (other.hasNodeCriteria()) {
           mergeNodeCriteria(other.getNodeCriteria());
-        }
-        if (!other.getNodeLabel().isEmpty()) {
-          nodeLabel_ = other.nodeLabel_;
-          onChanged();
         }
         if (!other.getIpAddress().isEmpty()) {
           ipAddress_ = other.ipAddress_;
@@ -5565,12 +5222,6 @@ public final class OpennmsModelProtos {
         if (!other.getLogMessage().isEmpty()) {
           logMessage_ = other.logMessage_;
           onChanged();
-        }
-        if (other.getSupressedUntil() != 0L) {
-          setSupressedUntil(other.getSupressedUntil());
-        }
-        if (other.getSupressedTime() != 0L) {
-          setSupressedTime(other.getSupressedTime());
         }
         if (!other.getAckUser().isEmpty()) {
           ackUser_ = other.ackUser_;
@@ -5718,86 +5369,17 @@ public final class OpennmsModelProtos {
         return this;
       }
 
-      private java.lang.Object location_ = "";
-      /**
-       * <code>string location = 3;</code>
-       */
-      public java.lang.String getLocation() {
-        java.lang.Object ref = location_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          location_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string location = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLocationBytes() {
-        java.lang.Object ref = location_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          location_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string location = 3;</code>
-       */
-      public Builder setLocation(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        location_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string location = 3;</code>
-       */
-      public Builder clearLocation() {
-        
-        location_ = getDefaultInstance().getLocation();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string location = 3;</code>
-       */
-      public Builder setLocationBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        location_ = value;
-        onChanged();
-        return this;
-      }
-
       private org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria nodeCriteria_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder> nodeCriteriaBuilder_;
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public boolean hasNodeCriteria() {
         return nodeCriteriaBuilder_ != null || nodeCriteria_ != null;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria getNodeCriteria() {
         if (nodeCriteriaBuilder_ == null) {
@@ -5807,7 +5389,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public Builder setNodeCriteria(org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria value) {
         if (nodeCriteriaBuilder_ == null) {
@@ -5823,7 +5405,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public Builder setNodeCriteria(
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder builderForValue) {
@@ -5837,7 +5419,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public Builder mergeNodeCriteria(org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria value) {
         if (nodeCriteriaBuilder_ == null) {
@@ -5855,7 +5437,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public Builder clearNodeCriteria() {
         if (nodeCriteriaBuilder_ == null) {
@@ -5869,7 +5451,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder getNodeCriteriaBuilder() {
         
@@ -5877,7 +5459,7 @@ public final class OpennmsModelProtos {
         return getNodeCriteriaFieldBuilder().getBuilder();
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder getNodeCriteriaOrBuilder() {
         if (nodeCriteriaBuilder_ != null) {
@@ -5888,7 +5470,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>.NodeCriteria node_criteria = 4;</code>
+       * <code>.NodeCriteria node_criteria = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteria.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.NodeCriteriaOrBuilder> 
@@ -5904,78 +5486,9 @@ public final class OpennmsModelProtos {
         return nodeCriteriaBuilder_;
       }
 
-      private java.lang.Object nodeLabel_ = "";
-      /**
-       * <code>string node_label = 5;</code>
-       */
-      public java.lang.String getNodeLabel() {
-        java.lang.Object ref = nodeLabel_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nodeLabel_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string node_label = 5;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNodeLabelBytes() {
-        java.lang.Object ref = nodeLabel_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nodeLabel_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string node_label = 5;</code>
-       */
-      public Builder setNodeLabel(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        nodeLabel_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string node_label = 5;</code>
-       */
-      public Builder clearNodeLabel() {
-        
-        nodeLabel_ = getDefaultInstance().getNodeLabel();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string node_label = 5;</code>
-       */
-      public Builder setNodeLabelBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        nodeLabel_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object ipAddress_ = "";
       /**
-       * <code>string ip_address = 6;</code>
+       * <code>string ip_address = 4;</code>
        */
       public java.lang.String getIpAddress() {
         java.lang.Object ref = ipAddress_;
@@ -5990,7 +5503,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string ip_address = 6;</code>
+       * <code>string ip_address = 4;</code>
        */
       public com.google.protobuf.ByteString
           getIpAddressBytes() {
@@ -6006,7 +5519,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string ip_address = 6;</code>
+       * <code>string ip_address = 4;</code>
        */
       public Builder setIpAddress(
           java.lang.String value) {
@@ -6019,7 +5532,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string ip_address = 6;</code>
+       * <code>string ip_address = 4;</code>
        */
       public Builder clearIpAddress() {
         
@@ -6028,7 +5541,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string ip_address = 6;</code>
+       * <code>string ip_address = 4;</code>
        */
       public Builder setIpAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -6044,7 +5557,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object serviceName_ = "";
       /**
-       * <code>string service_name = 8;</code>
+       * <code>string service_name = 5;</code>
        */
       public java.lang.String getServiceName() {
         java.lang.Object ref = serviceName_;
@@ -6059,7 +5572,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string service_name = 8;</code>
+       * <code>string service_name = 5;</code>
        */
       public com.google.protobuf.ByteString
           getServiceNameBytes() {
@@ -6075,7 +5588,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string service_name = 8;</code>
+       * <code>string service_name = 5;</code>
        */
       public Builder setServiceName(
           java.lang.String value) {
@@ -6088,7 +5601,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string service_name = 8;</code>
+       * <code>string service_name = 5;</code>
        */
       public Builder clearServiceName() {
         
@@ -6097,7 +5610,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string service_name = 8;</code>
+       * <code>string service_name = 5;</code>
        */
       public Builder setServiceNameBytes(
           com.google.protobuf.ByteString value) {
@@ -6113,7 +5626,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object reductionKey_ = "";
       /**
-       * <code>string reduction_key = 9;</code>
+       * <code>string reduction_key = 6;</code>
        */
       public java.lang.String getReductionKey() {
         java.lang.Object ref = reductionKey_;
@@ -6128,7 +5641,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string reduction_key = 9;</code>
+       * <code>string reduction_key = 6;</code>
        */
       public com.google.protobuf.ByteString
           getReductionKeyBytes() {
@@ -6144,7 +5657,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string reduction_key = 9;</code>
+       * <code>string reduction_key = 6;</code>
        */
       public Builder setReductionKey(
           java.lang.String value) {
@@ -6157,7 +5670,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string reduction_key = 9;</code>
+       * <code>string reduction_key = 6;</code>
        */
       public Builder clearReductionKey() {
         
@@ -6166,7 +5679,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string reduction_key = 9;</code>
+       * <code>string reduction_key = 6;</code>
        */
       public Builder setReductionKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -6182,13 +5695,13 @@ public final class OpennmsModelProtos {
 
       private int type_ = 0;
       /**
-       * <code>.Alarm.Type type = 10;</code>
+       * <code>.Alarm.Type type = 7;</code>
        */
       public int getTypeValue() {
         return type_;
       }
       /**
-       * <code>.Alarm.Type type = 10;</code>
+       * <code>.Alarm.Type type = 7;</code>
        */
       public Builder setTypeValue(int value) {
         type_ = value;
@@ -6196,14 +5709,14 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Alarm.Type type = 10;</code>
+       * <code>.Alarm.Type type = 7;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type getType() {
         org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type result = org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type.valueOf(type_);
         return result == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type.UNRECOGNIZED : result;
       }
       /**
-       * <code>.Alarm.Type type = 10;</code>
+       * <code>.Alarm.Type type = 7;</code>
        */
       public Builder setType(org.opennms.features.kafka.producer.model.OpennmsModelProtos.Alarm.Type value) {
         if (value == null) {
@@ -6215,7 +5728,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Alarm.Type type = 10;</code>
+       * <code>.Alarm.Type type = 7;</code>
        */
       public Builder clearType() {
         
@@ -6226,13 +5739,13 @@ public final class OpennmsModelProtos {
 
       private long count_ ;
       /**
-       * <code>uint64 count = 11;</code>
+       * <code>uint64 count = 8;</code>
        */
       public long getCount() {
         return count_;
       }
       /**
-       * <code>uint64 count = 11;</code>
+       * <code>uint64 count = 8;</code>
        */
       public Builder setCount(long value) {
         
@@ -6241,7 +5754,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint64 count = 11;</code>
+       * <code>uint64 count = 8;</code>
        */
       public Builder clearCount() {
         
@@ -6252,13 +5765,13 @@ public final class OpennmsModelProtos {
 
       private int severity_ = 0;
       /**
-       * <code>.Severity severity = 12;</code>
+       * <code>.Severity severity = 9;</code>
        */
       public int getSeverityValue() {
         return severity_;
       }
       /**
-       * <code>.Severity severity = 12;</code>
+       * <code>.Severity severity = 9;</code>
        */
       public Builder setSeverityValue(int value) {
         severity_ = value;
@@ -6266,14 +5779,14 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Severity severity = 12;</code>
+       * <code>.Severity severity = 9;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity getSeverity() {
         org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity result = org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.valueOf(severity_);
         return result == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity.UNRECOGNIZED : result;
       }
       /**
-       * <code>.Severity severity = 12;</code>
+       * <code>.Severity severity = 9;</code>
        */
       public Builder setSeverity(org.opennms.features.kafka.producer.model.OpennmsModelProtos.Severity value) {
         if (value == null) {
@@ -6285,7 +5798,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Severity severity = 12;</code>
+       * <code>.Severity severity = 9;</code>
        */
       public Builder clearSeverity() {
         
@@ -6296,13 +5809,13 @@ public final class OpennmsModelProtos {
 
       private long firstEventTime_ ;
       /**
-       * <code>uint64 first_event_time = 13;</code>
+       * <code>uint64 first_event_time = 10;</code>
        */
       public long getFirstEventTime() {
         return firstEventTime_;
       }
       /**
-       * <code>uint64 first_event_time = 13;</code>
+       * <code>uint64 first_event_time = 10;</code>
        */
       public Builder setFirstEventTime(long value) {
         
@@ -6311,7 +5824,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint64 first_event_time = 13;</code>
+       * <code>uint64 first_event_time = 10;</code>
        */
       public Builder clearFirstEventTime() {
         
@@ -6322,7 +5835,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object description_ = "";
       /**
-       * <code>string description = 14;</code>
+       * <code>string description = 11;</code>
        */
       public java.lang.String getDescription() {
         java.lang.Object ref = description_;
@@ -6337,7 +5850,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string description = 14;</code>
+       * <code>string description = 11;</code>
        */
       public com.google.protobuf.ByteString
           getDescriptionBytes() {
@@ -6353,7 +5866,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string description = 14;</code>
+       * <code>string description = 11;</code>
        */
       public Builder setDescription(
           java.lang.String value) {
@@ -6366,7 +5879,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string description = 14;</code>
+       * <code>string description = 11;</code>
        */
       public Builder clearDescription() {
         
@@ -6375,7 +5888,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string description = 14;</code>
+       * <code>string description = 11;</code>
        */
       public Builder setDescriptionBytes(
           com.google.protobuf.ByteString value) {
@@ -6391,7 +5904,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object logMessage_ = "";
       /**
-       * <code>string log_message = 15;</code>
+       * <code>string log_message = 12;</code>
        */
       public java.lang.String getLogMessage() {
         java.lang.Object ref = logMessage_;
@@ -6406,7 +5919,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string log_message = 15;</code>
+       * <code>string log_message = 12;</code>
        */
       public com.google.protobuf.ByteString
           getLogMessageBytes() {
@@ -6422,7 +5935,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string log_message = 15;</code>
+       * <code>string log_message = 12;</code>
        */
       public Builder setLogMessage(
           java.lang.String value) {
@@ -6435,7 +5948,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string log_message = 15;</code>
+       * <code>string log_message = 12;</code>
        */
       public Builder clearLogMessage() {
         
@@ -6444,7 +5957,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string log_message = 15;</code>
+       * <code>string log_message = 12;</code>
        */
       public Builder setLogMessageBytes(
           com.google.protobuf.ByteString value) {
@@ -6458,61 +5971,9 @@ public final class OpennmsModelProtos {
         return this;
       }
 
-      private long supressedUntil_ ;
-      /**
-       * <code>uint64 supressed_until = 16;</code>
-       */
-      public long getSupressedUntil() {
-        return supressedUntil_;
-      }
-      /**
-       * <code>uint64 supressed_until = 16;</code>
-       */
-      public Builder setSupressedUntil(long value) {
-        
-        supressedUntil_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 supressed_until = 16;</code>
-       */
-      public Builder clearSupressedUntil() {
-        
-        supressedUntil_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private long supressedTime_ ;
-      /**
-       * <code>uint64 supressed_time = 17;</code>
-       */
-      public long getSupressedTime() {
-        return supressedTime_;
-      }
-      /**
-       * <code>uint64 supressed_time = 17;</code>
-       */
-      public Builder setSupressedTime(long value) {
-        
-        supressedTime_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 supressed_time = 17;</code>
-       */
-      public Builder clearSupressedTime() {
-        
-        supressedTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object ackUser_ = "";
       /**
-       * <code>string ack_user = 18;</code>
+       * <code>string ack_user = 13;</code>
        */
       public java.lang.String getAckUser() {
         java.lang.Object ref = ackUser_;
@@ -6527,7 +5988,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string ack_user = 18;</code>
+       * <code>string ack_user = 13;</code>
        */
       public com.google.protobuf.ByteString
           getAckUserBytes() {
@@ -6543,7 +6004,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string ack_user = 18;</code>
+       * <code>string ack_user = 13;</code>
        */
       public Builder setAckUser(
           java.lang.String value) {
@@ -6556,7 +6017,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string ack_user = 18;</code>
+       * <code>string ack_user = 13;</code>
        */
       public Builder clearAckUser() {
         
@@ -6565,7 +6026,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string ack_user = 18;</code>
+       * <code>string ack_user = 13;</code>
        */
       public Builder setAckUserBytes(
           com.google.protobuf.ByteString value) {
@@ -6581,13 +6042,13 @@ public final class OpennmsModelProtos {
 
       private long ackTime_ ;
       /**
-       * <code>uint64 ack_time = 19;</code>
+       * <code>uint64 ack_time = 14;</code>
        */
       public long getAckTime() {
         return ackTime_;
       }
       /**
-       * <code>uint64 ack_time = 19;</code>
+       * <code>uint64 ack_time = 14;</code>
        */
       public Builder setAckTime(long value) {
         
@@ -6596,7 +6057,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint64 ack_time = 19;</code>
+       * <code>uint64 ack_time = 14;</code>
        */
       public Builder clearAckTime() {
         
@@ -6609,13 +6070,13 @@ public final class OpennmsModelProtos {
       private com.google.protobuf.SingleFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event, org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventOrBuilder> lastEventBuilder_;
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public boolean hasLastEvent() {
         return lastEventBuilder_ != null || lastEvent_ != null;
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event getLastEvent() {
         if (lastEventBuilder_ == null) {
@@ -6625,7 +6086,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public Builder setLastEvent(org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event value) {
         if (lastEventBuilder_ == null) {
@@ -6641,7 +6102,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public Builder setLastEvent(
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event.Builder builderForValue) {
@@ -6655,7 +6116,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public Builder mergeLastEvent(org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event value) {
         if (lastEventBuilder_ == null) {
@@ -6673,7 +6134,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public Builder clearLastEvent() {
         if (lastEventBuilder_ == null) {
@@ -6687,7 +6148,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event.Builder getLastEventBuilder() {
         
@@ -6695,7 +6156,7 @@ public final class OpennmsModelProtos {
         return getLastEventFieldBuilder().getBuilder();
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventOrBuilder getLastEventOrBuilder() {
         if (lastEventBuilder_ != null) {
@@ -6706,7 +6167,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>.Event last_event = 20;</code>
+       * <code>.Event last_event = 15;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event, org.opennms.features.kafka.producer.model.OpennmsModelProtos.Event.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.EventOrBuilder> 
@@ -6724,13 +6185,13 @@ public final class OpennmsModelProtos {
 
       private long lastEventTime_ ;
       /**
-       * <code>uint64 last_event_time = 21;</code>
+       * <code>uint64 last_event_time = 16;</code>
        */
       public long getLastEventTime() {
         return lastEventTime_;
       }
       /**
-       * <code>uint64 last_event_time = 21;</code>
+       * <code>uint64 last_event_time = 16;</code>
        */
       public Builder setLastEventTime(long value) {
         
@@ -6739,7 +6200,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint64 last_event_time = 21;</code>
+       * <code>uint64 last_event_time = 16;</code>
        */
       public Builder clearLastEventTime() {
         
@@ -6750,13 +6211,13 @@ public final class OpennmsModelProtos {
 
       private int ifIndex_ ;
       /**
-       * <code>uint32 if_index = 22;</code>
+       * <code>uint32 if_index = 17;</code>
        */
       public int getIfIndex() {
         return ifIndex_;
       }
       /**
-       * <code>uint32 if_index = 22;</code>
+       * <code>uint32 if_index = 17;</code>
        */
       public Builder setIfIndex(int value) {
         
@@ -6765,7 +6226,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint32 if_index = 22;</code>
+       * <code>uint32 if_index = 17;</code>
        */
       public Builder clearIfIndex() {
         
@@ -6776,7 +6237,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object operatorInstructions_ = "";
       /**
-       * <code>string operator_instructions = 23;</code>
+       * <code>string operator_instructions = 18;</code>
        */
       public java.lang.String getOperatorInstructions() {
         java.lang.Object ref = operatorInstructions_;
@@ -6791,7 +6252,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string operator_instructions = 23;</code>
+       * <code>string operator_instructions = 18;</code>
        */
       public com.google.protobuf.ByteString
           getOperatorInstructionsBytes() {
@@ -6807,7 +6268,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string operator_instructions = 23;</code>
+       * <code>string operator_instructions = 18;</code>
        */
       public Builder setOperatorInstructions(
           java.lang.String value) {
@@ -6820,7 +6281,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string operator_instructions = 23;</code>
+       * <code>string operator_instructions = 18;</code>
        */
       public Builder clearOperatorInstructions() {
         
@@ -6829,7 +6290,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string operator_instructions = 23;</code>
+       * <code>string operator_instructions = 18;</code>
        */
       public Builder setOperatorInstructionsBytes(
           com.google.protobuf.ByteString value) {
@@ -6845,7 +6306,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object clearKey_ = "";
       /**
-       * <code>string clear_key = 24;</code>
+       * <code>string clear_key = 19;</code>
        */
       public java.lang.String getClearKey() {
         java.lang.Object ref = clearKey_;
@@ -6860,7 +6321,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string clear_key = 24;</code>
+       * <code>string clear_key = 19;</code>
        */
       public com.google.protobuf.ByteString
           getClearKeyBytes() {
@@ -6876,7 +6337,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string clear_key = 24;</code>
+       * <code>string clear_key = 19;</code>
        */
       public Builder setClearKey(
           java.lang.String value) {
@@ -6889,7 +6350,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string clear_key = 24;</code>
+       * <code>string clear_key = 19;</code>
        */
       public Builder clearClearKey() {
         
@@ -6898,7 +6359,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string clear_key = 24;</code>
+       * <code>string clear_key = 19;</code>
        */
       public Builder setClearKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -6965,30 +6426,49 @@ public final class OpennmsModelProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string ip_address = 1;</code>
+     * <code>uint64 id = 1;</code>
+     */
+    long getId();
+
+    /**
+     * <code>string ip_address = 2;</code>
      */
     java.lang.String getIpAddress();
     /**
-     * <code>string ip_address = 1;</code>
+     * <code>string ip_address = 2;</code>
      */
     com.google.protobuf.ByteString
         getIpAddressBytes();
 
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>uint32 if_index = 3;</code>
+     */
+    int getIfIndex();
+
+    /**
+     * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+     */
+    int getPrimaryTypeValue();
+    /**
+     * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+     */
+    org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType getPrimaryType();
+
+    /**
+     * <code>repeated string service = 5;</code>
      */
     java.util.List<java.lang.String>
         getServiceList();
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     int getServiceCount();
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     java.lang.String getService(int index);
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     com.google.protobuf.ByteString
         getServiceBytes(int index);
@@ -7006,7 +6486,10 @@ public final class OpennmsModelProtos {
       super(builder);
     }
     private IpInterface() {
+      id_ = 0L;
       ipAddress_ = "";
+      ifIndex_ = 0;
+      primaryType_ = 0;
       service_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
@@ -7041,17 +6524,33 @@ public final class OpennmsModelProtos {
               }
               break;
             }
-            case 10: {
+            case 8: {
+
+              id_ = input.readUInt64();
+              break;
+            }
+            case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               ipAddress_ = s;
               break;
             }
-            case 18: {
+            case 24: {
+
+              ifIndex_ = input.readUInt32();
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              primaryType_ = rawValue;
+              break;
+            }
+            case 42: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
                 service_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000010;
               }
               service_.add(s);
               break;
@@ -7064,7 +6563,7 @@ public final class OpennmsModelProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           service_ = service_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -7083,11 +6582,127 @@ public final class OpennmsModelProtos {
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.class, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder.class);
     }
 
+    /**
+     * Protobuf enum {@code IpInterface.PrimaryType}
+     */
+    public enum PrimaryType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>PRIMARY = 0;</code>
+       */
+      PRIMARY(0),
+      /**
+       * <code>SECONDARY = 1;</code>
+       */
+      SECONDARY(1),
+      /**
+       * <code>NOT_ELIGIBLE = 2;</code>
+       */
+      NOT_ELIGIBLE(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>PRIMARY = 0;</code>
+       */
+      public static final int PRIMARY_VALUE = 0;
+      /**
+       * <code>SECONDARY = 1;</code>
+       */
+      public static final int SECONDARY_VALUE = 1;
+      /**
+       * <code>NOT_ELIGIBLE = 2;</code>
+       */
+      public static final int NOT_ELIGIBLE_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static PrimaryType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static PrimaryType forNumber(int value) {
+        switch (value) {
+          case 0: return PRIMARY;
+          case 1: return SECONDARY;
+          case 2: return NOT_ELIGIBLE;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<PrimaryType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          PrimaryType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<PrimaryType>() {
+              public PrimaryType findValueByNumber(int number) {
+                return PrimaryType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final PrimaryType[] VALUES = values();
+
+      public static PrimaryType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private PrimaryType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:IpInterface.PrimaryType)
+    }
+
     private int bitField0_;
-    public static final int IP_ADDRESS_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_;
+    /**
+     * <code>uint64 id = 1;</code>
+     */
+    public long getId() {
+      return id_;
+    }
+
+    public static final int IP_ADDRESS_FIELD_NUMBER = 2;
     private volatile java.lang.Object ipAddress_;
     /**
-     * <code>string ip_address = 1;</code>
+     * <code>string ip_address = 2;</code>
      */
     public java.lang.String getIpAddress() {
       java.lang.Object ref = ipAddress_;
@@ -7102,7 +6717,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string ip_address = 1;</code>
+     * <code>string ip_address = 2;</code>
      */
     public com.google.protobuf.ByteString
         getIpAddressBytes() {
@@ -7118,29 +6733,54 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int SERVICE_FIELD_NUMBER = 2;
+    public static final int IF_INDEX_FIELD_NUMBER = 3;
+    private int ifIndex_;
+    /**
+     * <code>uint32 if_index = 3;</code>
+     */
+    public int getIfIndex() {
+      return ifIndex_;
+    }
+
+    public static final int PRIMARY_TYPE_FIELD_NUMBER = 4;
+    private int primaryType_;
+    /**
+     * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+     */
+    public int getPrimaryTypeValue() {
+      return primaryType_;
+    }
+    /**
+     * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+     */
+    public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType getPrimaryType() {
+      org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType result = org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType.valueOf(primaryType_);
+      return result == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType.UNRECOGNIZED : result;
+    }
+
+    public static final int SERVICE_FIELD_NUMBER = 5;
     private com.google.protobuf.LazyStringList service_;
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     public com.google.protobuf.ProtocolStringList
         getServiceList() {
       return service_;
     }
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     public int getServiceCount() {
       return service_.size();
     }
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     public java.lang.String getService(int index) {
       return service_.get(index);
     }
     /**
-     * <code>repeated string service = 2;</code>
+     * <code>repeated string service = 5;</code>
      */
     public com.google.protobuf.ByteString
         getServiceBytes(int index) {
@@ -7159,11 +6799,20 @@ public final class OpennmsModelProtos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeUInt64(1, id_);
+      }
       if (!getIpAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ipAddress_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ipAddress_);
+      }
+      if (ifIndex_ != 0) {
+        output.writeUInt32(3, ifIndex_);
+      }
+      if (primaryType_ != org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType.PRIMARY.getNumber()) {
+        output.writeEnum(4, primaryType_);
       }
       for (int i = 0; i < service_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, service_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, service_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -7173,8 +6822,20 @@ public final class OpennmsModelProtos {
       if (size != -1) return size;
 
       size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, id_);
+      }
       if (!getIpAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ipAddress_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ipAddress_);
+      }
+      if (ifIndex_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, ifIndex_);
+      }
+      if (primaryType_ != org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType.PRIMARY.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, primaryType_);
       }
       {
         int dataSize = 0;
@@ -7200,8 +6861,13 @@ public final class OpennmsModelProtos {
       org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface other = (org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface) obj;
 
       boolean result = true;
+      result = result && (getId()
+          == other.getId());
       result = result && getIpAddress()
           .equals(other.getIpAddress());
+      result = result && (getIfIndex()
+          == other.getIfIndex());
+      result = result && primaryType_ == other.primaryType_;
       result = result && getServiceList()
           .equals(other.getServiceList());
       result = result && unknownFields.equals(other.unknownFields);
@@ -7215,8 +6881,15 @@ public final class OpennmsModelProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
       hash = (37 * hash) + IP_ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getIpAddress().hashCode();
+      hash = (37 * hash) + IF_INDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getIfIndex();
+      hash = (37 * hash) + PRIMARY_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + primaryType_;
       if (getServiceCount() > 0) {
         hash = (37 * hash) + SERVICE_FIELD_NUMBER;
         hash = (53 * hash) + getServiceList().hashCode();
@@ -7350,10 +7023,16 @@ public final class OpennmsModelProtos {
       }
       public Builder clear() {
         super.clear();
+        id_ = 0L;
+
         ipAddress_ = "";
 
+        ifIndex_ = 0;
+
+        primaryType_ = 0;
+
         service_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -7378,10 +7057,13 @@ public final class OpennmsModelProtos {
         org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface result = new org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
+        result.id_ = id_;
         result.ipAddress_ = ipAddress_;
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        result.ifIndex_ = ifIndex_;
+        result.primaryType_ = primaryType_;
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
           service_ = service_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.service_ = service_;
         result.bitField0_ = to_bitField0_;
@@ -7426,14 +7108,23 @@ public final class OpennmsModelProtos {
 
       public Builder mergeFrom(org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface other) {
         if (other == org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
         if (!other.getIpAddress().isEmpty()) {
           ipAddress_ = other.ipAddress_;
           onChanged();
         }
+        if (other.getIfIndex() != 0) {
+          setIfIndex(other.getIfIndex());
+        }
+        if (other.primaryType_ != 0) {
+          setPrimaryTypeValue(other.getPrimaryTypeValue());
+        }
         if (!other.service_.isEmpty()) {
           if (service_.isEmpty()) {
             service_ = other.service_;
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000010);
           } else {
             ensureServiceIsMutable();
             service_.addAll(other.service_);
@@ -7468,9 +7159,35 @@ public final class OpennmsModelProtos {
       }
       private int bitField0_;
 
+      private long id_ ;
+      /**
+       * <code>uint64 id = 1;</code>
+       */
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>uint64 id = 1;</code>
+       */
+      public Builder setId(long value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object ipAddress_ = "";
       /**
-       * <code>string ip_address = 1;</code>
+       * <code>string ip_address = 2;</code>
        */
       public java.lang.String getIpAddress() {
         java.lang.Object ref = ipAddress_;
@@ -7485,7 +7202,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string ip_address = 1;</code>
+       * <code>string ip_address = 2;</code>
        */
       public com.google.protobuf.ByteString
           getIpAddressBytes() {
@@ -7501,7 +7218,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string ip_address = 1;</code>
+       * <code>string ip_address = 2;</code>
        */
       public Builder setIpAddress(
           java.lang.String value) {
@@ -7514,7 +7231,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string ip_address = 1;</code>
+       * <code>string ip_address = 2;</code>
        */
       public Builder clearIpAddress() {
         
@@ -7523,7 +7240,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string ip_address = 1;</code>
+       * <code>string ip_address = 2;</code>
        */
       public Builder setIpAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -7537,41 +7254,111 @@ public final class OpennmsModelProtos {
         return this;
       }
 
+      private int ifIndex_ ;
+      /**
+       * <code>uint32 if_index = 3;</code>
+       */
+      public int getIfIndex() {
+        return ifIndex_;
+      }
+      /**
+       * <code>uint32 if_index = 3;</code>
+       */
+      public Builder setIfIndex(int value) {
+        
+        ifIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 if_index = 3;</code>
+       */
+      public Builder clearIfIndex() {
+        
+        ifIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int primaryType_ = 0;
+      /**
+       * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+       */
+      public int getPrimaryTypeValue() {
+        return primaryType_;
+      }
+      /**
+       * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+       */
+      public Builder setPrimaryTypeValue(int value) {
+        primaryType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+       */
+      public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType getPrimaryType() {
+        org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType result = org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType.valueOf(primaryType_);
+        return result == null ? org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+       */
+      public Builder setPrimaryType(org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.PrimaryType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        primaryType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.IpInterface.PrimaryType primary_type = 4;</code>
+       */
+      public Builder clearPrimaryType() {
+        
+        primaryType_ = 0;
+        onChanged();
+        return this;
+      }
+
       private com.google.protobuf.LazyStringList service_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureServiceIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
           service_ = new com.google.protobuf.LazyStringArrayList(service_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000010;
          }
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public com.google.protobuf.ProtocolStringList
           getServiceList() {
         return service_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public int getServiceCount() {
         return service_.size();
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public java.lang.String getService(int index) {
         return service_.get(index);
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public com.google.protobuf.ByteString
           getServiceBytes(int index) {
         return service_.getByteString(index);
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public Builder setService(
           int index, java.lang.String value) {
@@ -7584,7 +7371,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public Builder addService(
           java.lang.String value) {
@@ -7597,7 +7384,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public Builder addAllService(
           java.lang.Iterable<java.lang.String> values) {
@@ -7608,16 +7395,16 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public Builder clearService() {
         service_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string service = 2;</code>
+       * <code>repeated string service = 5;</code>
        */
       public Builder addServiceBytes(
           com.google.protobuf.ByteString value) {
@@ -7684,29 +7471,74 @@ public final class OpennmsModelProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint32 if_index = 1;</code>
+     * <code>uint64 id = 1;</code>
+     */
+    long getId();
+
+    /**
+     * <code>uint32 if_index = 2;</code>
      */
     int getIfIndex();
 
     /**
-     * <code>string if_descr = 2;</code>
+     * <code>string if_descr = 3;</code>
      */
     java.lang.String getIfDescr();
     /**
-     * <code>string if_descr = 2;</code>
+     * <code>string if_descr = 3;</code>
      */
     com.google.protobuf.ByteString
         getIfDescrBytes();
 
     /**
-     * <code>string if_name = 3;</code>
+     * <code>uint32 if_type = 4;</code>
+     */
+    int getIfType();
+
+    /**
+     * <code>string if_name = 5;</code>
      */
     java.lang.String getIfName();
     /**
-     * <code>string if_name = 3;</code>
+     * <code>string if_name = 5;</code>
      */
     com.google.protobuf.ByteString
         getIfNameBytes();
+
+    /**
+     * <code>uint64 if_speed = 6;</code>
+     */
+    long getIfSpeed();
+
+    /**
+     * <code>string if_phys_address = 7;</code>
+     */
+    java.lang.String getIfPhysAddress();
+    /**
+     * <code>string if_phys_address = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getIfPhysAddressBytes();
+
+    /**
+     * <code>uint32 if_admin_status = 8;</code>
+     */
+    int getIfAdminStatus();
+
+    /**
+     * <code>uint32 if_oper_status = 9;</code>
+     */
+    int getIfOperStatus();
+
+    /**
+     * <code>string if_alias = 10;</code>
+     */
+    java.lang.String getIfAlias();
+    /**
+     * <code>string if_alias = 10;</code>
+     */
+    com.google.protobuf.ByteString
+        getIfAliasBytes();
   }
   /**
    * Protobuf type {@code SnmpInterface}
@@ -7721,9 +7553,16 @@ public final class OpennmsModelProtos {
       super(builder);
     }
     private SnmpInterface() {
+      id_ = 0L;
       ifIndex_ = 0;
       ifDescr_ = "";
+      ifType_ = 0;
       ifName_ = "";
+      ifSpeed_ = 0L;
+      ifPhysAddress_ = "";
+      ifAdminStatus_ = 0;
+      ifOperStatus_ = 0;
+      ifAlias_ = "";
     }
 
     @java.lang.Override
@@ -7759,19 +7598,56 @@ public final class OpennmsModelProtos {
             }
             case 8: {
 
-              ifIndex_ = input.readUInt32();
+              id_ = input.readUInt64();
               break;
             }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 16: {
 
-              ifDescr_ = s;
+              ifIndex_ = input.readUInt32();
               break;
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
+              ifDescr_ = s;
+              break;
+            }
+            case 32: {
+
+              ifType_ = input.readUInt32();
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
               ifName_ = s;
+              break;
+            }
+            case 48: {
+
+              ifSpeed_ = input.readUInt64();
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ifPhysAddress_ = s;
+              break;
+            }
+            case 64: {
+
+              ifAdminStatus_ = input.readUInt32();
+              break;
+            }
+            case 72: {
+
+              ifOperStatus_ = input.readUInt32();
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ifAlias_ = s;
               break;
             }
           }
@@ -7798,19 +7674,28 @@ public final class OpennmsModelProtos {
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.class, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder.class);
     }
 
-    public static final int IF_INDEX_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_;
+    /**
+     * <code>uint64 id = 1;</code>
+     */
+    public long getId() {
+      return id_;
+    }
+
+    public static final int IF_INDEX_FIELD_NUMBER = 2;
     private int ifIndex_;
     /**
-     * <code>uint32 if_index = 1;</code>
+     * <code>uint32 if_index = 2;</code>
      */
     public int getIfIndex() {
       return ifIndex_;
     }
 
-    public static final int IF_DESCR_FIELD_NUMBER = 2;
+    public static final int IF_DESCR_FIELD_NUMBER = 3;
     private volatile java.lang.Object ifDescr_;
     /**
-     * <code>string if_descr = 2;</code>
+     * <code>string if_descr = 3;</code>
      */
     public java.lang.String getIfDescr() {
       java.lang.Object ref = ifDescr_;
@@ -7825,7 +7710,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string if_descr = 2;</code>
+     * <code>string if_descr = 3;</code>
      */
     public com.google.protobuf.ByteString
         getIfDescrBytes() {
@@ -7841,10 +7726,19 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int IF_NAME_FIELD_NUMBER = 3;
+    public static final int IF_TYPE_FIELD_NUMBER = 4;
+    private int ifType_;
+    /**
+     * <code>uint32 if_type = 4;</code>
+     */
+    public int getIfType() {
+      return ifType_;
+    }
+
+    public static final int IF_NAME_FIELD_NUMBER = 5;
     private volatile java.lang.Object ifName_;
     /**
-     * <code>string if_name = 3;</code>
+     * <code>string if_name = 5;</code>
      */
     public java.lang.String getIfName() {
       java.lang.Object ref = ifName_;
@@ -7859,7 +7753,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string if_name = 3;</code>
+     * <code>string if_name = 5;</code>
      */
     public com.google.protobuf.ByteString
         getIfNameBytes() {
@@ -7869,6 +7763,101 @@ public final class OpennmsModelProtos {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         ifName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int IF_SPEED_FIELD_NUMBER = 6;
+    private long ifSpeed_;
+    /**
+     * <code>uint64 if_speed = 6;</code>
+     */
+    public long getIfSpeed() {
+      return ifSpeed_;
+    }
+
+    public static final int IF_PHYS_ADDRESS_FIELD_NUMBER = 7;
+    private volatile java.lang.Object ifPhysAddress_;
+    /**
+     * <code>string if_phys_address = 7;</code>
+     */
+    public java.lang.String getIfPhysAddress() {
+      java.lang.Object ref = ifPhysAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ifPhysAddress_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string if_phys_address = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIfPhysAddressBytes() {
+      java.lang.Object ref = ifPhysAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ifPhysAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int IF_ADMIN_STATUS_FIELD_NUMBER = 8;
+    private int ifAdminStatus_;
+    /**
+     * <code>uint32 if_admin_status = 8;</code>
+     */
+    public int getIfAdminStatus() {
+      return ifAdminStatus_;
+    }
+
+    public static final int IF_OPER_STATUS_FIELD_NUMBER = 9;
+    private int ifOperStatus_;
+    /**
+     * <code>uint32 if_oper_status = 9;</code>
+     */
+    public int getIfOperStatus() {
+      return ifOperStatus_;
+    }
+
+    public static final int IF_ALIAS_FIELD_NUMBER = 10;
+    private volatile java.lang.Object ifAlias_;
+    /**
+     * <code>string if_alias = 10;</code>
+     */
+    public java.lang.String getIfAlias() {
+      java.lang.Object ref = ifAlias_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ifAlias_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string if_alias = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIfAliasBytes() {
+      java.lang.Object ref = ifAlias_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ifAlias_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -7887,14 +7876,35 @@ public final class OpennmsModelProtos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeUInt64(1, id_);
+      }
       if (ifIndex_ != 0) {
-        output.writeUInt32(1, ifIndex_);
+        output.writeUInt32(2, ifIndex_);
       }
       if (!getIfDescrBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ifDescr_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, ifDescr_);
+      }
+      if (ifType_ != 0) {
+        output.writeUInt32(4, ifType_);
       }
       if (!getIfNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, ifName_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, ifName_);
+      }
+      if (ifSpeed_ != 0L) {
+        output.writeUInt64(6, ifSpeed_);
+      }
+      if (!getIfPhysAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, ifPhysAddress_);
+      }
+      if (ifAdminStatus_ != 0) {
+        output.writeUInt32(8, ifAdminStatus_);
+      }
+      if (ifOperStatus_ != 0) {
+        output.writeUInt32(9, ifOperStatus_);
+      }
+      if (!getIfAliasBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, ifAlias_);
       }
       unknownFields.writeTo(output);
     }
@@ -7904,15 +7914,41 @@ public final class OpennmsModelProtos {
       if (size != -1) return size;
 
       size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, id_);
+      }
       if (ifIndex_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, ifIndex_);
+          .computeUInt32Size(2, ifIndex_);
       }
       if (!getIfDescrBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ifDescr_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, ifDescr_);
+      }
+      if (ifType_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, ifType_);
       }
       if (!getIfNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, ifName_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, ifName_);
+      }
+      if (ifSpeed_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, ifSpeed_);
+      }
+      if (!getIfPhysAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, ifPhysAddress_);
+      }
+      if (ifAdminStatus_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(8, ifAdminStatus_);
+      }
+      if (ifOperStatus_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(9, ifOperStatus_);
+      }
+      if (!getIfAliasBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, ifAlias_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7930,12 +7966,26 @@ public final class OpennmsModelProtos {
       org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface other = (org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface) obj;
 
       boolean result = true;
+      result = result && (getId()
+          == other.getId());
       result = result && (getIfIndex()
           == other.getIfIndex());
       result = result && getIfDescr()
           .equals(other.getIfDescr());
+      result = result && (getIfType()
+          == other.getIfType());
       result = result && getIfName()
           .equals(other.getIfName());
+      result = result && (getIfSpeed()
+          == other.getIfSpeed());
+      result = result && getIfPhysAddress()
+          .equals(other.getIfPhysAddress());
+      result = result && (getIfAdminStatus()
+          == other.getIfAdminStatus());
+      result = result && (getIfOperStatus()
+          == other.getIfOperStatus());
+      result = result && getIfAlias()
+          .equals(other.getIfAlias());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -7947,12 +7997,28 @@ public final class OpennmsModelProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
       hash = (37 * hash) + IF_INDEX_FIELD_NUMBER;
       hash = (53 * hash) + getIfIndex();
       hash = (37 * hash) + IF_DESCR_FIELD_NUMBER;
       hash = (53 * hash) + getIfDescr().hashCode();
+      hash = (37 * hash) + IF_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getIfType();
       hash = (37 * hash) + IF_NAME_FIELD_NUMBER;
       hash = (53 * hash) + getIfName().hashCode();
+      hash = (37 * hash) + IF_SPEED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getIfSpeed());
+      hash = (37 * hash) + IF_PHYS_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getIfPhysAddress().hashCode();
+      hash = (37 * hash) + IF_ADMIN_STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getIfAdminStatus();
+      hash = (37 * hash) + IF_OPER_STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getIfOperStatus();
+      hash = (37 * hash) + IF_ALIAS_FIELD_NUMBER;
+      hash = (53 * hash) + getIfAlias().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8082,11 +8148,25 @@ public final class OpennmsModelProtos {
       }
       public Builder clear() {
         super.clear();
+        id_ = 0L;
+
         ifIndex_ = 0;
 
         ifDescr_ = "";
 
+        ifType_ = 0;
+
         ifName_ = "";
+
+        ifSpeed_ = 0L;
+
+        ifPhysAddress_ = "";
+
+        ifAdminStatus_ = 0;
+
+        ifOperStatus_ = 0;
+
+        ifAlias_ = "";
 
         return this;
       }
@@ -8110,9 +8190,16 @@ public final class OpennmsModelProtos {
 
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface buildPartial() {
         org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface result = new org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface(this);
+        result.id_ = id_;
         result.ifIndex_ = ifIndex_;
         result.ifDescr_ = ifDescr_;
+        result.ifType_ = ifType_;
         result.ifName_ = ifName_;
+        result.ifSpeed_ = ifSpeed_;
+        result.ifPhysAddress_ = ifPhysAddress_;
+        result.ifAdminStatus_ = ifAdminStatus_;
+        result.ifOperStatus_ = ifOperStatus_;
+        result.ifAlias_ = ifAlias_;
         onBuilt();
         return result;
       }
@@ -8154,6 +8241,9 @@ public final class OpennmsModelProtos {
 
       public Builder mergeFrom(org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface other) {
         if (other == org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
         if (other.getIfIndex() != 0) {
           setIfIndex(other.getIfIndex());
         }
@@ -8161,8 +8251,28 @@ public final class OpennmsModelProtos {
           ifDescr_ = other.ifDescr_;
           onChanged();
         }
+        if (other.getIfType() != 0) {
+          setIfType(other.getIfType());
+        }
         if (!other.getIfName().isEmpty()) {
           ifName_ = other.ifName_;
+          onChanged();
+        }
+        if (other.getIfSpeed() != 0L) {
+          setIfSpeed(other.getIfSpeed());
+        }
+        if (!other.getIfPhysAddress().isEmpty()) {
+          ifPhysAddress_ = other.ifPhysAddress_;
+          onChanged();
+        }
+        if (other.getIfAdminStatus() != 0) {
+          setIfAdminStatus(other.getIfAdminStatus());
+        }
+        if (other.getIfOperStatus() != 0) {
+          setIfOperStatus(other.getIfOperStatus());
+        }
+        if (!other.getIfAlias().isEmpty()) {
+          ifAlias_ = other.ifAlias_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -8192,15 +8302,41 @@ public final class OpennmsModelProtos {
         return this;
       }
 
+      private long id_ ;
+      /**
+       * <code>uint64 id = 1;</code>
+       */
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>uint64 id = 1;</code>
+       */
+      public Builder setId(long value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private int ifIndex_ ;
       /**
-       * <code>uint32 if_index = 1;</code>
+       * <code>uint32 if_index = 2;</code>
        */
       public int getIfIndex() {
         return ifIndex_;
       }
       /**
-       * <code>uint32 if_index = 1;</code>
+       * <code>uint32 if_index = 2;</code>
        */
       public Builder setIfIndex(int value) {
         
@@ -8209,7 +8345,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint32 if_index = 1;</code>
+       * <code>uint32 if_index = 2;</code>
        */
       public Builder clearIfIndex() {
         
@@ -8220,7 +8356,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object ifDescr_ = "";
       /**
-       * <code>string if_descr = 2;</code>
+       * <code>string if_descr = 3;</code>
        */
       public java.lang.String getIfDescr() {
         java.lang.Object ref = ifDescr_;
@@ -8235,7 +8371,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string if_descr = 2;</code>
+       * <code>string if_descr = 3;</code>
        */
       public com.google.protobuf.ByteString
           getIfDescrBytes() {
@@ -8251,7 +8387,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string if_descr = 2;</code>
+       * <code>string if_descr = 3;</code>
        */
       public Builder setIfDescr(
           java.lang.String value) {
@@ -8264,7 +8400,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string if_descr = 2;</code>
+       * <code>string if_descr = 3;</code>
        */
       public Builder clearIfDescr() {
         
@@ -8273,7 +8409,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string if_descr = 2;</code>
+       * <code>string if_descr = 3;</code>
        */
       public Builder setIfDescrBytes(
           com.google.protobuf.ByteString value) {
@@ -8287,9 +8423,35 @@ public final class OpennmsModelProtos {
         return this;
       }
 
+      private int ifType_ ;
+      /**
+       * <code>uint32 if_type = 4;</code>
+       */
+      public int getIfType() {
+        return ifType_;
+      }
+      /**
+       * <code>uint32 if_type = 4;</code>
+       */
+      public Builder setIfType(int value) {
+        
+        ifType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 if_type = 4;</code>
+       */
+      public Builder clearIfType() {
+        
+        ifType_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object ifName_ = "";
       /**
-       * <code>string if_name = 3;</code>
+       * <code>string if_name = 5;</code>
        */
       public java.lang.String getIfName() {
         java.lang.Object ref = ifName_;
@@ -8304,7 +8466,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string if_name = 3;</code>
+       * <code>string if_name = 5;</code>
        */
       public com.google.protobuf.ByteString
           getIfNameBytes() {
@@ -8320,7 +8482,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string if_name = 3;</code>
+       * <code>string if_name = 5;</code>
        */
       public Builder setIfName(
           java.lang.String value) {
@@ -8333,7 +8495,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string if_name = 3;</code>
+       * <code>string if_name = 5;</code>
        */
       public Builder clearIfName() {
         
@@ -8342,7 +8504,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string if_name = 3;</code>
+       * <code>string if_name = 5;</code>
        */
       public Builder setIfNameBytes(
           com.google.protobuf.ByteString value) {
@@ -8352,6 +8514,222 @@ public final class OpennmsModelProtos {
   checkByteStringIsUtf8(value);
         
         ifName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long ifSpeed_ ;
+      /**
+       * <code>uint64 if_speed = 6;</code>
+       */
+      public long getIfSpeed() {
+        return ifSpeed_;
+      }
+      /**
+       * <code>uint64 if_speed = 6;</code>
+       */
+      public Builder setIfSpeed(long value) {
+        
+        ifSpeed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 if_speed = 6;</code>
+       */
+      public Builder clearIfSpeed() {
+        
+        ifSpeed_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ifPhysAddress_ = "";
+      /**
+       * <code>string if_phys_address = 7;</code>
+       */
+      public java.lang.String getIfPhysAddress() {
+        java.lang.Object ref = ifPhysAddress_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ifPhysAddress_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string if_phys_address = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIfPhysAddressBytes() {
+        java.lang.Object ref = ifPhysAddress_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ifPhysAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string if_phys_address = 7;</code>
+       */
+      public Builder setIfPhysAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ifPhysAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string if_phys_address = 7;</code>
+       */
+      public Builder clearIfPhysAddress() {
+        
+        ifPhysAddress_ = getDefaultInstance().getIfPhysAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string if_phys_address = 7;</code>
+       */
+      public Builder setIfPhysAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ifPhysAddress_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int ifAdminStatus_ ;
+      /**
+       * <code>uint32 if_admin_status = 8;</code>
+       */
+      public int getIfAdminStatus() {
+        return ifAdminStatus_;
+      }
+      /**
+       * <code>uint32 if_admin_status = 8;</code>
+       */
+      public Builder setIfAdminStatus(int value) {
+        
+        ifAdminStatus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 if_admin_status = 8;</code>
+       */
+      public Builder clearIfAdminStatus() {
+        
+        ifAdminStatus_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int ifOperStatus_ ;
+      /**
+       * <code>uint32 if_oper_status = 9;</code>
+       */
+      public int getIfOperStatus() {
+        return ifOperStatus_;
+      }
+      /**
+       * <code>uint32 if_oper_status = 9;</code>
+       */
+      public Builder setIfOperStatus(int value) {
+        
+        ifOperStatus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 if_oper_status = 9;</code>
+       */
+      public Builder clearIfOperStatus() {
+        
+        ifOperStatus_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ifAlias_ = "";
+      /**
+       * <code>string if_alias = 10;</code>
+       */
+      public java.lang.String getIfAlias() {
+        java.lang.Object ref = ifAlias_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ifAlias_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string if_alias = 10;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIfAliasBytes() {
+        java.lang.Object ref = ifAlias_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ifAlias_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string if_alias = 10;</code>
+       */
+      public Builder setIfAlias(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ifAlias_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string if_alias = 10;</code>
+       */
+      public Builder clearIfAlias() {
+        
+        ifAlias_ = getDefaultInstance().getIfAlias();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string if_alias = 10;</code>
+       */
+      public Builder setIfAliasBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ifAlias_ = value;
         onChanged();
         return this;
       }
@@ -8434,141 +8812,123 @@ public final class OpennmsModelProtos {
         getForeignIdBytes();
 
     /**
-     * <pre>
-     * TODO: Enum
-     * </pre>
-     *
-     * <code>string type = 4;</code>
-     */
-    java.lang.String getType();
-    /**
-     * <pre>
-     * TODO: Enum
-     * </pre>
-     *
-     * <code>string type = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getTypeBytes();
-
-    /**
-     * <code>string location = 5;</code>
+     * <code>string location = 4;</code>
      */
     java.lang.String getLocation();
     /**
-     * <code>string location = 5;</code>
+     * <code>string location = 4;</code>
      */
     com.google.protobuf.ByteString
         getLocationBytes();
 
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     java.util.List<java.lang.String>
         getCategoryList();
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     int getCategoryCount();
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     java.lang.String getCategory(int index);
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     com.google.protobuf.ByteString
         getCategoryBytes(int index);
 
     /**
-     * <code>string label = 7;</code>
+     * <code>string label = 6;</code>
      */
     java.lang.String getLabel();
     /**
-     * <code>string label = 7;</code>
+     * <code>string label = 6;</code>
      */
     com.google.protobuf.ByteString
         getLabelBytes();
 
     /**
-     * <code>uint64 create_time = 8;</code>
+     * <code>uint64 create_time = 7;</code>
      */
     long getCreateTime();
 
     /**
-     * <code>string sys_contact = 9;</code>
+     * <code>string sys_contact = 8;</code>
      */
     java.lang.String getSysContact();
     /**
-     * <code>string sys_contact = 9;</code>
+     * <code>string sys_contact = 8;</code>
      */
     com.google.protobuf.ByteString
         getSysContactBytes();
 
     /**
-     * <code>string sys_description = 10;</code>
+     * <code>string sys_description = 9;</code>
      */
     java.lang.String getSysDescription();
     /**
-     * <code>string sys_description = 10;</code>
+     * <code>string sys_description = 9;</code>
      */
     com.google.protobuf.ByteString
         getSysDescriptionBytes();
 
     /**
-     * <code>string sys_object_id = 11;</code>
+     * <code>string sys_object_id = 10;</code>
      */
     java.lang.String getSysObjectId();
     /**
-     * <code>string sys_object_id = 11;</code>
+     * <code>string sys_object_id = 10;</code>
      */
     com.google.protobuf.ByteString
         getSysObjectIdBytes();
 
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface> 
         getIpInterfaceList();
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface getIpInterface(int index);
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     int getIpInterfaceCount();
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder> 
         getIpInterfaceOrBuilderList();
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder getIpInterfaceOrBuilder(
         int index);
 
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface> 
         getSnmpInterfaceList();
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface getSnmpInterface(int index);
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     int getSnmpInterfaceCount();
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder> 
         getSnmpInterfaceOrBuilderList();
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder getSnmpInterfaceOrBuilder(
         int index);
@@ -8589,7 +8949,6 @@ public final class OpennmsModelProtos {
       id_ = 0L;
       foreignSource_ = "";
       foreignId_ = "";
-      type_ = "";
       location_ = "";
       category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       label_ = "";
@@ -8652,66 +9011,60 @@ public final class OpennmsModelProtos {
             case 34: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              type_ = s;
+              location_ = s;
               break;
             }
             case 42: {
               java.lang.String s = input.readStringRequireUtf8();
-
-              location_ = s;
-              break;
-            }
-            case 50: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
                 category_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000010;
               }
               category_.add(s);
               break;
             }
-            case 58: {
+            case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
               label_ = s;
               break;
             }
-            case 64: {
+            case 56: {
 
               createTime_ = input.readUInt64();
               break;
             }
-            case 74: {
+            case 66: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sysContact_ = s;
               break;
             }
-            case 82: {
+            case 74: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sysDescription_ = s;
               break;
             }
-            case 90: {
+            case 82: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sysObjectId_ = s;
               break;
             }
-            case 98: {
-              if (!((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+            case 90: {
+              if (!((mutable_bitField0_ & 0x00000400) == 0x00000400)) {
                 ipInterface_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface>();
-                mutable_bitField0_ |= 0x00000800;
+                mutable_bitField0_ |= 0x00000400;
               }
               ipInterface_.add(
                   input.readMessage(org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.parser(), extensionRegistry));
               break;
             }
-            case 106: {
-              if (!((mutable_bitField0_ & 0x00001000) == 0x00001000)) {
+            case 98: {
+              if (!((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
                 snmpInterface_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface>();
-                mutable_bitField0_ |= 0x00001000;
+                mutable_bitField0_ |= 0x00000800;
               }
               snmpInterface_.add(
                   input.readMessage(org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.parser(), extensionRegistry));
@@ -8725,13 +9078,13 @@ public final class OpennmsModelProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           category_ = category_.getUnmodifiableView();
         }
-        if (((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((mutable_bitField0_ & 0x00000400) == 0x00000400)) {
           ipInterface_ = java.util.Collections.unmodifiableList(ipInterface_);
         }
-        if (((mutable_bitField0_ & 0x00001000) == 0x00001000)) {
+        if (((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
           snmpInterface_ = java.util.Collections.unmodifiableList(snmpInterface_);
         }
         this.unknownFields = unknownFields.build();
@@ -8828,52 +9181,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int TYPE_FIELD_NUMBER = 4;
-    private volatile java.lang.Object type_;
-    /**
-     * <pre>
-     * TODO: Enum
-     * </pre>
-     *
-     * <code>string type = 4;</code>
-     */
-    public java.lang.String getType() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        type_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * TODO: Enum
-     * </pre>
-     *
-     * <code>string type = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTypeBytes() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        type_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LOCATION_FIELD_NUMBER = 5;
+    public static final int LOCATION_FIELD_NUMBER = 4;
     private volatile java.lang.Object location_;
     /**
-     * <code>string location = 5;</code>
+     * <code>string location = 4;</code>
      */
     public java.lang.String getLocation() {
       java.lang.Object ref = location_;
@@ -8888,7 +9199,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string location = 5;</code>
+     * <code>string location = 4;</code>
      */
     public com.google.protobuf.ByteString
         getLocationBytes() {
@@ -8904,39 +9215,39 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int CATEGORY_FIELD_NUMBER = 6;
+    public static final int CATEGORY_FIELD_NUMBER = 5;
     private com.google.protobuf.LazyStringList category_;
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     public com.google.protobuf.ProtocolStringList
         getCategoryList() {
       return category_;
     }
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     public int getCategoryCount() {
       return category_.size();
     }
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     public java.lang.String getCategory(int index) {
       return category_.get(index);
     }
     /**
-     * <code>repeated string category = 6;</code>
+     * <code>repeated string category = 5;</code>
      */
     public com.google.protobuf.ByteString
         getCategoryBytes(int index) {
       return category_.getByteString(index);
     }
 
-    public static final int LABEL_FIELD_NUMBER = 7;
+    public static final int LABEL_FIELD_NUMBER = 6;
     private volatile java.lang.Object label_;
     /**
-     * <code>string label = 7;</code>
+     * <code>string label = 6;</code>
      */
     public java.lang.String getLabel() {
       java.lang.Object ref = label_;
@@ -8951,7 +9262,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string label = 7;</code>
+     * <code>string label = 6;</code>
      */
     public com.google.protobuf.ByteString
         getLabelBytes() {
@@ -8967,19 +9278,19 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int CREATE_TIME_FIELD_NUMBER = 8;
+    public static final int CREATE_TIME_FIELD_NUMBER = 7;
     private long createTime_;
     /**
-     * <code>uint64 create_time = 8;</code>
+     * <code>uint64 create_time = 7;</code>
      */
     public long getCreateTime() {
       return createTime_;
     }
 
-    public static final int SYS_CONTACT_FIELD_NUMBER = 9;
+    public static final int SYS_CONTACT_FIELD_NUMBER = 8;
     private volatile java.lang.Object sysContact_;
     /**
-     * <code>string sys_contact = 9;</code>
+     * <code>string sys_contact = 8;</code>
      */
     public java.lang.String getSysContact() {
       java.lang.Object ref = sysContact_;
@@ -8994,7 +9305,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string sys_contact = 9;</code>
+     * <code>string sys_contact = 8;</code>
      */
     public com.google.protobuf.ByteString
         getSysContactBytes() {
@@ -9010,10 +9321,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int SYS_DESCRIPTION_FIELD_NUMBER = 10;
+    public static final int SYS_DESCRIPTION_FIELD_NUMBER = 9;
     private volatile java.lang.Object sysDescription_;
     /**
-     * <code>string sys_description = 10;</code>
+     * <code>string sys_description = 9;</code>
      */
     public java.lang.String getSysDescription() {
       java.lang.Object ref = sysDescription_;
@@ -9028,7 +9339,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string sys_description = 10;</code>
+     * <code>string sys_description = 9;</code>
      */
     public com.google.protobuf.ByteString
         getSysDescriptionBytes() {
@@ -9044,10 +9355,10 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int SYS_OBJECT_ID_FIELD_NUMBER = 11;
+    public static final int SYS_OBJECT_ID_FIELD_NUMBER = 10;
     private volatile java.lang.Object sysObjectId_;
     /**
-     * <code>string sys_object_id = 11;</code>
+     * <code>string sys_object_id = 10;</code>
      */
     public java.lang.String getSysObjectId() {
       java.lang.Object ref = sysObjectId_;
@@ -9062,7 +9373,7 @@ public final class OpennmsModelProtos {
       }
     }
     /**
-     * <code>string sys_object_id = 11;</code>
+     * <code>string sys_object_id = 10;</code>
      */
     public com.google.protobuf.ByteString
         getSysObjectIdBytes() {
@@ -9078,70 +9389,70 @@ public final class OpennmsModelProtos {
       }
     }
 
-    public static final int IP_INTERFACE_FIELD_NUMBER = 12;
+    public static final int IP_INTERFACE_FIELD_NUMBER = 11;
     private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface> ipInterface_;
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface> getIpInterfaceList() {
       return ipInterface_;
     }
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     public java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder> 
         getIpInterfaceOrBuilderList() {
       return ipInterface_;
     }
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     public int getIpInterfaceCount() {
       return ipInterface_.size();
     }
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface getIpInterface(int index) {
       return ipInterface_.get(index);
     }
     /**
-     * <code>repeated .IpInterface ip_interface = 12;</code>
+     * <code>repeated .IpInterface ip_interface = 11;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder getIpInterfaceOrBuilder(
         int index) {
       return ipInterface_.get(index);
     }
 
-    public static final int SNMP_INTERFACE_FIELD_NUMBER = 13;
+    public static final int SNMP_INTERFACE_FIELD_NUMBER = 12;
     private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface> snmpInterface_;
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface> getSnmpInterfaceList() {
       return snmpInterface_;
     }
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     public java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder> 
         getSnmpInterfaceOrBuilderList() {
       return snmpInterface_;
     }
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     public int getSnmpInterfaceCount() {
       return snmpInterface_.size();
     }
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface getSnmpInterface(int index) {
       return snmpInterface_.get(index);
     }
     /**
-     * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+     * <code>repeated .SnmpInterface snmp_interface = 12;</code>
      */
     public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder getSnmpInterfaceOrBuilder(
         int index) {
@@ -9169,35 +9480,32 @@ public final class OpennmsModelProtos {
       if (!getForeignIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, foreignId_);
       }
-      if (!getTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, type_);
-      }
       if (!getLocationBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, location_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, location_);
       }
       for (int i = 0; i < category_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, category_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, category_.getRaw(i));
       }
       if (!getLabelBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, label_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, label_);
       }
       if (createTime_ != 0L) {
-        output.writeUInt64(8, createTime_);
+        output.writeUInt64(7, createTime_);
       }
       if (!getSysContactBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, sysContact_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, sysContact_);
       }
       if (!getSysDescriptionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, sysDescription_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, sysDescription_);
       }
       if (!getSysObjectIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, sysObjectId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, sysObjectId_);
       }
       for (int i = 0; i < ipInterface_.size(); i++) {
-        output.writeMessage(12, ipInterface_.get(i));
+        output.writeMessage(11, ipInterface_.get(i));
       }
       for (int i = 0; i < snmpInterface_.size(); i++) {
-        output.writeMessage(13, snmpInterface_.get(i));
+        output.writeMessage(12, snmpInterface_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -9217,11 +9525,8 @@ public final class OpennmsModelProtos {
       if (!getForeignIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, foreignId_);
       }
-      if (!getTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, type_);
-      }
       if (!getLocationBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, location_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, location_);
       }
       {
         int dataSize = 0;
@@ -9232,28 +9537,28 @@ public final class OpennmsModelProtos {
         size += 1 * getCategoryList().size();
       }
       if (!getLabelBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, label_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, label_);
       }
       if (createTime_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(8, createTime_);
+          .computeUInt64Size(7, createTime_);
       }
       if (!getSysContactBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, sysContact_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, sysContact_);
       }
       if (!getSysDescriptionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, sysDescription_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, sysDescription_);
       }
       if (!getSysObjectIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, sysObjectId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, sysObjectId_);
       }
       for (int i = 0; i < ipInterface_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(12, ipInterface_.get(i));
+          .computeMessageSize(11, ipInterface_.get(i));
       }
       for (int i = 0; i < snmpInterface_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(13, snmpInterface_.get(i));
+          .computeMessageSize(12, snmpInterface_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -9277,8 +9582,6 @@ public final class OpennmsModelProtos {
           .equals(other.getForeignSource());
       result = result && getForeignId()
           .equals(other.getForeignId());
-      result = result && getType()
-          .equals(other.getType());
       result = result && getLocation()
           .equals(other.getLocation());
       result = result && getCategoryList()
@@ -9315,8 +9618,6 @@ public final class OpennmsModelProtos {
       hash = (53 * hash) + getForeignSource().hashCode();
       hash = (37 * hash) + FOREIGN_ID_FIELD_NUMBER;
       hash = (53 * hash) + getForeignId().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType().hashCode();
       hash = (37 * hash) + LOCATION_FIELD_NUMBER;
       hash = (53 * hash) + getLocation().hashCode();
       if (getCategoryCount() > 0) {
@@ -9479,12 +9780,10 @@ public final class OpennmsModelProtos {
 
         foreignId_ = "";
 
-        type_ = "";
-
         location_ = "";
 
         category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         label_ = "";
 
         createTime_ = 0L;
@@ -9497,13 +9796,13 @@ public final class OpennmsModelProtos {
 
         if (ipInterfaceBuilder_ == null) {
           ipInterface_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000400);
         } else {
           ipInterfaceBuilder_.clear();
         }
         if (snmpInterfaceBuilder_ == null) {
           snmpInterface_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00001000);
+          bitField0_ = (bitField0_ & ~0x00000800);
         } else {
           snmpInterfaceBuilder_.clear();
         }
@@ -9534,11 +9833,10 @@ public final class OpennmsModelProtos {
         result.id_ = id_;
         result.foreignSource_ = foreignSource_;
         result.foreignId_ = foreignId_;
-        result.type_ = type_;
         result.location_ = location_;
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
           category_ = category_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.category_ = category_;
         result.label_ = label_;
@@ -9547,18 +9845,18 @@ public final class OpennmsModelProtos {
         result.sysDescription_ = sysDescription_;
         result.sysObjectId_ = sysObjectId_;
         if (ipInterfaceBuilder_ == null) {
-          if (((bitField0_ & 0x00000800) == 0x00000800)) {
+          if (((bitField0_ & 0x00000400) == 0x00000400)) {
             ipInterface_ = java.util.Collections.unmodifiableList(ipInterface_);
-            bitField0_ = (bitField0_ & ~0x00000800);
+            bitField0_ = (bitField0_ & ~0x00000400);
           }
           result.ipInterface_ = ipInterface_;
         } else {
           result.ipInterface_ = ipInterfaceBuilder_.build();
         }
         if (snmpInterfaceBuilder_ == null) {
-          if (((bitField0_ & 0x00001000) == 0x00001000)) {
+          if (((bitField0_ & 0x00000800) == 0x00000800)) {
             snmpInterface_ = java.util.Collections.unmodifiableList(snmpInterface_);
-            bitField0_ = (bitField0_ & ~0x00001000);
+            bitField0_ = (bitField0_ & ~0x00000800);
           }
           result.snmpInterface_ = snmpInterface_;
         } else {
@@ -9617,10 +9915,6 @@ public final class OpennmsModelProtos {
           foreignId_ = other.foreignId_;
           onChanged();
         }
-        if (!other.getType().isEmpty()) {
-          type_ = other.type_;
-          onChanged();
-        }
         if (!other.getLocation().isEmpty()) {
           location_ = other.location_;
           onChanged();
@@ -9628,7 +9922,7 @@ public final class OpennmsModelProtos {
         if (!other.category_.isEmpty()) {
           if (category_.isEmpty()) {
             category_ = other.category_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000010);
           } else {
             ensureCategoryIsMutable();
             category_.addAll(other.category_);
@@ -9658,7 +9952,7 @@ public final class OpennmsModelProtos {
           if (!other.ipInterface_.isEmpty()) {
             if (ipInterface_.isEmpty()) {
               ipInterface_ = other.ipInterface_;
-              bitField0_ = (bitField0_ & ~0x00000800);
+              bitField0_ = (bitField0_ & ~0x00000400);
             } else {
               ensureIpInterfaceIsMutable();
               ipInterface_.addAll(other.ipInterface_);
@@ -9671,7 +9965,7 @@ public final class OpennmsModelProtos {
               ipInterfaceBuilder_.dispose();
               ipInterfaceBuilder_ = null;
               ipInterface_ = other.ipInterface_;
-              bitField0_ = (bitField0_ & ~0x00000800);
+              bitField0_ = (bitField0_ & ~0x00000400);
               ipInterfaceBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getIpInterfaceFieldBuilder() : null;
@@ -9684,7 +9978,7 @@ public final class OpennmsModelProtos {
           if (!other.snmpInterface_.isEmpty()) {
             if (snmpInterface_.isEmpty()) {
               snmpInterface_ = other.snmpInterface_;
-              bitField0_ = (bitField0_ & ~0x00001000);
+              bitField0_ = (bitField0_ & ~0x00000800);
             } else {
               ensureSnmpInterfaceIsMutable();
               snmpInterface_.addAll(other.snmpInterface_);
@@ -9697,7 +9991,7 @@ public final class OpennmsModelProtos {
               snmpInterfaceBuilder_.dispose();
               snmpInterfaceBuilder_ = null;
               snmpInterface_ = other.snmpInterface_;
-              bitField0_ = (bitField0_ & ~0x00001000);
+              bitField0_ = (bitField0_ & ~0x00000800);
               snmpInterfaceBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getSnmpInterfaceFieldBuilder() : null;
@@ -9898,98 +10192,9 @@ public final class OpennmsModelProtos {
         return this;
       }
 
-      private java.lang.Object type_ = "";
-      /**
-       * <pre>
-       * TODO: Enum
-       * </pre>
-       *
-       * <code>string type = 4;</code>
-       */
-      public java.lang.String getType() {
-        java.lang.Object ref = type_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          type_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * TODO: Enum
-       * </pre>
-       *
-       * <code>string type = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTypeBytes() {
-        java.lang.Object ref = type_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          type_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * TODO: Enum
-       * </pre>
-       *
-       * <code>string type = 4;</code>
-       */
-      public Builder setType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * TODO: Enum
-       * </pre>
-       *
-       * <code>string type = 4;</code>
-       */
-      public Builder clearType() {
-        
-        type_ = getDefaultInstance().getType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * TODO: Enum
-       * </pre>
-       *
-       * <code>string type = 4;</code>
-       */
-      public Builder setTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object location_ = "";
       /**
-       * <code>string location = 5;</code>
+       * <code>string location = 4;</code>
        */
       public java.lang.String getLocation() {
         java.lang.Object ref = location_;
@@ -10004,7 +10209,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string location = 5;</code>
+       * <code>string location = 4;</code>
        */
       public com.google.protobuf.ByteString
           getLocationBytes() {
@@ -10020,7 +10225,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string location = 5;</code>
+       * <code>string location = 4;</code>
        */
       public Builder setLocation(
           java.lang.String value) {
@@ -10033,7 +10238,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string location = 5;</code>
+       * <code>string location = 4;</code>
        */
       public Builder clearLocation() {
         
@@ -10042,7 +10247,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string location = 5;</code>
+       * <code>string location = 4;</code>
        */
       public Builder setLocationBytes(
           com.google.protobuf.ByteString value) {
@@ -10058,39 +10263,39 @@ public final class OpennmsModelProtos {
 
       private com.google.protobuf.LazyStringList category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureCategoryIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
           category_ = new com.google.protobuf.LazyStringArrayList(category_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
          }
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public com.google.protobuf.ProtocolStringList
           getCategoryList() {
         return category_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public int getCategoryCount() {
         return category_.size();
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public java.lang.String getCategory(int index) {
         return category_.get(index);
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public com.google.protobuf.ByteString
           getCategoryBytes(int index) {
         return category_.getByteString(index);
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public Builder setCategory(
           int index, java.lang.String value) {
@@ -10103,7 +10308,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public Builder addCategory(
           java.lang.String value) {
@@ -10116,7 +10321,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public Builder addAllCategory(
           java.lang.Iterable<java.lang.String> values) {
@@ -10127,16 +10332,16 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public Builder clearCategory() {
         category_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string category = 6;</code>
+       * <code>repeated string category = 5;</code>
        */
       public Builder addCategoryBytes(
           com.google.protobuf.ByteString value) {
@@ -10152,7 +10357,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object label_ = "";
       /**
-       * <code>string label = 7;</code>
+       * <code>string label = 6;</code>
        */
       public java.lang.String getLabel() {
         java.lang.Object ref = label_;
@@ -10167,7 +10372,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string label = 7;</code>
+       * <code>string label = 6;</code>
        */
       public com.google.protobuf.ByteString
           getLabelBytes() {
@@ -10183,7 +10388,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string label = 7;</code>
+       * <code>string label = 6;</code>
        */
       public Builder setLabel(
           java.lang.String value) {
@@ -10196,7 +10401,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string label = 7;</code>
+       * <code>string label = 6;</code>
        */
       public Builder clearLabel() {
         
@@ -10205,7 +10410,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string label = 7;</code>
+       * <code>string label = 6;</code>
        */
       public Builder setLabelBytes(
           com.google.protobuf.ByteString value) {
@@ -10221,13 +10426,13 @@ public final class OpennmsModelProtos {
 
       private long createTime_ ;
       /**
-       * <code>uint64 create_time = 8;</code>
+       * <code>uint64 create_time = 7;</code>
        */
       public long getCreateTime() {
         return createTime_;
       }
       /**
-       * <code>uint64 create_time = 8;</code>
+       * <code>uint64 create_time = 7;</code>
        */
       public Builder setCreateTime(long value) {
         
@@ -10236,7 +10441,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>uint64 create_time = 8;</code>
+       * <code>uint64 create_time = 7;</code>
        */
       public Builder clearCreateTime() {
         
@@ -10247,7 +10452,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object sysContact_ = "";
       /**
-       * <code>string sys_contact = 9;</code>
+       * <code>string sys_contact = 8;</code>
        */
       public java.lang.String getSysContact() {
         java.lang.Object ref = sysContact_;
@@ -10262,7 +10467,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string sys_contact = 9;</code>
+       * <code>string sys_contact = 8;</code>
        */
       public com.google.protobuf.ByteString
           getSysContactBytes() {
@@ -10278,7 +10483,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string sys_contact = 9;</code>
+       * <code>string sys_contact = 8;</code>
        */
       public Builder setSysContact(
           java.lang.String value) {
@@ -10291,7 +10496,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string sys_contact = 9;</code>
+       * <code>string sys_contact = 8;</code>
        */
       public Builder clearSysContact() {
         
@@ -10300,7 +10505,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string sys_contact = 9;</code>
+       * <code>string sys_contact = 8;</code>
        */
       public Builder setSysContactBytes(
           com.google.protobuf.ByteString value) {
@@ -10316,7 +10521,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object sysDescription_ = "";
       /**
-       * <code>string sys_description = 10;</code>
+       * <code>string sys_description = 9;</code>
        */
       public java.lang.String getSysDescription() {
         java.lang.Object ref = sysDescription_;
@@ -10331,7 +10536,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string sys_description = 10;</code>
+       * <code>string sys_description = 9;</code>
        */
       public com.google.protobuf.ByteString
           getSysDescriptionBytes() {
@@ -10347,7 +10552,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string sys_description = 10;</code>
+       * <code>string sys_description = 9;</code>
        */
       public Builder setSysDescription(
           java.lang.String value) {
@@ -10360,7 +10565,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string sys_description = 10;</code>
+       * <code>string sys_description = 9;</code>
        */
       public Builder clearSysDescription() {
         
@@ -10369,7 +10574,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string sys_description = 10;</code>
+       * <code>string sys_description = 9;</code>
        */
       public Builder setSysDescriptionBytes(
           com.google.protobuf.ByteString value) {
@@ -10385,7 +10590,7 @@ public final class OpennmsModelProtos {
 
       private java.lang.Object sysObjectId_ = "";
       /**
-       * <code>string sys_object_id = 11;</code>
+       * <code>string sys_object_id = 10;</code>
        */
       public java.lang.String getSysObjectId() {
         java.lang.Object ref = sysObjectId_;
@@ -10400,7 +10605,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string sys_object_id = 11;</code>
+       * <code>string sys_object_id = 10;</code>
        */
       public com.google.protobuf.ByteString
           getSysObjectIdBytes() {
@@ -10416,7 +10621,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>string sys_object_id = 11;</code>
+       * <code>string sys_object_id = 10;</code>
        */
       public Builder setSysObjectId(
           java.lang.String value) {
@@ -10429,7 +10634,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string sys_object_id = 11;</code>
+       * <code>string sys_object_id = 10;</code>
        */
       public Builder clearSysObjectId() {
         
@@ -10438,7 +10643,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>string sys_object_id = 11;</code>
+       * <code>string sys_object_id = 10;</code>
        */
       public Builder setSysObjectIdBytes(
           com.google.protobuf.ByteString value) {
@@ -10455,9 +10660,9 @@ public final class OpennmsModelProtos {
       private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface> ipInterface_ =
         java.util.Collections.emptyList();
       private void ensureIpInterfaceIsMutable() {
-        if (!((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (!((bitField0_ & 0x00000400) == 0x00000400)) {
           ipInterface_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface>(ipInterface_);
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00000400;
          }
       }
 
@@ -10465,7 +10670,7 @@ public final class OpennmsModelProtos {
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder> ipInterfaceBuilder_;
 
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface> getIpInterfaceList() {
         if (ipInterfaceBuilder_ == null) {
@@ -10475,7 +10680,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public int getIpInterfaceCount() {
         if (ipInterfaceBuilder_ == null) {
@@ -10485,7 +10690,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface getIpInterface(int index) {
         if (ipInterfaceBuilder_ == null) {
@@ -10495,7 +10700,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder setIpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface value) {
@@ -10512,7 +10717,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder setIpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder builderForValue) {
@@ -10526,7 +10731,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder addIpInterface(org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface value) {
         if (ipInterfaceBuilder_ == null) {
@@ -10542,7 +10747,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder addIpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface value) {
@@ -10559,7 +10764,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder addIpInterface(
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder builderForValue) {
@@ -10573,7 +10778,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder addIpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder builderForValue) {
@@ -10587,7 +10792,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder addAllIpInterface(
           java.lang.Iterable<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface> values) {
@@ -10602,12 +10807,12 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder clearIpInterface() {
         if (ipInterfaceBuilder_ == null) {
           ipInterface_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000400);
           onChanged();
         } else {
           ipInterfaceBuilder_.clear();
@@ -10615,7 +10820,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public Builder removeIpInterface(int index) {
         if (ipInterfaceBuilder_ == null) {
@@ -10628,14 +10833,14 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder getIpInterfaceBuilder(
           int index) {
         return getIpInterfaceFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder getIpInterfaceOrBuilder(
           int index) {
@@ -10645,7 +10850,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder> 
            getIpInterfaceOrBuilderList() {
@@ -10656,14 +10861,14 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder addIpInterfaceBuilder() {
         return getIpInterfaceFieldBuilder().addBuilder(
             org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.getDefaultInstance());
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder addIpInterfaceBuilder(
           int index) {
@@ -10671,7 +10876,7 @@ public final class OpennmsModelProtos {
             index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.getDefaultInstance());
       }
       /**
-       * <code>repeated .IpInterface ip_interface = 12;</code>
+       * <code>repeated .IpInterface ip_interface = 11;</code>
        */
       public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder> 
            getIpInterfaceBuilderList() {
@@ -10684,7 +10889,7 @@ public final class OpennmsModelProtos {
           ipInterfaceBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterface.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.IpInterfaceOrBuilder>(
                   ipInterface_,
-                  ((bitField0_ & 0x00000800) == 0x00000800),
+                  ((bitField0_ & 0x00000400) == 0x00000400),
                   getParentForChildren(),
                   isClean());
           ipInterface_ = null;
@@ -10695,9 +10900,9 @@ public final class OpennmsModelProtos {
       private java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface> snmpInterface_ =
         java.util.Collections.emptyList();
       private void ensureSnmpInterfaceIsMutable() {
-        if (!((bitField0_ & 0x00001000) == 0x00001000)) {
+        if (!((bitField0_ & 0x00000800) == 0x00000800)) {
           snmpInterface_ = new java.util.ArrayList<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface>(snmpInterface_);
-          bitField0_ |= 0x00001000;
+          bitField0_ |= 0x00000800;
          }
       }
 
@@ -10705,7 +10910,7 @@ public final class OpennmsModelProtos {
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder> snmpInterfaceBuilder_;
 
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface> getSnmpInterfaceList() {
         if (snmpInterfaceBuilder_ == null) {
@@ -10715,7 +10920,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public int getSnmpInterfaceCount() {
         if (snmpInterfaceBuilder_ == null) {
@@ -10725,7 +10930,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface getSnmpInterface(int index) {
         if (snmpInterfaceBuilder_ == null) {
@@ -10735,7 +10940,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder setSnmpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface value) {
@@ -10752,7 +10957,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder setSnmpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder builderForValue) {
@@ -10766,7 +10971,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder addSnmpInterface(org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface value) {
         if (snmpInterfaceBuilder_ == null) {
@@ -10782,7 +10987,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder addSnmpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface value) {
@@ -10799,7 +11004,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder addSnmpInterface(
           org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder builderForValue) {
@@ -10813,7 +11018,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder addSnmpInterface(
           int index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder builderForValue) {
@@ -10827,7 +11032,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder addAllSnmpInterface(
           java.lang.Iterable<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface> values) {
@@ -10842,12 +11047,12 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder clearSnmpInterface() {
         if (snmpInterfaceBuilder_ == null) {
           snmpInterface_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00001000);
+          bitField0_ = (bitField0_ & ~0x00000800);
           onChanged();
         } else {
           snmpInterfaceBuilder_.clear();
@@ -10855,7 +11060,7 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public Builder removeSnmpInterface(int index) {
         if (snmpInterfaceBuilder_ == null) {
@@ -10868,14 +11073,14 @@ public final class OpennmsModelProtos {
         return this;
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder getSnmpInterfaceBuilder(
           int index) {
         return getSnmpInterfaceFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder getSnmpInterfaceOrBuilder(
           int index) {
@@ -10885,7 +11090,7 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public java.util.List<? extends org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder> 
            getSnmpInterfaceOrBuilderList() {
@@ -10896,14 +11101,14 @@ public final class OpennmsModelProtos {
         }
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder addSnmpInterfaceBuilder() {
         return getSnmpInterfaceFieldBuilder().addBuilder(
             org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.getDefaultInstance());
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder addSnmpInterfaceBuilder(
           int index) {
@@ -10911,7 +11116,7 @@ public final class OpennmsModelProtos {
             index, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.getDefaultInstance());
       }
       /**
-       * <code>repeated .SnmpInterface snmp_interface = 13;</code>
+       * <code>repeated .SnmpInterface snmp_interface = 12;</code>
        */
       public java.util.List<org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder> 
            getSnmpInterfaceBuilderList() {
@@ -10924,7 +11129,7 @@ public final class OpennmsModelProtos {
           snmpInterfaceBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterface.Builder, org.opennms.features.kafka.producer.model.OpennmsModelProtos.SnmpInterfaceOrBuilder>(
                   snmpInterface_,
-                  ((bitField0_ & 0x00001000) == 0x00001000),
+                  ((bitField0_ & 0x00000800) == 0x00000800),
                   getParentForChildren(),
                   isClean());
           snmpInterface_ = null;
@@ -11027,44 +11232,48 @@ public final class OpennmsModelProtos {
       "\n\ropennms.proto\"F\n\014NodeCriteria\022\n\n\002id\030\001 " +
       "\001(\004\022\026\n\016foreign_source\030\002 \001(\t\022\022\n\nforeign_i" +
       "d\030\003 \001(\t\";\n\016EventParameter\022\014\n\004name\030\001 \001(\t\022" +
-      "\r\n\005value\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\"\243\002\n\005Event\022\n" +
+      "\r\n\005value\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\"\221\002\n\005Event\022\n" +
       "\n\002id\030\001 \001(\004\022\013\n\003uei\030\002 \001(\t\022\r\n\005label\030\003 \001(\t\022\014" +
-      "\n\004time\030\004 \001(\004\022\r\n\005soure\030\005 \001(\t\022#\n\nparameter" +
-      "s\030\006 \003(\0132\017.EventParameter\022\023\n\013create_time\030" +
+      "\n\004time\030\004 \001(\004\022\016\n\006source\030\005 \001(\t\022\"\n\tparamete" +
+      "r\030\006 \003(\0132\017.EventParameter\022\023\n\013create_time\030" +
       "\007 \001(\004\022\023\n\013description\030\010 \001(\t\022\023\n\013log_messag" +
       "e\030\t \001(\t\022\033\n\010severity\030\n \001(\0162\t.Severity\022\013\n\003" +
-      "log\030\013 \001(\010\022\017\n\007display\030\014 \001(\010\022\020\n\010location\030\r" +
-      " \001(\t\022$\n\rnode_criteria\030\016 \001(\0132\r.NodeCriter" +
-      "ia\"\314\004\n\005Alarm\022\n\n\002id\030\001 \001(\004\022\013\n\003uei\030\002 \001(\t\022\020\n" +
-      "\010location\030\003 \001(\t\022$\n\rnode_criteria\030\004 \001(\0132\r" +
-      ".NodeCriteria\022\022\n\nnode_label\030\005 \001(\t\022\022\n\nip_" +
-      "address\030\006 \001(\t\022\024\n\014service_name\030\010 \001(\t\022\025\n\rr" +
-      "eduction_key\030\t \001(\t\022\031\n\004type\030\n \001(\0162\013.Alarm" +
-      ".Type\022\r\n\005count\030\013 \001(\004\022\033\n\010severity\030\014 \001(\0162\t" +
-      ".Severity\022\030\n\020first_event_time\030\r \001(\004\022\023\n\013d" +
-      "escription\030\016 \001(\t\022\023\n\013log_message\030\017 \001(\t\022\027\n" +
-      "\017supressed_until\030\020 \001(\004\022\026\n\016supressed_time" +
-      "\030\021 \001(\004\022\020\n\010ack_user\030\022 \001(\t\022\020\n\010ack_time\030\023 \001" +
-      "(\004\022\032\n\nlast_event\030\024 \001(\0132\006.Event\022\027\n\017last_e" +
-      "vent_time\030\025 \001(\004\022\020\n\010if_index\030\026 \001(\r\022\035\n\025ope" +
-      "rator_instructions\030\027 \001(\t\022\021\n\tclear_key\030\030 " +
-      "\001(\t\"D\n\004Type\022\026\n\022PROBLEM_WITH_CLEAR\020\000\022\t\n\005C" +
-      "LEAR\020\001\022\031\n\025PROBLEM_WITHOUT_CLEAR\020\002\"2\n\013IpI" +
-      "nterface\022\022\n\nip_address\030\001 \001(\t\022\017\n\007service\030" +
-      "\002 \003(\t\"D\n\rSnmpInterface\022\020\n\010if_index\030\001 \001(\r" +
-      "\022\020\n\010if_descr\030\002 \001(\t\022\017\n\007if_name\030\003 \001(\t\"\245\002\n\004" +
-      "Node\022\n\n\002id\030\001 \001(\004\022\026\n\016foreign_source\030\002 \001(\t" +
-      "\022\022\n\nforeign_id\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022\020\n\010lo" +
-      "cation\030\005 \001(\t\022\020\n\010category\030\006 \003(\t\022\r\n\005label\030" +
-      "\007 \001(\t\022\023\n\013create_time\030\010 \001(\004\022\023\n\013sys_contac" +
-      "t\030\t \001(\t\022\027\n\017sys_description\030\n \001(\t\022\025\n\rsys_" +
-      "object_id\030\013 \001(\t\022\"\n\014ip_interface\030\014 \003(\0132\014." +
-      "IpInterface\022&\n\016snmp_interface\030\r \003(\0132\016.Sn" +
-      "mpInterface*g\n\010Severity\022\021\n\rINDETERMINATE" +
-      "\020\000\022\013\n\007CLEARED\020\001\022\n\n\006NORMAL\020\002\022\013\n\007WARNING\020\003" +
-      "\022\t\n\005MINOR\020\004\022\t\n\005MAJOR\020\005\022\014\n\010CRITICAL\020\006B?\n)" +
-      "org.opennms.features.kafka.producer.mode" +
-      "lB\022OpennmsModelProtosb\006proto3"
+      "log\030\013 \001(\010\022\017\n\007display\030\014 \001(\010\022$\n\rnode_crite" +
+      "ria\030\r \001(\0132\r.NodeCriteria\"\365\003\n\005Alarm\022\n\n\002id" +
+      "\030\001 \001(\004\022\013\n\003uei\030\002 \001(\t\022$\n\rnode_criteria\030\003 \001" +
+      "(\0132\r.NodeCriteria\022\022\n\nip_address\030\004 \001(\t\022\024\n" +
+      "\014service_name\030\005 \001(\t\022\025\n\rreduction_key\030\006 \001" +
+      "(\t\022\031\n\004type\030\007 \001(\0162\013.Alarm.Type\022\r\n\005count\030\010" +
+      " \001(\004\022\033\n\010severity\030\t \001(\0162\t.Severity\022\030\n\020fir" +
+      "st_event_time\030\n \001(\004\022\023\n\013description\030\013 \001(\t" +
+      "\022\023\n\013log_message\030\014 \001(\t\022\020\n\010ack_user\030\r \001(\t\022" +
+      "\020\n\010ack_time\030\016 \001(\004\022\032\n\nlast_event\030\017 \001(\0132\006." +
+      "Event\022\027\n\017last_event_time\030\020 \001(\004\022\020\n\010if_ind" +
+      "ex\030\021 \001(\r\022\035\n\025operator_instructions\030\022 \001(\t\022" +
+      "\021\n\tclear_key\030\023 \001(\t\"D\n\004Type\022\026\n\022PROBLEM_WI" +
+      "TH_CLEAR\020\000\022\t\n\005CLEAR\020\001\022\031\n\025PROBLEM_WITHOUT" +
+      "_CLEAR\020\002\"\275\001\n\013IpInterface\022\n\n\002id\030\001 \001(\004\022\022\n\n" +
+      "ip_address\030\002 \001(\t\022\020\n\010if_index\030\003 \001(\r\022.\n\014pr" +
+      "imary_type\030\004 \001(\0162\030.IpInterface.PrimaryTy" +
+      "pe\022\017\n\007service\030\005 \003(\t\";\n\013PrimaryType\022\013\n\007PR" +
+      "IMARY\020\000\022\r\n\tSECONDARY\020\001\022\020\n\014NOT_ELIGIBLE\020\002" +
+      "\"\317\001\n\rSnmpInterface\022\n\n\002id\030\001 \001(\004\022\020\n\010if_ind" +
+      "ex\030\002 \001(\r\022\020\n\010if_descr\030\003 \001(\t\022\017\n\007if_type\030\004 " +
+      "\001(\r\022\017\n\007if_name\030\005 \001(\t\022\020\n\010if_speed\030\006 \001(\004\022\027" +
+      "\n\017if_phys_address\030\007 \001(\t\022\027\n\017if_admin_stat" +
+      "us\030\010 \001(\r\022\026\n\016if_oper_status\030\t \001(\r\022\020\n\010if_a" +
+      "lias\030\n \001(\t\"\227\002\n\004Node\022\n\n\002id\030\001 \001(\004\022\026\n\016forei" +
+      "gn_source\030\002 \001(\t\022\022\n\nforeign_id\030\003 \001(\t\022\020\n\010l" +
+      "ocation\030\004 \001(\t\022\020\n\010category\030\005 \003(\t\022\r\n\005label" +
+      "\030\006 \001(\t\022\023\n\013create_time\030\007 \001(\004\022\023\n\013sys_conta" +
+      "ct\030\010 \001(\t\022\027\n\017sys_description\030\t \001(\t\022\025\n\rsys" +
+      "_object_id\030\n \001(\t\022\"\n\014ip_interface\030\013 \003(\0132\014" +
+      ".IpInterface\022&\n\016snmp_interface\030\014 \003(\0132\016.S" +
+      "nmpInterface*g\n\010Severity\022\021\n\rINDETERMINAT" +
+      "E\020\000\022\013\n\007CLEARED\020\001\022\n\n\006NORMAL\020\002\022\013\n\007WARNING\020" +
+      "\003\022\t\n\005MINOR\020\004\022\t\n\005MAJOR\020\005\022\014\n\010CRITICAL\020\006B?\n" +
+      ")org.opennms.features.kafka.producer.mod" +
+      "elB\022OpennmsModelProtosb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -11095,31 +11304,31 @@ public final class OpennmsModelProtos {
     internal_static_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Event_descriptor,
-        new java.lang.String[] { "Id", "Uei", "Label", "Time", "Soure", "Parameters", "CreateTime", "Description", "LogMessage", "Severity", "Log", "Display", "Location", "NodeCriteria", });
+        new java.lang.String[] { "Id", "Uei", "Label", "Time", "Source", "Parameter", "CreateTime", "Description", "LogMessage", "Severity", "Log", "Display", "NodeCriteria", });
     internal_static_Alarm_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_Alarm_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Alarm_descriptor,
-        new java.lang.String[] { "Id", "Uei", "Location", "NodeCriteria", "NodeLabel", "IpAddress", "ServiceName", "ReductionKey", "Type", "Count", "Severity", "FirstEventTime", "Description", "LogMessage", "SupressedUntil", "SupressedTime", "AckUser", "AckTime", "LastEvent", "LastEventTime", "IfIndex", "OperatorInstructions", "ClearKey", });
+        new java.lang.String[] { "Id", "Uei", "NodeCriteria", "IpAddress", "ServiceName", "ReductionKey", "Type", "Count", "Severity", "FirstEventTime", "Description", "LogMessage", "AckUser", "AckTime", "LastEvent", "LastEventTime", "IfIndex", "OperatorInstructions", "ClearKey", });
     internal_static_IpInterface_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_IpInterface_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_IpInterface_descriptor,
-        new java.lang.String[] { "IpAddress", "Service", });
+        new java.lang.String[] { "Id", "IpAddress", "IfIndex", "PrimaryType", "Service", });
     internal_static_SnmpInterface_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_SnmpInterface_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SnmpInterface_descriptor,
-        new java.lang.String[] { "IfIndex", "IfDescr", "IfName", });
+        new java.lang.String[] { "Id", "IfIndex", "IfDescr", "IfType", "IfName", "IfSpeed", "IfPhysAddress", "IfAdminStatus", "IfOperStatus", "IfAlias", });
     internal_static_Node_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_Node_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Node_descriptor,
-        new java.lang.String[] { "Id", "ForeignSource", "ForeignId", "Type", "Location", "Category", "Label", "CreateTime", "SysContact", "SysDescription", "SysObjectId", "IpInterface", "SnmpInterface", });
+        new java.lang.String[] { "Id", "ForeignSource", "ForeignId", "Location", "Category", "Label", "CreateTime", "SysContact", "SysDescription", "SysObjectId", "IpInterface", "SnmpInterface", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

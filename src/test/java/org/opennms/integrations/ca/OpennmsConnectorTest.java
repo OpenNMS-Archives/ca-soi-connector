@@ -95,9 +95,9 @@ public class OpennmsConnectorTest {
         OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
                 .setSeverity(OpennmsModelProtos.Severity.MINOR)
                 .setLastEvent(OpennmsModelProtos.Event.newBuilder()
-                        .addParameters(OpennmsModelProtos.EventParameter.newBuilder()) // no key, no value
-                        .addParameters(OpennmsModelProtos.EventParameter.newBuilder().setName("key1")) // no value
-                        .addParameters(OpennmsModelProtos.EventParameter.newBuilder() // both a key and value
+                        .addParameter(OpennmsModelProtos.EventParameter.newBuilder()) // no key, no value
+                        .addParameter(OpennmsModelProtos.EventParameter.newBuilder().setName("key1")) // no value
+                        .addParameter(OpennmsModelProtos.EventParameter.newBuilder() // both a key and value
                                 .setName("key2")
                                 .setValue("value2")))
                 .build();
