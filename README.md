@@ -31,7 +31,7 @@ TODO: Document necessary changes to `opennmsConnecot_connectorserver.xml`
 
 Edit $SOI_HOME/resources/log4j.xml, and add:
 
-```
+```xml
 <appender name="ONMS" class="org.apache.log4j.RollingFileAppender">
     <param name="File" value="&logDir;/opennms.log"/>
     <param name="Append" value="true"/>
@@ -63,7 +63,7 @@ Edit $SOI_HOME/resources/log4j.xml, and add:
 
 ## Mappings
 
-## Alarm Mapping
+### Alarm Mapping
 
 Alarms are mapped to alerts as follows:
 
@@ -85,7 +85,7 @@ Alarms are mapped to alerts as follows:
 * entitytype
    * "Alert" (constant)
 
-## Node Mapping
+### Node Mapping
 
 Nodes are mapped to item entities as follows:
 
@@ -104,7 +104,7 @@ Nodes are mapped to item entities as follows:
 * dnsname
    * node label
 
-## Severity Mapping
+### Severity Mapping
 
 In SOI, there are 4 different severities: Normal, Minor, Major and Critical
 These are mapped from the corresponding severities in OpenNMS as follows:
@@ -121,6 +121,26 @@ These are mapped from the corresponding severities in OpenNMS as follows:
 * Critical
    * Critical
    * Any other unrecognized value
+
+
+## Mapping Event Parameters to Alert Attributes
+
+In order to populate arbitrary alert attributes, it is possible to include the necessary information as an event parameter.
+This can be added to the event when sent, or a default value may be in included in the event definition as follows:
+
+```xml
+<event>
+  ...
+  <parameter name="attrib3" value="0x9999"/>
+</event>
+```
+
+As noted above, parameters for the last event associated with the alarm as mapped to fields of the form `mdr_alert_parm_$name` making it possible to use policies to transform these.
+For example, can can transform the parameter named 'attrib3' to 'UserAttribute3' with the following:
+
+```xml
+<Field conditional='mdr_alert_parm_attrib3' output='UserAttribute3' format='{0}' input='mdr_alert_parm_attrib3'/>
+```
 
 ## Debugging
 
