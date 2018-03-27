@@ -152,10 +152,10 @@ This can be added to the event when sent, or a default value may be in included 
 ```
 
 As noted above, parameters for the last event associated with the alarm as mapped to fields of the form `mdr_alert_parm_$name` making it possible to use policies to transform these.
-For example, can can transform the parameter named 'attrib3' to 'UserAttribute3' with the following:
+For example, can can transform the parameter named 'attrib3' to 'userAttribute3' with the following:
 
 ```xml
-<Field conditional='mdr_alert_parm_attrib3' output='UserAttribute3' format='{0}' input='mdr_alert_parm_attrib3'/>
+<Field conditional='mdr_alert_parm_attrib3' output='userAttribute3' format='{0}' input='mdr_alert_parm_attrib3'/>
 ```
 
 ## Debugging
