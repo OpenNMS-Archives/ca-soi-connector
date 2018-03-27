@@ -2,21 +2,16 @@
 
 ## Overview
 
-This connector is used to forward alarms (and associated nodes) from OpenNMS to CA SOI.
+This connector is used to forward alarms and associated nodes from OpenNMS to CA SOI.
+Alarms are streamed from OpenNMS into CA SOI by leveraging the Kafka producer implementation available in OpenNMS 21.1.0.
 
-## Building
+## How it works
 
-Initialize and update submodules (compilation requires vendor artifacts which are stored in a private repository and are not publically accessible):
+After enabling the Kafka producer implementation in OpenNMS, all changes to alarms will be forwarded to a Kafka topic, keyed by reduction key.
+When alarms are forwarded, any node associated with the alarm is also forwarded to a separate topic.
 
-```
-git submodule update --init --recursive --remote
-```
-
-Compile:
-
-```
-mvn clean package
-```
+Leveraging these two topics, it is possible to build a [KTable](https://docs.confluent.io/current/streams/concepts.html#ktable) with a representation of the current alarms and associated nodes.
+Changes to these are then published via the available connector APIs.
 
 ## Installation
 
@@ -29,6 +24,19 @@ Extract the contents over `$SOI_HOME`.
 1. Replace cases of the `@instance` placeholder in `opennmsConnector_@instance.xml` with the FQDN of the connector server.
 1. Add your Kafka configuration to a new `stream.properties` file. See https://kafka.apache.org/0110/documentation.html#streamsconfigs for options.
 1. Update `stream-properties="/path/to/stream.properties"` with the full path the the `stream.properties` files created above.
+
+#### Kafka Streams Configuration
+
+At a minimum you should configure the following properties:
+
+* application.id
+   * i.e. `soi-dev`
+* bootstrap.servers
+   * i.e. `kafka:9092`
+* commit.interval.ms
+   * i.e. `5000`
+* state.dir
+   * i.e. `C:\\Program Files (x86)\\CA\\SOI\\resources\\OpennmsConnector\\state`
 
 ### Configure logging
 
@@ -155,3 +163,17 @@ If the logging was configured using the appenders above, the logs will be struct
 * Generic logs (root logger) go to ssa.log
 * Connector generated logs appear in opennms.log
 * Kafka related logs appear in kafka.log
+
+## Building from source
+
+Initialize and update submodules (compilation requires vendor artifacts which are stored in a private repository and are not publically accessible):
+
+```
+git submodule update --init --recursive --remote
+```
+
+Compile:
+
+```
+mvn clean package
+```
