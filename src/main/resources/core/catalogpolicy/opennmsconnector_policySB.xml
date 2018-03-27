@@ -27,7 +27,7 @@
 
         <Format>
             <Field input='LastModActivity' format='{0}' output='action'/>
-            <Field output='CAProductIdentifier' format='09998' input=''/>
+            <Field output='CAProductIdentifier' format='00001' input=''/>
             <Field conditional='MdrElementID' input='MdrElementID' format='{0}' output='id'/>
             <Field conditional='Description' input='Description' format='{0}' output='description'/>
             <Field conditional='Label' input='Label' format='{0}' output='name'/>
@@ -44,7 +44,7 @@
                    output='ipv6_address'/>
 
             <!-- SSA properties required -->
-            <Field output='outfile' format='CA{0}_policySB' input='CAProductIdentifier'/>
+            <Field output='outfile' format='ONMS{0}_policySB' input='CAProductIdentifier'/>
         </Format>
 
         <Write>
@@ -344,7 +344,7 @@
             <Field conditional='RelatedIncidentUrl' input='RelatedIncidentUrl' format='{0}' output='mdr_relatedincidenturl'/>
             <Field conditional='RepeatCount' input='RepeatCount' format='{0}' output='mdr_repeatcount'/>
             <!-- SSA properties required -->
-            <Field output='outfile' format='CA{0}_policySB' input='CAProductIdentifier'/>
+            <Field output='outfile' format='ONMS{0}_policySB' input='CAProductIdentifier'/>
         </Format>
 
         <Write>
