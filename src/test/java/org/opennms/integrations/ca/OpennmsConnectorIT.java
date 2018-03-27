@@ -186,13 +186,13 @@ public class OpennmsConnectorIT {
             KafkaTestUtils.consumerProps("connector", "false", embeddedKafka)
                     .forEach((key, value) -> props.put(key, value.toString()));
             props.put("application.id", "connector");
+            props.put("state.dir", temporaryFolder.newFolder().getAbsolutePath());
             props.put("commit.interval.ms", "500");
             props.remove("enable.auto.commit"); // remove this since we use streams
             props.store(fos, "kafka");
         }
         Map<String, String> connectorConfig = new HashMap<>();
         connectorConfig.put(OpennmsConnectorConfig.STREAM_PROPERTIES_KEY, streamPropertiesFile.getAbsolutePath());
-        connectorConfig.put(OpennmsConnectorConfig.STATE_DIR_KEY, temporaryFolder.newFolder().getAbsolutePath());
         connectorConfig.put(OpennmsConnectorConfig.URL_KEY, "http://localhost:8980");
         connectorConfig.put(OpennmsConnectorConfig.USERNAME_KEY, "admin");
         connectorConfig.put(OpennmsConnectorConfig.PASSWORD_KEY, "admin");

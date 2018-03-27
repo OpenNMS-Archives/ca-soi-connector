@@ -56,7 +56,6 @@ public class OpennmsConnectorConfigTest {
     public void canParseConfig() throws UCFException {
         Map<String, String> connectorConfig = new HashMap<>();
         connectorConfig.put(OpennmsConnectorConfig.STREAM_PROPERTIES_KEY, "test.props");
-        connectorConfig.put(OpennmsConnectorConfig.STATE_DIR_KEY, "/tmp");
         connectorConfig.put(OpennmsConnectorConfig.URL_KEY, "http://nms01:8980");
         connectorConfig.put(OpennmsConnectorConfig.USERNAME_KEY, "adm1n");
         connectorConfig.put(OpennmsConnectorConfig.PASSWORD_KEY, "p@assw0rd");

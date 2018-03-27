@@ -104,9 +104,6 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         // Override the serializers/deserializers
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.ByteArray().getClass());
-        if (config.getStateDir() != null) {
-            props.put(StreamsConfig.STATE_DIR_CONFIG, config.getStateDir());
-        }
 
         final KStreamBuilder builder = new KStreamBuilder();
         // Build a view of the alarms to perform the initial synchronization
