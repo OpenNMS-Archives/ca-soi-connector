@@ -7,10 +7,13 @@
         <ImplementationClass name="org.opennms.integrations.ca.OpennmsConnector"
                              policy="opennmsconnector_policy.xml"
                              sbpolicy="opennmsconnector_policySB.xml"/>
-        <ConnectionInfo alarm-topic="alarms"
-                        event-topic="events"
+        <ConnectionInfo url="http://nms01:8980/opennms"
+                        username="admin"
+                        password="admin"
+                        stream-properties="/path/to/stream.properties"
+                        alarm-topic="alarms"
                         node-topic="nodes"
-                        stream-properties="/path/to/stream.properties"/>
+                        />
         <ConnectorControls dns_resolution="1"
                            getCIsAtStartUp="1"
                            getRelationshipsAtStartup="0"

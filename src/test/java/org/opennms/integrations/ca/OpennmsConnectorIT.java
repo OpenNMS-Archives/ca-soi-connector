@@ -193,6 +193,9 @@ public class OpennmsConnectorIT {
         Map<String, String> connectorConfig = new HashMap<>();
         connectorConfig.put(OpennmsConnectorConfig.STREAM_PROPERTIES_KEY, streamPropertiesFile.getAbsolutePath());
         connectorConfig.put(OpennmsConnectorConfig.STATE_DIR_KEY, temporaryFolder.newFolder().getAbsolutePath());
+        connectorConfig.put(OpennmsConnectorConfig.URL_KEY, "http://localhost:8980");
+        connectorConfig.put(OpennmsConnectorConfig.USERNAME_KEY, "admin");
+        connectorConfig.put(OpennmsConnectorConfig.PASSWORD_KEY, "admin");
         return KwdValuePairType.extractFromMap(connectorConfig);
     }
 

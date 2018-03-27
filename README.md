@@ -22,6 +22,7 @@ Extract the contents over `$SOI_HOME`.
 
 1. Rename `opennmsConnector_connectorserver.xml` to `opennmsConnector_@instance.xml` where `@instance` is the FQDN of the connector server.
 1. Replace cases of the `@instance` placeholder in `opennmsConnector_@instance.xml` with the FQDN of the connector server.
+1. Set the URL and credentials to your OpenNMS instance. The configured user should have the entitlements necessary to clear alarms.
 1. Add your Kafka configuration to a new `stream.properties` file. See https://kafka.apache.org/0110/documentation.html#streamsconfigs for options.
 1. Update `stream-properties="/path/to/stream.properties"` with the full path the the `stream.properties` files created above.
 

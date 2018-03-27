@@ -38,6 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ca.ucf.api.InvalidParameterException;
+import com.ca.ucf.api.UCFException;
 import com.ca.usm.ucf.utils.KwdValuePairType;
 import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 
@@ -52,9 +53,13 @@ public class OpennmsConnectorConfigTest {
     }
 
     @Test
-    public void canParseConfig() throws InvalidParameterException {
+    public void canParseConfig() throws UCFException {
         Map<String, String> connectorConfig = new HashMap<>();
         connectorConfig.put(OpennmsConnectorConfig.STREAM_PROPERTIES_KEY, "test.props");
+        connectorConfig.put(OpennmsConnectorConfig.STATE_DIR_KEY, "/tmp");
+        connectorConfig.put(OpennmsConnectorConfig.URL_KEY, "http://nms01:8980");
+        connectorConfig.put(OpennmsConnectorConfig.USERNAME_KEY, "adm1n");
+        connectorConfig.put(OpennmsConnectorConfig.PASSWORD_KEY, "p@assw0rd");
 
         DataObject entity = KwdValuePairType.extractFromMap(connectorConfig);
         connectorConfig = KwdValuePairType.convertToMap(entity);

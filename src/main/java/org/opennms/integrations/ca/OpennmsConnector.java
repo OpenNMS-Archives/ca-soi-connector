@@ -63,10 +63,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import commonj.sdo.DataObject;
 
-/**
- * TODO:
- *  * Do updates instead of always issuing creates.
- */
 public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final Logger LOG = Logger.getLogger(OpennmsConnector.class);
 
@@ -82,6 +78,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private volatile ReadOnlyKeyValueStore<String, byte[]> nodeView;
     private final Map<String,OpennmsModelProtos.Node> nodeCache = new ConcurrentSkipListMap<>();
 
+    private OpennmsRestClient restClient;
+
     private CountDownLatch latch;
 
     @Override
@@ -90,6 +88,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
         // Parse the configuration options
         final OpennmsConnectorConfig config = new OpennmsConnectorConfig(configParam);
+
+        // Create the REST(ful) client
+        restClient = new OpennmsRestClient(config.getUrl(), config.getUsername(), config.getPassword());
 
         // Load the stream properties
         final String streamPropertiesFile = config.getStreamProperties();
@@ -124,13 +125,21 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         // Build a view of the nodes for lookup
         builder.table(config.getNodeTopic(), NODE_STORE_NAME);
 
+        // Create the latch, will be triggered once the stores are ready
+        latch = new CountDownLatch(1);
+
         LOG.info("Building and starting stream topology...");
         streams = new KafkaStreams(builder, props);
         streams.setUncaughtExceptionHandler((t, e) -> LOG.error(String.format("Stream error on thread: %s", t.getName()), e));
         streams.start();
 
-        // Create the latch, will be triggered once the stores are ready
-        latch = new CountDownLatch(1);
+        LOG.info("Testing OpenNMS server connectivity via REST....");
+        try {
+            LOG.info(String.format("OpenNMS is running server version '%s'. REST communication is OK.",
+                    restClient.getServerVersion()));
+        } catch (Exception e) {
+            LOG.warn(String.format("Failed to communicate with OpenNMS server via REST: %s", e.getMessage()), e);
+        }
     }
 
     @Override
