@@ -51,7 +51,7 @@
         <Format>
             <!-- Five digit CA Product identifier as defined by the USM MdrProductEnum -->
             <Field output='CAProductIdentifier' format='00001' input=''/>
-            <Field output='MdrProduct' format='ONMS:{0}' input='CAProductIdentifier'/>
+            <Field output='MdrProduct' format='ON:{0}' input='CAProductIdentifier'/>
             <!-- MdrProdInstance setup above in normalize section 
 			Field output='MdrProdInstance' format='{0}' input='{fqdn(localhost)}' /-->
             <Field conditional='id' output='MdrElementID' format='{0}' input='id'/>
@@ -77,7 +77,7 @@
 
             <!-- Non-Correlatable properties -->
 			<Field output='CAProductIdentifier' format='00001' input=''/>
-            <Field output='MdrProduct' format='ONMS:{0}' input='CAProductIdentifier'/>
+            <Field output='MdrProduct' format='ON:{0}' input='CAProductIdentifier'/>
             <!-- MdrProdInstance setup above in normalize section 
 			Field output='MdrProdInstance' format='{0}' input='{fqdn(localhost)}' /-->
             <Field conditional='mdr_id' output='MdrElementID' format='{0}' input='mdr_id'/>

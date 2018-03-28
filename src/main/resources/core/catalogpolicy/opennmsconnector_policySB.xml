@@ -44,7 +44,7 @@
                    output='ipv6_address'/>
 
             <!-- SSA properties required -->
-            <Field output='outfile' format='ONMS{0}_policySB' input='CAProductIdentifier'/>
+            <Field output='outfile' format='ON{0}_policySB' input='CAProductIdentifier'/>
         </Format>
 
         <Write>
@@ -344,7 +344,7 @@
             <Field conditional='RelatedIncidentUrl' input='RelatedIncidentUrl' format='{0}' output='mdr_relatedincidenturl'/>
             <Field conditional='RepeatCount' input='RepeatCount' format='{0}' output='mdr_repeatcount'/>
             <!-- SSA properties required -->
-            <Field output='outfile' format='ONMS{0}_policySB' input='CAProductIdentifier'/>
+            <Field output='outfile' format='ON{0}_policySB' input='CAProductIdentifier'/>
         </Format>
 
         <Write>

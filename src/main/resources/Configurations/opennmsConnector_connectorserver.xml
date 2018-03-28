@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConnectorConfig>
     <Silo MdrProdInstance="@instance"
-          MdrProduct="ONMS:00001"
+          MdrProduct="ON:00001"
           State="Enabled"
-          name="ONMS:00001_@instance">
+          name="ON:00001_@instance">
         <ImplementationClass name="org.opennms.integrations.ca.OpennmsConnector"
                              policy="opennmsconnector_policy.xml"
                              sbpolicy="opennmsconnector_policySB.xml"/>
