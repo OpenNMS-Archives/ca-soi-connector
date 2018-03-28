@@ -22,5 +22,8 @@
                            useAlertFilter="1"
                            useEventStore="1"
                            useServiceFilter="1"/>
+        <connector-type-meta-data>
+            <property name="InboundToConnectorTypes">Alert</property>
+        </connector-type-meta-data>
     </Silo>
 </ConnectorConfig>
