@@ -51,6 +51,7 @@ import com.ca.connector.runtime.EntityOperationRunner;
 import com.ca.connector.runtime.ErrorListener;
 import com.ca.connector.runtime.ErrorNotifier;
 import com.ca.connector.runtime.OperationListener;
+import com.ca.ucf.api.NotImplementedException;
 import com.ca.ucf.api.UCFException;
 import com.ca.usm.ucf.utils.ConnectorEventSubscriptionManager;
 import com.ca.usm.ucf.utils.EntityChangeSubscriptionManager;
@@ -485,5 +486,26 @@ public abstract class BaseConnectorLifecycle extends USMBaseConnector implements
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("recover(%s, %s, %s, %s)", objectDump(lastState), lastState, listener, refId));
         }
+    }
+
+    public DataObject create(DataObject config) throws UCFException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(String.format("create(%s)", objectDump(config)));
+        }
+        throw new NotImplementedException("This operation is not implemented.");
+    }
+
+    public DataObject update(DataObject config) throws UCFException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(String.format("update(%s)", objectDump(config)));
+        }
+        throw new NotImplementedException("This operation is not implemented.");
+    }
+
+    public void delete(DataObject selector) throws UCFException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(String.format("delete(%s)", objectDump(selector)));
+        }
+        throw new NotImplementedException("This operation is not implemented.");
     }
 }
