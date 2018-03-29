@@ -30,7 +30,9 @@ package org.opennms.integrations.ca;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.not;
 
@@ -109,4 +111,31 @@ public class OpennmsConnectorTest {
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_EVENT_PARM_PREFIX_KEY + "key2"),
                 equalTo("value2"));
     }
+
+    @Test
+    public void canTruncateAlarmDescription() throws InvalidParameterException {
+        // A short description which should not be truncated
+        OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setDescription("short descr.")
+                .build();
+        DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_KEY), equalTo(alarm.getDescription()));
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY), equalTo(alarm.getDescription()));
+
+        // A longer description which should be truncated
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < OpennmsConnector.MAX_ALARM_MESSAGE_LEN * 2; i++) {
+            sb.append(i);
+        }
+        alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setDescription(sb.toString())
+                .build();
+        alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_KEY).length(), equalTo(OpennmsConnector.MAX_ALARM_MESSAGE_LEN));
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY).length(), greaterThan(OpennmsConnector.MAX_ALARM_MESSAGE_LEN));
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY), equalTo(alarm.getDescription()));
+    }
+
 }

@@ -69,9 +69,18 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final String ALARM_STORE_NAME = "alarm_store";
     private static final String NODE_STORE_NAME = "node_store";
 
-    protected static String ALARM_ENTITY_ID_KEY = "mdr_id";
-    protected static String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
-    protected static String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
+    protected static final String ALARM_ENTITY_ID_KEY = "mdr_id";
+    protected static final String ALARM_ENTITY_MESSAGE_KEY = "mdr_message";
+    protected static final String ALARM_ENTITY_MESSAGE_FULL_KEY = "mdr_message_full";
+    protected static final String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
+    protected static final String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
+
+    /**
+     * The alarm message will typically get mapped to the alert detail field, which has a limit
+     * of 2048 characters, so we truncate it before sending it to the connector to avoid any
+     * server side errors.
+     */
+    protected static final int MAX_ALARM_MESSAGE_LEN = 2048;
 
     private KafkaStreams streams;
     private volatile ReadOnlyKeyValueStore<String, byte[]> alarmView;
@@ -421,7 +430,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             map.put("mdr_alerted_object_id", nodeCriteria);
         }
         map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
-        map.put("mdr_message", alarm.getDescription());
+        map.put(ALARM_ENTITY_MESSAGE_KEY, truncateTo(alarm.getDescription(), MAX_ALARM_MESSAGE_LEN));
+        map.put(ALARM_ENTITY_MESSAGE_FULL_KEY, alarm.getDescription());
         map.put("mdr_summary", alarm.getLogMessage());
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.fromOpennmsSeverity(alarm.getSeverity()).getStringValue());
         final OpennmsModelProtos.Event lastEvent = alarm.getLastEvent();
@@ -483,5 +493,12 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     private static boolean isNotEmpty(String string) {
         return string != null && string.trim().length() > 1;
+    }
+
+    private static String truncateTo(String string, int maxLen) {
+        if (string == null) {
+            return null;
+        }
+        return string.substring(0, Math.min(string.length(), maxLen));
     }
 }
