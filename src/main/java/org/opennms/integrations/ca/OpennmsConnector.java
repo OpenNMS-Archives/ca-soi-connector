@@ -60,6 +60,7 @@ import com.ca.connector.impl.util.BeanXmlHelper;
 import com.ca.ucf.api.InvalidParameterException;
 import com.ca.ucf.api.NotImplementedException;
 import com.ca.ucf.api.UCFException;
+import com.ca.usm.ucf.utils.KwdValuePairType;
 import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -291,14 +292,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("update(%s)", objectDump(config)));
         }
+        final Map<String, String> configAsMap = KwdValuePairType.convertToMap(config);
 
-        final String clazz = config.getString("class");
+        final String clazz = configAsMap.get("class");
         if (!"Alert".equalsIgnoreCase(clazz)) {
             LOG.info("Rejecting update for entity of class: " + clazz);
             throw new NotImplementedException("update(DataObject) not implemented for objects of type: " + clazz);
         }
 
-        final String reductionKey = config.getString(ALARM_ENTITY_ID_KEY);
+        final String reductionKey = configAsMap.get(ALARM_ENTITY_ID_KEY);
         if (reductionKey == null) {
             LOG.info("Rejecting update for alert with missing entity id.");
             throw new UCFException("Cannot update alert without entity id: " + objectDump(config));
@@ -312,8 +314,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
 
         boolean didPerformAction = false;
-        final Boolean shouldAck = config.getBoolean("mdr_isacknowledged");
-        if (Objects.equals(Boolean.TRUE, shouldAck)) {
+        final String shouldAck = configAsMap.get("mdr_isacknowledged");
+        if (Boolean.TRUE.toString().equalsIgnoreCase(shouldAck)) {
             try {
                 LOG.info(String.format("Acknowledging alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
                 restClient.acknowledgeAlarm(alarmId);
@@ -325,8 +327,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             }
         }
 
-        final Boolean shouldClear = config.getBoolean("mdr_iscleared");
-        if (Objects.equals(Boolean.TRUE, shouldClear)) {
+        final String shouldClear = configAsMap.get("mdr_iscleared");
+        if (Boolean.TRUE.toString().equalsIgnoreCase(shouldClear)) {
             try {
                 LOG.info(String.format("Clearing alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
                 restClient.clearAlarm(alarmId);
@@ -339,7 +341,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
 
         if (!didPerformAction) {
-            LOG.info("Got update, but not action was succesfully performed.");
+            LOG.info("Got update, but not action was successfully performed.");
         }
 
         return config;
