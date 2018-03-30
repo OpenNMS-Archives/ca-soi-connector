@@ -294,11 +294,13 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
         final String clazz = config.getString("class");
         if (!"Alert".equalsIgnoreCase(clazz)) {
-            throw new NotImplementedException("update not implement for objects of type: " + clazz);
+            LOG.info("Rejecting update for entity of class: " + clazz);
+            throw new NotImplementedException("update(DataObject) not implemented for objects of type: " + clazz);
         }
 
         final String reductionKey = config.getString(ALARM_ENTITY_ID_KEY);
         if (reductionKey == null) {
+            LOG.info("Rejecting update for alert with missing entity id.");
             throw new UCFException("Cannot update alert without entity id: " + objectDump(config));
         }
 
@@ -309,12 +311,14 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             return config;
         }
 
+        boolean didPerformAction = false;
         final Boolean shouldAck = config.getBoolean("mdr_isacknowledged");
         if (Objects.equals(Boolean.TRUE, shouldAck)) {
             try {
                 LOG.info(String.format("Acknowledging alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
                 restClient.acknowledgeAlarm(alarmId);
                 LOG.info(String.format("Successfully acknowledged alarm with id %d.", alarmId));
+                didPerformAction = true;
             } catch (Exception e) {
                 LOG.error(String.format("Error occurred while acknowledging alarm with id %d (for reduction key '%s'): %s",
                         alarmId, reductionKey, e.getMessage()), e);
@@ -327,11 +331,17 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
                 LOG.info(String.format("Clearing alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
                 restClient.clearAlarm(alarmId);
                 LOG.info(String.format("Successfully cleared alarm with id %d.", alarmId));
+                didPerformAction = true;
             } catch (Exception e) {
                 LOG.error(String.format("Error occurred while clearing alarm with id %d (for reduction key '%s'): %s",
                         alarmId, reductionKey, e.getMessage()), e);
             }
         }
+
+        if (!didPerformAction) {
+            LOG.info("Got update, but not action was succesfully performed.");
+        }
+
         return config;
     }
 
