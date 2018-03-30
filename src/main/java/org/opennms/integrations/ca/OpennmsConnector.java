@@ -65,6 +65,8 @@ import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import commonj.sdo.DataObject;
+import commonj.sdo.Property;
+import commonj.sdo.Type;
 
 public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final Logger LOG = Logger.getLogger(OpennmsConnector.class);
@@ -292,7 +294,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("update(%s)", objectDump(config)));
         }
-        final Map<String, String> configAsMap = KwdValuePairType.convertToMap(config);
+
+        // TODO: Clean this up and support multiple objects
+        final List<DataObject> objects = getFirstList(config);
+        if (objects == null || objects.size() < 1) {
+            LOG.warn("Could not find properties in object!.");
+            return config;
+        }
+
+        final Map<String, String> configAsMap = KwdValuePairType.convertToMap(objects.get(0));
         if (LOG.isDebugEnabled()) {
             LOG.debug("Got update for: " + configAsMap);
         }
@@ -573,5 +583,18 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             return null;
         }
         return string.substring(0, Math.min(string.length(), maxLen));
+    }
+
+    private static List<DataObject> getFirstList(DataObject obj) {
+        for(int i = 0; i < obj.getInstanceProperties().size(); ++i) {
+            Property p = (Property) obj.getInstanceProperties().get(i);
+            Type type = p.getType();
+            if (obj.isSet(p)) {
+                if (p.isMany()) {
+                    return obj.getList(p);
+                }
+            }
+        }
+        return null;
     }
 }
