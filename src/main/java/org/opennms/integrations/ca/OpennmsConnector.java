@@ -293,6 +293,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             LOG.debug(String.format("update(%s)", objectDump(config)));
         }
         final Map<String, String> configAsMap = KwdValuePairType.convertToMap(config);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Got update for: " + configAsMap);
+        }
 
         final String clazz = configAsMap.get("class");
         if (!"Alert".equalsIgnoreCase(clazz)) {
