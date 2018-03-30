@@ -495,13 +495,6 @@ public abstract class BaseConnectorLifecycle extends USMBaseConnector implements
         throw new NotImplementedException("This operation is not implemented.");
     }
 
-    public DataObject update(DataObject config) throws UCFException {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(String.format("update(%s)", objectDump(config)));
-        }
-        throw new NotImplementedException("This operation is not implemented.");
-    }
-
     public void delete(DataObject selector) throws UCFException {
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("delete(%s)", objectDump(selector)));

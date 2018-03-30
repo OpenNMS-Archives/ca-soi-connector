@@ -13,6 +13,8 @@ When alarms are forwarded, any node associated with the alarm is also forwarded 
 Leveraging these two topics, it is possible to build a [KTable](https://docs.confluent.io/current/streams/concepts.html#ktable) with a representation of the current alarms and associated nodes.
 Changes to these are then published via the available connector APIs.
 
+Clears and acknowledgements on alerts which are relayed to the connector from SOI will be also be performed on the associated alarms by the means of REST API calls.
+
 ## Installation
 
 After compiling, copy `target/releases/opennms-ca-soi-connector-*.zip` to the target system.

@@ -90,15 +90,23 @@ public class OpennmsRestClient {
         return info.version;
     }
 
-    void clearAlarm(int alarmId) throws Exception {
+    void clearAlarm(long alarmId) throws Exception {
+        performActionOnAlarm(alarmId, "clear", "true");
+    }
+
+    void acknowledgeAlarm(long alarmId) throws Exception {
+        performActionOnAlarm(alarmId, "ack", "true");
+    }
+
+    private void performActionOnAlarm(long alarmId, String actionName, String actionValue) throws Exception {
         final HttpUrl url = baseUrl.newBuilder()
                 .addPathSegment("api")
                 .addPathSegment("v2")
                 .addPathSegment("alarms")
-                .addPathSegment(Integer.toString(alarmId))
+                .addPathSegment(Long.toString(alarmId))
                 .build();
         final RequestBody body = new FormBody.Builder()
-                .add("clear", "true")
+                .add(actionName, actionValue)
                 .build();
         final Request request = new Request.Builder()
                 .url(url)
@@ -106,7 +114,7 @@ public class OpennmsRestClient {
                 .build();
         final Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {
-            throw new Exception("Clear failed with: " + response.message());
+            throw new Exception(String.format("%s failed with: %s", actionName, response.message()));
         }
     }
 }
