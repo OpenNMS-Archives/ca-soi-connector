@@ -295,14 +295,14 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             LOG.debug(String.format("update(%s)", objectDump(config)));
         }
 
-        // TODO: Clean this up and support multiple objects
-        final List<DataObject> objects = getFirstList(config);
-        if (objects == null || objects.size() < 1) {
-            LOG.warn("Could not find properties in object!.");
+        // TODO: Clean this up
+        final DataObject object = getFirstObject(config);
+        if (object == null) {
+            LOG.warn("Could not find properties in object!");
             return config;
         }
 
-        final Map<String, String> configAsMap = KwdValuePairType.convertToMap(objects.get(0));
+        final Map<String, String> configAsMap = KwdValuePairType.convertToMap(object);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Got update for: " + configAsMap);
         }
@@ -585,6 +585,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return string.substring(0, Math.min(string.length(), maxLen));
     }
 
+    /*
     private static List<DataObject> getFirstList(DataObject obj) {
         for(int i = 0; i < obj.getInstanceProperties().size(); ++i) {
             Property p = (Property) obj.getInstanceProperties().get(i);
@@ -592,6 +593,20 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             if (obj.isSet(p)) {
                 if (p.isMany()) {
                     return obj.getList(p);
+                }
+            }
+        }
+        return null;
+    }
+    */
+
+    private static DataObject getFirstObject(DataObject obj) {
+        for(int i = 0; i < obj.getInstanceProperties().size(); ++i) {
+            Property p = (Property) obj.getInstanceProperties().get(i);
+            Type type = p.getType();
+            if (obj.isSet(p)) {
+                if (!type.isDataType() && !p.isMany()) {
+                    return obj.getDataObject(p);
                 }
             }
         }
