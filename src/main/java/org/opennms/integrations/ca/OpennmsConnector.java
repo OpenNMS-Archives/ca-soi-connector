@@ -36,7 +36,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CountDownLatch;
@@ -60,13 +59,10 @@ import com.ca.connector.impl.util.BeanXmlHelper;
 import com.ca.ucf.api.InvalidParameterException;
 import com.ca.ucf.api.NotImplementedException;
 import com.ca.ucf.api.UCFException;
-import com.ca.usm.ucf.utils.KwdValuePairType;
 import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import commonj.sdo.DataObject;
-import commonj.sdo.Property;
-import commonj.sdo.Type;
 
 public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final Logger LOG = Logger.getLogger(OpennmsConnector.class);
@@ -253,7 +249,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
                         // Create the entity for the alarm
                         alarmEntities.add(createAlertEntityForAlarm(alarm));
                         // Store the alarm id for this reduction key
-                        storeAlarmIdForLookup(alarm);
+                        storeAlarmForLookup(alarm);
                     }
                 }
             }
@@ -290,44 +286,44 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return entities;
     }
 
-    public DataObject update(DataObject config) throws UCFException {
+    /**
+     * Updates the specified entity in the domain manager and returns the updated entity.
+     *
+     * @param newValue
+     * @return updated entity
+     * @throws UCFException
+     */
+    public DataObject update(DataObject newValue) throws UCFException {
         if (LOG.isDebugEnabled()) {
-            LOG.debug(String.format("update(%s)", objectDump(config)));
+            LOG.debug(String.format("update(%s)", objectDump(newValue)));
         }
 
-        // TODO: Clean this up
-        final DataObject object = getFirstObject(config);
-        if (object == null) {
-            LOG.warn("Could not find properties in object!");
-            return config;
-        }
-
-        final Map<String, String> configAsMap = KwdValuePairType.convertToMap(object);
+        final Map<String, String> newValueAsMap = USMSiloDataObjectType.convertToMap(newValue);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Got update for: " + configAsMap);
+            LOG.debug("Got update for: " + newValueAsMap);
         }
 
-        final String clazz = configAsMap.get("class");
+        final String clazz = newValueAsMap.get("class");
         if (!"Alert".equalsIgnoreCase(clazz)) {
             LOG.info("Rejecting update for entity of class: " + clazz);
             throw new NotImplementedException("update(DataObject) not implemented for objects of type: " + clazz);
         }
 
-        final String reductionKey = configAsMap.get(ALARM_ENTITY_ID_KEY);
+        final String reductionKey = newValueAsMap.get(ALARM_ENTITY_ID_KEY);
         if (reductionKey == null) {
             LOG.info("Rejecting update for alert with missing entity id.");
-            throw new UCFException("Cannot update alert without entity id: " + objectDump(config));
+            throw new UCFException("Cannot update alert without entity id: " + objectDump(newValue));
         }
 
         final Long alarmId = alarmIdByReductionKey.get(reductionKey);
         if (alarmId == null) {
             LOG.warn(String.format("Got update for alarm with reduction key '%s', but not associated alarm id was found. No updated will be performed.",
                     reductionKey));
-            return config;
+            return newValue;
         }
 
         boolean didPerformAction = false;
-        final String shouldAck = configAsMap.get("mdr_isacknowledged");
+        final String shouldAck = newValueAsMap.get("mdr_isacknowledged");
         if (Boolean.TRUE.toString().equalsIgnoreCase(shouldAck)) {
             try {
                 LOG.info(String.format("Acknowledging alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
@@ -340,7 +336,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             }
         }
 
-        final String shouldClear = configAsMap.get("mdr_iscleared");
+        final String shouldClear = newValueAsMap.get("mdr_iscleared");
         if (Boolean.TRUE.toString().equalsIgnoreCase(shouldClear)) {
             try {
                 LOG.info(String.format("Clearing alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
@@ -357,7 +353,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             LOG.info("Got update, but not action was successfully performed.");
         }
 
-        return config;
+        return newValue;
     }
 
     private void handleNewOrUpdatedAlarm(String reductionKey, OpennmsModelProtos.Alarm alarm) {
@@ -380,7 +376,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
 
         try {
-            storeAlarmIdForLookup(alarm);
+            storeAlarmForLookup(alarm);
             createEntity(createAlertEntityForAlarm(alarm));
         } catch (InvalidParameterException e) {
             LOG.warn(String.format("Failed to create entity for node: %s", node));
@@ -465,7 +461,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
     }
 
-    private void storeAlarmIdForLookup(OpennmsModelProtos.Alarm alarm) {
+    protected void storeAlarmForLookup(OpennmsModelProtos.Alarm alarm) {
         alarmIdByReductionKey.put(alarm.getReductionKey(), alarm.getId());
     }
 
@@ -585,31 +581,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return string.substring(0, Math.min(string.length(), maxLen));
     }
 
-    /*
-    private static List<DataObject> getFirstList(DataObject obj) {
-        for(int i = 0; i < obj.getInstanceProperties().size(); ++i) {
-            Property p = (Property) obj.getInstanceProperties().get(i);
-            Type type = p.getType();
-            if (obj.isSet(p)) {
-                if (p.isMany()) {
-                    return obj.getList(p);
-                }
-            }
-        }
-        return null;
-    }
-    */
-
-    private static DataObject getFirstObject(DataObject obj) {
-        for(int i = 0; i < obj.getInstanceProperties().size(); ++i) {
-            Property p = (Property) obj.getInstanceProperties().get(i);
-            Type type = p.getType();
-            if (obj.isSet(p)) {
-                if (!type.isDataType() && !p.isMany()) {
-                    return obj.getDataObject(p);
-                }
-            }
-        }
-        return null;
+    protected void setRestClient(OpennmsRestClient restClient) {
+        this.restClient = restClient;
     }
 }

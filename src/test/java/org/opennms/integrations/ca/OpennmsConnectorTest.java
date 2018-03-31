@@ -35,9 +35,13 @@ import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.not;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -138,4 +142,30 @@ public class OpennmsConnectorTest {
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY), equalTo(alarm.getDescription()));
     }
 
+    @Test
+    public void canAcknowledgeAlarmOnUpdate() throws Exception {
+        // Mock the REST client
+        OpennmsRestClient restClient = mock(OpennmsRestClient.class);
+        connector.setRestClient(restClient);
+
+        // Create the alarm, and store in the connector so that it can lookup
+        // the alarm id for the associated reduction key
+        // (this would be done automatically if the connector had already created the alarm)
+        final OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setReductionKey("reduction-key")
+                .setId(1L)
+                .build();
+        connector.storeAlarmForLookup(alarm);
+
+        // Trigger an update
+        Map<String, String> connectorConfig = new HashMap<>();
+        connectorConfig.put("class", "Alert");
+        connectorConfig.put(OpennmsConnector.ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
+        connectorConfig.put("mdr_isacknowledged", "true");
+        DataObject entity = USMSiloDataObjectType.extractFromMap(connectorConfig);
+        connector.update(entity);
+
+        // We should have ACKed the alarm
+        verify(restClient, times(1)).acknowledgeAlarm(alarm.getId());
+    }
 }
