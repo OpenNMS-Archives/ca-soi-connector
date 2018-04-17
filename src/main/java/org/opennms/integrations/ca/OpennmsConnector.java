@@ -74,6 +74,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     protected static final String ALARM_ENTITY_MESSAGE_KEY = "mdr_message";
     protected static final String ALARM_ENTITY_MESSAGE_FULL_KEY = "mdr_message_full";
     protected static final String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
+    protected static final String ALARM_ENTITY_SUMMARY_KEY = "mdr_summary";
     protected static final String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
 
     /**
@@ -509,9 +510,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             map.put("mdr_alerted_object_id", nodeCriteria);
         }
         map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
-        map.put(ALARM_ENTITY_MESSAGE_KEY, truncateTo(alarm.getDescription(), MAX_ALARM_MESSAGE_LEN));
+        map.put(ALARM_ENTITY_MESSAGE_KEY, truncateTo(nullSafeTrim(alarm.getDescription()), MAX_ALARM_MESSAGE_LEN));
         map.put(ALARM_ENTITY_MESSAGE_FULL_KEY, alarm.getDescription());
-        map.put("mdr_summary", alarm.getLogMessage());
+        map.put(ALARM_ENTITY_SUMMARY_KEY, nullSafeTrim(alarm.getLogMessage()));
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.fromOpennmsSeverity(alarm.getSeverity()).getStringValue());
         final OpennmsModelProtos.Event lastEvent = alarm.getLastEvent();
         if (lastEvent != null) {
@@ -572,6 +573,13 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     private static boolean isNotEmpty(String string) {
         return string != null && string.trim().length() > 1;
+    }
+
+    private static String nullSafeTrim(String string) {
+        if (string == null) {
+            return null;
+        }
+        return string.trim();
     }
 
     private static String truncateTo(String string, int maxLen) {

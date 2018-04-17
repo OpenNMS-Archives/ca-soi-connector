@@ -143,6 +143,20 @@ public class OpennmsConnectorTest {
     }
 
     @Test
+    public void canTrimAlarmSummaryAndDescription() throws InvalidParameterException {
+        OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setLogMessage("    log  ")
+                .setDescription(" description ")
+                .build();
+        DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
+        // Whitespace should be trimmed for the summary and message, but not for messsage full
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_SUMMARY_KEY), equalTo("log"));
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_KEY), equalTo("description"));
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY), equalTo(alarm.getDescription()));
+    }
+
+    @Test
     public void canAcknowledgeAlarmOnUpdate() throws Exception {
         // Mock the REST client
         OpennmsRestClient restClient = mock(OpennmsRestClient.class);
