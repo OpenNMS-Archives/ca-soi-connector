@@ -553,8 +553,12 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
         if (isNotEmpty(nodeCriteria.getForeignSource()) && isNotEmpty(nodeCriteria.getForeignId())) {
             return String.format("%s:%s", nodeCriteria.getForeignSource(), nodeCriteria.getForeignId());
-        } else {
+        } else if (nodeCriteria.getId() > 0) {
+            // Only treat strictly positive values as valid node ids
             return Long.toString(nodeCriteria.getId());
+        } else {
+            // The alarm is not related to a node
+            return null;
         }
     }
 
