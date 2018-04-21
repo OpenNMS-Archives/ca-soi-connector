@@ -29,6 +29,7 @@
 package org.opennms.integrations.ca;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.notFound;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -68,4 +69,15 @@ public class OpennmsRestClientIT {
         client.clearAlarm(2924);
         // No exception should be thrown
     }
+
+    @Test
+    public void doesNotFailWhenA404IsReceivedWhenClearingAnAlarm() throws Exception {
+        stubFor(put(urlEqualTo("/opennms/api/v2/alarms/2925"))
+                .willReturn(notFound()));
+        OpennmsRestClient client = new OpennmsRestClient(String.format("http://localhost:%d/opennms", wireMockRule.port()),
+                "admin", "admin");
+        client.clearAlarm(2925);
+        // No exception should be thrown
+    }
+
 }

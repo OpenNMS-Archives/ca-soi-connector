@@ -30,6 +30,9 @@ package org.opennms.integrations.ca;
 
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 import okhttp3.Credentials;
@@ -42,6 +45,8 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OpennmsRestClient {
+
+    private static final Logger LOG = LoggerFactory.getLogger(OpennmsRestClient.class);
 
     private final HttpUrl baseUrl;
 
@@ -91,14 +96,14 @@ public class OpennmsRestClient {
     }
 
     void clearAlarm(long alarmId) throws Exception {
-        performActionOnAlarm(alarmId, "clear", "true");
+        performActionOnAlarm(alarmId, "clear", "true", true);
     }
 
     void acknowledgeAlarm(long alarmId) throws Exception {
-        performActionOnAlarm(alarmId, "ack", "true");
+        performActionOnAlarm(alarmId, "ack", "true", true);
     }
 
-    private void performActionOnAlarm(long alarmId, String actionName, String actionValue) throws Exception {
+    private void performActionOnAlarm(long alarmId, String actionName, String actionValue, boolean ignore404) throws Exception {
         final HttpUrl url = baseUrl.newBuilder()
                 .addPathSegment("api")
                 .addPathSegment("v2")
@@ -113,6 +118,10 @@ public class OpennmsRestClient {
                 .put(body)
                 .build();
         final Response response = client.newCall(request).execute();
+        if (ignore404 && response.code() == 404) {
+            LOG.info("Ignoring 'not found' response while performing %s on alarm with id: %d. The alarm may already by deleted.", actionName, alarmId);
+            return;
+        }
         if (!response.isSuccessful()) {
             throw new Exception(String.format("%s failed with: %s", actionName, response.message()));
         }
