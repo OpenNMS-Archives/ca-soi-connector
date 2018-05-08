@@ -17,8 +17,13 @@ Clears and acknowledgements on alerts which are relayed to the connector from SO
 
 ## Installation
 
-After compiling, copy `target/releases/opennms-ca-soi-connector-*.zip` to the target system.
+Start by downloading the latest release archive from https://github.com/OpenNMS/ca-soi-connector/releases to the target system.
+Alternatively, you may compile the project from source and find the resulting archive in `target/releases/opennms-ca-soi-connector-*.zip`.
+
 Extract the contents over `$SOI_HOME`.
+
+Ensure you have the "Microsoft Visual C++ 2015 Redistributable" installed.
+This is required for RocksDB which is used to maintain a local copy of the KTable.
 
 ### Connector configuration
 
