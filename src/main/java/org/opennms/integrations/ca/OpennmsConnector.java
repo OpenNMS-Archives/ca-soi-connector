@@ -67,6 +67,7 @@ import commonj.sdo.DataObject;
 public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final Logger LOG = Logger.getLogger(OpennmsConnector.class);
 
+
     private static final String ALARM_STORE_NAME = "alarm_store";
     private static final String NODE_STORE_NAME = "node_store";
 
@@ -76,6 +77,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     protected static final String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
     protected static final String ALARM_ENTITY_SUMMARY_KEY = "mdr_summary";
     protected static final String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
+
+    protected static final String DEFAULT_NODE_CLASS = "System";
+    protected static final String NODE_ENTITY_CLASS_KEY = "class";
 
     /**
      * The alarm message will typically get mapped to the alert detail field, which has a limit
@@ -90,6 +94,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private final Map<String,OpennmsModelProtos.Node> nodeCache = new ConcurrentSkipListMap<>();
     private final Map<String,Long> alarmIdByReductionKey = new ConcurrentSkipListMap<>();
 
+    private OpennmsConnectorConfig config;
+
     private OpennmsRestClient restClient;
 
     private CountDownLatch latch;
@@ -99,7 +105,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         LOG.info(String.format("initialize(%s)", configParam));
 
         // Parse the configuration options
-        final OpennmsConnectorConfig config = new OpennmsConnectorConfig(configParam);
+        config = new OpennmsConnectorConfig(configParam);
 
         // Create the REST(ful) client
         restClient = new OpennmsRestClient(config.getUrl(), config.getUsername(), config.getPassword());
@@ -275,7 +281,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
                     if (node != null) {
                         // Create the entity for the node
-                        nodeEntities.add(createItemEntityForNode(node));
+                        nodeEntities.add(createItemEntityForNode(node, config.getSetClassFromCategoryWithPrefix()));
                     }
                 }
             }
@@ -401,7 +407,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
                 LOG.debug(String.format("Creating node '%s'.", nodeCriteria));
             }
             try {
-                createEntity(createItemEntityForNode(node));
+                createEntity(createItemEntityForNode(node, config.getSetClassFromCategoryWithPrefix()));
             } catch (InvalidParameterException e) {
                 LOG.warn(String.format("Failed to create entity for node: %s", node));
             }
@@ -472,10 +478,11 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
      * NOTE: Make sure to update the README file when changing any of the mappings here.
      *
      * @param node the node
+     * @param  setClassFromCategoryWithPrefix if non-null or blank, the value of the class name will be derived from the first category matching this prefix
      * @return an item entity
      * @throws InvalidParameterException
      */
-    private static DataObject createItemEntityForNode(OpennmsModelProtos.Node node) throws InvalidParameterException {
+    protected static DataObject createItemEntityForNode(OpennmsModelProtos.Node node, String setClassFromCategoryWithPrefix) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
         map.put("entitytype", "Item");
         map.put("id", getNodeCriteria(node));
@@ -483,7 +490,16 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         node.getIpInterfaceList().stream().findFirst().ifPresent(ip -> {
             map.put("ip_address", ip.getIpAddress());
         });
-        map.put("class", "System");
+        if (setClassFromCategoryWithPrefix != null && setClassFromCategoryWithPrefix.length() > 0) {
+            map.put(NODE_ENTITY_CLASS_KEY, node.getCategoryList().stream()
+                    .filter(c -> c.startsWith(setClassFromCategoryWithPrefix))
+                    .map(c -> c.substring(setClassFromCategoryWithPrefix.length()))
+                    .sorted()
+                    .findFirst()
+                    .orElse(DEFAULT_NODE_CLASS));
+        } else {
+            map.put(NODE_ENTITY_CLASS_KEY, DEFAULT_NODE_CLASS);
+        }
         if (node.getSysDescription() != null) {
             map.put("description", node.getSysDescription());
         }

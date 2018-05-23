@@ -117,7 +117,8 @@ Nodes are mapped to item entities as follows:
 * ip_address
    * first IP interface on the node
 * class
-   * "System" (constant)
+   * If 'set-class-from-category-with-prefix' is set and a matching category is found, the remaining part of the category name after the prefix will be used as the value of the class.
+   * If 'set-class-from-category-with-prefix' is not set, or there is no matching category associated with the node, the constant value of "System" will be used.
 * description
    * node sysDescription
 * sysname

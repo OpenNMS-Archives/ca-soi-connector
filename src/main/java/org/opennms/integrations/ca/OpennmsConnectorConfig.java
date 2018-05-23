@@ -40,6 +40,7 @@ public class OpennmsConnectorConfig {
     protected static final String URL_KEY = "url";
     protected static final String USERNAME_KEY = "username";
     protected static final String PASSWORD_KEY = "password";
+    protected static final String SET_CLASS_FROM_CATEGORY_WITH_PREFIX = "set-class-from-category-with-prefix";
 
     // Kafka
     private final String streamProperties;
@@ -51,6 +52,9 @@ public class OpennmsConnectorConfig {
     private final String username;
     private final String password;
 
+    // Other
+    private final String setClassFromCategoryWithPrefix;
+
     OpennmsConnectorConfig(Map<String, String> params) throws UCFException {
         streamProperties = params.getOrDefault(STREAM_PROPERTIES_KEY, "stream.properties");
         alarmTopic = params.getOrDefault(ALARM_TOPIC_KEY, "alarms");
@@ -58,6 +62,7 @@ public class OpennmsConnectorConfig {
         url = getRequiredParameter(params, URL_KEY);
         username = getRequiredParameter(params, USERNAME_KEY);
         password = getRequiredParameter(params, PASSWORD_KEY);
+        setClassFromCategoryWithPrefix = params.getOrDefault(SET_CLASS_FROM_CATEGORY_WITH_PREFIX, "Class-");
     }
 
     private static String getRequiredParameter(Map<String, String> params, String key) throws UCFException {
@@ -90,5 +95,9 @@ public class OpennmsConnectorConfig {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getSetClassFromCategoryWithPrefix() {
+        return setClassFromCategoryWithPrefix;
     }
 }

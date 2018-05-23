@@ -37,10 +37,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ca.ucf.api.InvalidParameterException;
 import com.ca.ucf.api.UCFException;
 import com.ca.usm.ucf.utils.KwdValuePairType;
-import com.ca.usm.ucf.utils.USMSiloDataObjectType;
 
 import commonj.sdo.DataObject;
 
@@ -65,5 +63,6 @@ public class OpennmsConnectorConfigTest {
 
         OpennmsConnectorConfig config = new OpennmsConnectorConfig(connectorConfig);
         assertThat(config.getStreamProperties(), equalTo("test.props"));
+        assertThat(config.getSetClassFromCategoryWithPrefix(), equalTo("Class-"));
     }
 }

@@ -182,4 +182,23 @@ public class OpennmsConnectorTest {
         // We should have ACKed the alarm
         verify(restClient, times(1)).acknowledgeAlarm(alarm.getId());
     }
+
+    @Test
+    public void canSetNodeClassBasedOnCategory() throws InvalidParameterException {
+        // We should use the default class when no categories are present
+        OpennmsModelProtos.Node node = OpennmsModelProtos.Node.newBuilder()
+                .build();
+        DataObject nodeEntity = OpennmsConnector.createItemEntityForNode(node, "some-prefix-");
+        Map<String,String> nodeEntityMap = USMSiloDataObjectType.convertToMap(nodeEntity);
+        assertThat(nodeEntityMap.get(OpennmsConnector.NODE_ENTITY_CLASS_KEY), equalTo(OpennmsConnector.DEFAULT_NODE_CLASS));
+
+        // We should derive the class name from the categories if a matching category is found
+        node = OpennmsModelProtos.Node.newBuilder()
+                .addCategory("some-prefix-a")
+                .addCategory("some-prefix-b")
+                .build();
+        nodeEntity = OpennmsConnector.createItemEntityForNode(node, "some-prefix-");
+        nodeEntityMap = USMSiloDataObjectType.convertToMap(nodeEntity);
+        assertThat(nodeEntityMap.get(OpennmsConnector.NODE_ENTITY_CLASS_KEY), equalTo("a"));
+    }
 }

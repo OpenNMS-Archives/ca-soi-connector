@@ -13,6 +13,7 @@
                         stream-properties="/path/to/stream.properties"
                         alarm-topic="alarms"
                         node-topic="nodes"
+                        set-class-from-category-with-prefix="Class-"
                         />
         <ConnectorControls dns_resolution="1"
                            getCIsAtStartUp="1"
