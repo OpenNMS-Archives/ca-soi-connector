@@ -77,6 +77,8 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     protected static final String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
     protected static final String ALARM_ENTITY_SUMMARY_KEY = "mdr_summary";
     protected static final String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
+    protected static final String ALARM_ENTITY_ALERTED_OBJECT_ID_KEY = "mdr_alerted_object_id";
+    protected static final String ALARM_ENTITY_ALERTED_OBJECT_NAME_KEY = "mdr_alerted_object_name";
 
     protected static final String DEFAULT_NODE_CLASS = "System";
     protected static final String NODE_ENTITY_CLASS_KEY = "class";
@@ -390,7 +392,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
     }
 
-    private void handleNode(OpennmsModelProtos.Node node) {
+    protected void handleNode(OpennmsModelProtos.Node node) {
         final String nodeCriteria = getNodeCriteria(node);
         if(LOG.isDebugEnabled()) {
             LOG.debug(String.format("handleNode(%s)", nodeCriteria));
@@ -519,11 +521,15 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
      * @return an alert entity
      * @throws InvalidParameterException
      */
-    protected static DataObject createAlertEntityForAlarm(OpennmsModelProtos.Alarm alarm) throws InvalidParameterException {
+    protected DataObject createAlertEntityForAlarm(OpennmsModelProtos.Alarm alarm) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
         final String nodeCriteria = getNodeCriteria(alarm);
         if (nodeCriteria != null) {
-            map.put("mdr_alerted_object_id", nodeCriteria);
+            map.put(ALARM_ENTITY_ALERTED_OBJECT_ID_KEY, nodeCriteria);
+            final OpennmsModelProtos.Node node = nodeCache.get(nodeCriteria);
+            if (node != null) {
+                map.put(ALARM_ENTITY_ALERTED_OBJECT_NAME_KEY, node.getLabel());
+            }
         }
         map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
         map.put(ALARM_ENTITY_MESSAGE_KEY, truncateTo(nullSafeTrim(alarm.getDescription()), MAX_ALARM_MESSAGE_LEN));
@@ -611,5 +617,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     protected void setRestClient(OpennmsRestClient restClient) {
         this.restClient = restClient;
+    }
+
+    protected void setConfig(OpennmsConnectorConfig config) {
+        this.config = config;
     }
 }

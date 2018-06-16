@@ -90,6 +90,8 @@ Alarms are mapped to alerts as follows:
    * alarm reduction key
 * mdr_alerted_object_id
    * node criteria (node id or fs:fid) for the node associated with the alarm
+* mdr_alerted_object_name
+   * node label for the node associated with the alarm
 * mdr_message
    * alarm description truncated to 2048 characters
 * mdr_message_full

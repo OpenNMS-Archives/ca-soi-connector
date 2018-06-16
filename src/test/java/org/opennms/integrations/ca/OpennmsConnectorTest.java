@@ -32,12 +32,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasKey;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -87,12 +86,42 @@ public class OpennmsConnectorTest {
             OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
                     .setSeverity(severity)
                     .build();
-            DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+            DataObject alarmEntity = connector.createAlertEntityForAlarm(alarm);
             // Verify that the mapped entity contains a valid severity
             Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
             assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_SEVERITY_KEY), isIn(validSeverities));
         }
+    }
 
+    @Test
+    public void canMapNodeAttributesOnAlarm() throws UCFException {
+        // Initialize the connector with a minimal configuration
+        Map<String,String> configMap = new HashMap<>();
+        configMap.put(OpennmsConnectorConfig.URL_KEY, "http://nms:8980");
+        configMap.put(OpennmsConnectorConfig.USERNAME_KEY, "user");
+        configMap.put(OpennmsConnectorConfig.PASSWORD_KEY, "pass");
+        OpennmsConnectorConfig config = new OpennmsConnectorConfig(configMap);
+        connector.setConfig(config);
+
+        // Create some node and add it to the cache
+        OpennmsModelProtos.Node node = OpennmsModelProtos.Node.newBuilder()
+                .setId(99)
+                .setLabel("some-node-label")
+                .build();
+        connector.handleNode(node);
+
+        // Map an alarm that refers to the node we just created
+        OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setNodeCriteria(OpennmsModelProtos.NodeCriteria.newBuilder().setId(99))
+                .build();
+        DataObject alarmEntity = connector.createAlertEntityForAlarm(alarm);
+
+        // Verify the "alerted object" properties
+        Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
+        // Node criteria
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_ALERTED_OBJECT_ID_KEY), equalTo("99"));
+        // Node label
+        assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_ALERTED_OBJECT_NAME_KEY), equalTo("some-node-label"));
     }
 
     @Test
@@ -108,7 +137,7 @@ public class OpennmsConnectorTest {
                                 .setValue("value2")))
                 .build();
 
-        DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        DataObject alarmEntity = connector.createAlertEntityForAlarm(alarm);
         // Verify that the mapped entity contains the expected parameters
         Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
         assertThat(alarmEntityMap, not(hasKey("key1")));
@@ -122,7 +151,7 @@ public class OpennmsConnectorTest {
         OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
                 .setDescription("short descr.")
                 .build();
-        DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        DataObject alarmEntity = connector.createAlertEntityForAlarm(alarm);
         Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_KEY), equalTo(alarm.getDescription()));
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY), equalTo(alarm.getDescription()));
@@ -135,7 +164,7 @@ public class OpennmsConnectorTest {
         alarm = OpennmsModelProtos.Alarm.newBuilder()
                 .setDescription(sb.toString())
                 .build();
-        alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        alarmEntity = connector.createAlertEntityForAlarm(alarm);
         alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_KEY).length(), equalTo(OpennmsConnector.MAX_ALARM_MESSAGE_LEN));
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_MESSAGE_FULL_KEY).length(), greaterThan(OpennmsConnector.MAX_ALARM_MESSAGE_LEN));
@@ -148,7 +177,7 @@ public class OpennmsConnectorTest {
                 .setLogMessage("    log  ")
                 .setDescription(" description ")
                 .build();
-        DataObject alarmEntity = OpennmsConnector.createAlertEntityForAlarm(alarm);
+        DataObject alarmEntity = connector.createAlertEntityForAlarm(alarm);
         Map<String,String> alarmEntityMap = USMSiloDataObjectType.convertToMap(alarmEntity);
         // Whitespace should be trimmed for the summary and message, but not for messsage full
         assertThat(alarmEntityMap.get(OpennmsConnector.ALARM_ENTITY_SUMMARY_KEY), equalTo("log"));
