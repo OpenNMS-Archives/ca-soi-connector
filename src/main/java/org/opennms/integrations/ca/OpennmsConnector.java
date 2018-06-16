@@ -359,7 +359,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
 
         if (!didPerformAction) {
-            LOG.info("Got update, but not action was successfully performed.");
+            LOG.info("Got update, but no action was successfully performed.");
         }
 
         return newValue;
