@@ -8,7 +8,7 @@
             <!-- Note: Alert is specified directly by Connector
 			<Field input='class' pattern='regexpattern' output='eventtype' outval='Alert' />
 			<Field input='class' pattern='regexpattern' output='eventtype' outval='BinaryRelationship' /-->
-            <Field input='class' pattern='^System$' output='eventtype' outval='ComputerSystem'/>
+            <Field input='class' pattern='^System$|^ComputerSystem' output='eventtype' outval='ComputerSystem'/>
             <Field input='class' pattern='^Windows Service$' output='eventtype'
                    outval='BackgroundProcess'/>
             <Field input='class' pattern='^Database$' output='eventtype' outval='DatabaseInstance'/>
@@ -19,6 +19,7 @@
             <Field input='class' pattern='^Router$' output='eventtype' outval='Router'/>
             <Field input='class' pattern='^Service$' output='eventtype' outval='Service'/>
             <Field input='class' pattern='^Relationship$' output='eventtype' outval='Relationship'/>			
+	    <Field input='class' pattern='^Switch$' output='eventtype' outval='Switch'/>
         </Classify>
 
         <Normalize>
@@ -243,6 +244,25 @@
             <!-- Non-Correlatable properties -->
             <Field output='ProcessorType' format='x86-64-IA64' input=''/>
             <Field output='OSNumeric' format='{0}' input='number'/>
+        </Format>
+    </EventClass>
+
+    <!-- ======Event Class====== -->
+    <EventClass name='Router' extends='Item'>
+        <Format>
+            <!-- Correlatable properties, must populate at least one -->
+            <Field conditional='sysname' output='SysName' format='{0}' input='sysname'/>
+            <Field conditional='dnsname' output='PrimaryDnsName' format='{0}' input='dnsname'/>
+            <Field conditional='macaddress' output='PrimaryMacAddress' format='{0}'
+                   input='macaddress'/>
+            <Field conditional='ip_address' output='PrimaryIPV4Address' format='{0}'
+                   input='ip_address'/>
+            <Field conditional='ipv6_address' output='PrimaryIPV6Address' format='{0}'
+                   input='ipv6_address'/>
+
+            <!-- Non-Correlatable properties -->
+            <Field conditional='adminstatus' output='AdministrativeStatus' format='{0}' input='adminstatus'/>
+            <Field conditional='maintenanceflag' output='IsInMaintenance' format='{0}' input='maintenanceflag'/>
         </Format>
     </EventClass>
 
