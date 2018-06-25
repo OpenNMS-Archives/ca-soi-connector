@@ -267,7 +267,7 @@
     </EventClass>
 
     <!-- ======Event Class====== -->
-    <EventClass name='Router' extends='Item'>
+    <EventClass name='Switch' extends='Item'>
         <Format>
             <!-- Correlatable properties, must populate at least one -->
             <Field conditional='sysname' output='SysName' format='{0}' input='sysname'/>
