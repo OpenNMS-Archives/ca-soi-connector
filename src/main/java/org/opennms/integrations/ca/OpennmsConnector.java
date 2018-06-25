@@ -526,9 +526,17 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         final String nodeCriteria = getNodeCriteria(alarm);
         if (nodeCriteria != null) {
             map.put(ALARM_ENTITY_ALERTED_OBJECT_ID_KEY, nodeCriteria);
-            final OpennmsModelProtos.Node node = nodeCache.get(nodeCriteria);
+            // Try looking up the node in the cache
+            OpennmsModelProtos.Node node = nodeCache.get(nodeCriteria);
+            if (node == null) {
+                // The node was not found in the cache, try directly in the view
+                node = lookupNodeForAlarm(alarm);
+            }
             if (node != null) {
                 map.put(ALARM_ENTITY_ALERTED_OBJECT_NAME_KEY, node.getLabel());
+            } else {
+                LOG.warn(String.format("Alarm with reduction key: %s is related to node with criteria: %s, but no node was found in the view.",
+                        alarm.getReductionKey(), nodeCriteria));
             }
         }
         map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
