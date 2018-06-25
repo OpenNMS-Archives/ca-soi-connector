@@ -72,6 +72,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private static final String NODE_STORE_NAME = "node_store";
 
     protected static final String ALARM_ENTITY_ID_KEY = "mdr_id";
+    protected static final String ALARM_ENTITY_CREATED_AT = "mdr_created_at";
     protected static final String ALARM_ENTITY_MESSAGE_KEY = "mdr_message";
     protected static final String ALARM_ENTITY_MESSAGE_FULL_KEY = "mdr_message_full";
     protected static final String ALARM_ENTITY_SEVERITY_KEY = "mdr_severity";
@@ -540,6 +541,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             }
         }
         map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
+        map.put(ALARM_ENTITY_CREATED_AT, Long.toString(alarm.getFirstEventTime()));
         map.put(ALARM_ENTITY_MESSAGE_KEY, truncateTo(nullSafeTrim(alarm.getDescription()), MAX_ALARM_MESSAGE_LEN));
         map.put(ALARM_ENTITY_MESSAGE_FULL_KEY, alarm.getDescription());
         map.put(ALARM_ENTITY_SUMMARY_KEY, nullSafeTrim(alarm.getLogMessage()));

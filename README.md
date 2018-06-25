@@ -88,6 +88,8 @@ Alarms are mapped to alerts as follows:
 
 * mdr_id
    * alarm reduction key
+* mdr_created_at
+   * alarm creation time (time at which the first event associdated with this alarm was sent)
 * mdr_alerted_object_id
    * node criteria (node id or fs:fid) for the node associated with the alarm
 * mdr_alerted_object_name
