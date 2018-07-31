@@ -373,7 +373,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
         if (alarm == null) {
             try {
-                deleteEntity(createAlertEntityFromReductionKey(reductionKey));
+                deleteEntity(createAlertEntityFromReductionKeyForDelete(reductionKey));
             } catch (InvalidParameterException e) {
                 LOG.warn(String.format("Failed to delete entity for reduction key: %s", reductionKey));
             }
@@ -560,9 +560,11 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return USMSiloDataObjectType.extractFromMap(map);
     }
 
-    private static DataObject createAlertEntityFromReductionKey(String reductionKey) throws InvalidParameterException {
+    private static DataObject createAlertEntityFromReductionKeyForDelete(String reductionKey) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
         map.put(ALARM_ENTITY_ID_KEY, reductionKey);
+        map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.NORMAL.getStringValue());
+        map.put("mdr_iscleared", "true");
         map.put("mdr_alerttype", "Risk");
         map.put("entitytype", "Alert");
         return USMSiloDataObjectType.extractFromMap(map);
