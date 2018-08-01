@@ -32,8 +32,12 @@ import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.Mockito.mock;
+import static org.opennms.integrations.ca.OpennmsConnector.ALARM_ENTITY_ALERTED_OBJECT_ID_KEY;
 import static org.opennms.integrations.ca.OpennmsConnector.ALARM_ENTITY_ID_KEY;
+import static org.opennms.integrations.ca.OpennmsConnector.ALARM_ENTITY_IS_CLEARED_KEY;
 import static org.opennms.integrations.ca.OpennmsConnector.ALARM_ENTITY_SEVERITY_KEY;
 
 import java.io.File;
@@ -82,6 +86,8 @@ public class OpennmsConnectorIT {
 
     private Map<String, DataObject> alertsById = new LinkedHashMap<>();
 
+    private Map<String,String> lastDelete;
+
     private KafkaProducer<String, byte[]> producer;
 
     private OpennmsConnector connector;
@@ -96,6 +102,10 @@ public class OpennmsConnectorIT {
 
         // Create, but don't initialize the connector
         connector = new OpennmsConnector();
+
+        // Mock the REST client
+        OpennmsRestClient restClient = mock(OpennmsRestClient.class);
+        connector.setRestClient(restClient);
     }
 
     @After
@@ -124,7 +134,7 @@ public class OpennmsConnectorIT {
         connector.initialize(UUID.randomUUID(), getConnectorConfig(), new Properties());
 
         // Issue a GET
-        await().atMost(15, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(1));
+        await().atMost(1000, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(1));
 
         // The map should be empty
         assertThat(alertsById.keySet(), hasSize(0));
@@ -168,6 +178,41 @@ public class OpennmsConnectorIT {
         await().atMost(15, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(2));
     }
 
+    @Test
+    public void canDeleteAlarm() throws ExecutionException, InterruptedException, IOException, UCFException {
+        // Initialize the connector
+        connector.initialize(UUID.randomUUID(), getConnectorConfig(), new Properties());
+
+        // Subscribe to alert changes
+        subscribeToAlerts();
+
+        // Create an alarm
+        final OpennmsModelProtos.Alarm alarm = OpennmsModelProtos.Alarm.newBuilder()
+                .setNodeCriteria(OpennmsModelProtos.NodeCriteria.newBuilder()
+                        .setForeignSource("FS")
+                        .setForeignId("FID")
+                )
+                .setReductionKey("interfaceDown")
+                .setSeverity(OpennmsModelProtos.Severity.MAJOR)
+                .build();
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), alarm.toByteArray())).get();
+
+        // Wait for the alarm
+        await().atMost(15, TimeUnit.SECONDS).until(getSeverityForAlarm("interfaceDown"), equalTo("Major"));
+
+        // Now delete the alarm
+        assertThat(lastDelete, nullValue());
+        producer.send(new ProducerRecord<>("alarms", alarm.getReductionKey(), null)).get();
+        await().atMost(15, TimeUnit.SECONDS).until(() -> alertsById.get("interfaceDown"), nullValue());
+
+        // Validate the delete
+        assertThat(lastDelete, notNullValue());
+        // These properties should be set for the delete to be successfully processed
+        assertThat(lastDelete.get(ALARM_ENTITY_ALERTED_OBJECT_ID_KEY), equalTo("FS:FID"));
+        assertThat(lastDelete.get(ALARM_ENTITY_SEVERITY_KEY), equalTo(SOISeverity.NORMAL.getStringValue()));
+        assertThat(lastDelete.get(ALARM_ENTITY_IS_CLEARED_KEY), equalTo("true"));
+    }
+
     private Callable<String> getSeverityForAlarm(String reductionKey) {
         return () -> {
             final DataObject alarm = alertsById.get(reductionKey);
@@ -209,8 +254,10 @@ public class OpennmsConnectorIT {
 
             @Override
             public void onDelete(DataObject dataObject) throws InvalidParameterException {
-                final String id = USMSiloDataObjectType.convertToMap(dataObject).get(ALARM_ENTITY_ID_KEY);
+                final Map<String,String> delete = USMSiloDataObjectType.convertToMap(dataObject);
+                final String id = delete.get(ALARM_ENTITY_ID_KEY);
                 alertsById.remove(id);
+                lastDelete = delete;
             }
 
             @Override

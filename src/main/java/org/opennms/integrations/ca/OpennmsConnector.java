@@ -80,6 +80,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     protected static final String ALARM_ENTITY_EVENT_PARM_PREFIX_KEY = "mdr_alert_parm_";
     protected static final String ALARM_ENTITY_ALERTED_OBJECT_ID_KEY = "mdr_alerted_object_id";
     protected static final String ALARM_ENTITY_ALERTED_OBJECT_NAME_KEY = "mdr_alerted_object_name";
+    protected static final String ALARM_ENTITY_IS_CLEARED_KEY = "mdr_iscleared";
 
     protected static final String DEFAULT_NODE_CLASS = "System";
     protected static final String NODE_ENTITY_CLASS_KEY = "class";
@@ -96,6 +97,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
     private volatile ReadOnlyKeyValueStore<String, byte[]> nodeView;
     private final Map<String,OpennmsModelProtos.Node> nodeCache = new ConcurrentSkipListMap<>();
     private final Map<String,Long> alarmIdByReductionKey = new ConcurrentSkipListMap<>();
+    private final Map<String,String> nodeCriteriaByReductionKey = new ConcurrentSkipListMap<>();
 
     private OpennmsConnectorConfig config;
 
@@ -111,7 +113,9 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         config = new OpennmsConnectorConfig(configParam);
 
         // Create the REST(ful) client
-        restClient = new OpennmsRestClient(config.getUrl(), config.getUsername(), config.getPassword());
+        if (restClient == null) {
+            restClient = new OpennmsRestClient(config.getUrl(), config.getUsername(), config.getPassword());
+        }
 
         // Load the stream properties
         final String streamPropertiesFile = config.getStreamProperties();
@@ -168,6 +172,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         if (latch != null) {
             latch.countDown();
         }
+        restClient = null;
         super.shutdown();
     }
 
@@ -346,7 +351,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             }
         }
 
-        final String shouldClear = newValueAsMap.get("mdr_iscleared");
+        final String shouldClear = newValueAsMap.get(ALARM_ENTITY_IS_CLEARED_KEY);
         if (Boolean.TRUE.toString().equalsIgnoreCase(shouldClear)) {
             try {
                 LOG.info(String.format("Clearing alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
@@ -372,8 +377,11 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
 
         if (alarm == null) {
+            final String nodeCriteria = nodeCriteriaByReductionKey.get(reductionKey);
             try {
-                deleteEntity(createAlertEntityFromReductionKeyForDelete(reductionKey));
+                deleteEntity(createAlertEntityForDelete(reductionKey, nodeCriteria));
+                // Clean up the lookup tables after a successful delete
+                deleteAlarmFromLookupTables(reductionKey);
             } catch (InvalidParameterException e) {
                 LOG.warn(String.format("Failed to delete entity for reduction key: %s", reductionKey));
             }
@@ -473,6 +481,16 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     protected void storeAlarmForLookup(OpennmsModelProtos.Alarm alarm) {
         alarmIdByReductionKey.put(alarm.getReductionKey(), alarm.getId());
+        final String nodeCriteria = getNodeCriteria(alarm);
+        if (nodeCriteria != null) {
+            // Don't bother storing the entry if it's null
+            nodeCriteriaByReductionKey.put(alarm.getReductionKey(), getNodeCriteria(alarm));
+        }
+    }
+
+    protected void deleteAlarmFromLookupTables(String reductionKey) {
+        alarmIdByReductionKey.remove(reductionKey);
+        nodeCriteriaByReductionKey.remove(reductionKey);
     }
 
     /**
@@ -560,11 +578,17 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return USMSiloDataObjectType.extractFromMap(map);
     }
 
-    private static DataObject createAlertEntityFromReductionKeyForDelete(String reductionKey) throws InvalidParameterException {
+    private static DataObject createAlertEntityForDelete(String reductionKey, String nodeCriteria) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
         map.put(ALARM_ENTITY_ID_KEY, reductionKey);
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.NORMAL.getStringValue());
-        map.put("mdr_iscleared", "true");
+        if (nodeCriteria != null) {
+            map.put(ALARM_ENTITY_ALERTED_OBJECT_ID_KEY, nodeCriteria);
+        } else {
+            LOG.warn(String.format("No node criteria was found for alarm with reduction key: %s. Deleting the entity may fail.",
+                    reductionKey));
+        }
+        map.put(ALARM_ENTITY_IS_CLEARED_KEY, "true");
         map.put("mdr_alerttype", "Risk");
         map.put("entitytype", "Alert");
         return USMSiloDataObjectType.extractFromMap(map);
