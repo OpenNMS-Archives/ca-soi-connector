@@ -77,8 +77,8 @@ import commonj.sdo.DataObject;
 
 public class OpennmsConnectorIT {
 
-    @ClassRule
-    public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(2, true, 2,
+    @Rule
+    public KafkaEmbedded embeddedKafka = new KafkaEmbedded(2, true, 2,
             "alarms", "nodes");
 
     @Rule
@@ -134,7 +134,7 @@ public class OpennmsConnectorIT {
         connector.initialize(UUID.randomUUID(), getConnectorConfig(), new Properties());
 
         // Issue a GET
-        await().atMost(1000, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(1));
+        await().atMost(15, TimeUnit.SECONDS).until(() -> connector.get(null), hasSize(1));
 
         // The map should be empty
         assertThat(alertsById.keySet(), hasSize(0));
