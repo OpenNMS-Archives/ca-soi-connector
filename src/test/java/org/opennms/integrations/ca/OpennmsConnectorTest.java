@@ -64,6 +64,9 @@ public class OpennmsConnectorTest {
         // Create the connector before each test to ensure
         // that the USM classes are properly initialized
         connector = new OpennmsConnector();
+
+        OpennmsConnectorConfig config = mock(OpennmsConnectorConfig.class);
+        connector.setConfig(config);
     }
 
     @Test(expected = UCFException.class)
@@ -229,5 +232,14 @@ public class OpennmsConnectorTest {
         nodeEntity = OpennmsConnector.createItemEntityForNode(node, "some-prefix-");
         nodeEntityMap = USMSiloDataObjectType.convertToMap(nodeEntity);
         assertThat(nodeEntityMap.get(OpennmsConnector.NODE_ENTITY_CLASS_KEY), equalTo("a"));
+    }
+
+    @Test
+    public void canGetAlarmIdFromAlertMdrId() {
+        assertThat(OpennmsConnector.getAlarmIdFromAlertMdrId("1:uei"), equalTo(1L));
+        assertThat(OpennmsConnector.getAlarmIdFromAlertMdrId("9999:uei:1"), equalTo(9999L));
+        assertThat(OpennmsConnector.getAlarmIdFromAlertMdrId("9998:1uei:2"), equalTo(9998L));
+        assertThat(OpennmsConnector.getAlarmIdFromAlertMdrId("1uei:2"), equalTo(null));
+        assertThat(OpennmsConnector.getAlarmIdFromAlertMdrId("1"), equalTo(null));
     }
 }

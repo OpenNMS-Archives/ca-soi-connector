@@ -41,6 +41,7 @@ public class OpennmsConnectorConfig {
     protected static final String USERNAME_KEY = "username";
     protected static final String PASSWORD_KEY = "password";
     protected static final String SET_CLASS_FROM_CATEGORY_WITH_PREFIX = "set-class-from-category-with-prefix";
+    protected static final String INCLUDE_ALARM_ID_IN_ALERT_MDR_ID = "include-alarm-id-in-alert-mdr-id";
 
     // Kafka
     private final String streamProperties;
@@ -54,6 +55,7 @@ public class OpennmsConnectorConfig {
 
     // Other
     private final String setClassFromCategoryWithPrefix;
+    private final boolean includeAlarmIdInAlertMdrId;
 
     OpennmsConnectorConfig(Map<String, String> params) throws UCFException {
         streamProperties = params.getOrDefault(STREAM_PROPERTIES_KEY, "stream.properties");
@@ -63,6 +65,7 @@ public class OpennmsConnectorConfig {
         username = getRequiredParameter(params, USERNAME_KEY);
         password = getRequiredParameter(params, PASSWORD_KEY);
         setClassFromCategoryWithPrefix = params.getOrDefault(SET_CLASS_FROM_CATEGORY_WITH_PREFIX, "Class-");
+        includeAlarmIdInAlertMdrId = Boolean.valueOf(params.getOrDefault(INCLUDE_ALARM_ID_IN_ALERT_MDR_ID, Boolean.FALSE.toString()));
     }
 
     private static String getRequiredParameter(Map<String, String> params, String key) throws UCFException {
@@ -99,5 +102,9 @@ public class OpennmsConnectorConfig {
 
     public String getSetClassFromCategoryWithPrefix() {
         return setClassFromCategoryWithPrefix;
+    }
+
+    public boolean shouldIncludeAlarmIdInAlertMdrId() {
+        return includeAlarmIdInAlertMdrId;
     }
 }

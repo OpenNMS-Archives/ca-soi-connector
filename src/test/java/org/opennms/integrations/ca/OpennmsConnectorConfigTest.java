@@ -64,5 +64,6 @@ public class OpennmsConnectorConfigTest {
         OpennmsConnectorConfig config = new OpennmsConnectorConfig(connectorConfig);
         assertThat(config.getStreamProperties(), equalTo("test.props"));
         assertThat(config.getSetClassFromCategoryWithPrefix(), equalTo("Class-"));
+        assertThat(config.shouldIncludeAlarmIdInAlertMdrId(), equalTo(false));
     }
 }

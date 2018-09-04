@@ -40,6 +40,8 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -70,6 +72,7 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
 
     private static final String ALARM_STORE_NAME = "alarm_store";
     private static final String NODE_STORE_NAME = "node_store";
+    private static final Pattern ALARM_ID_FROM_ALERT_MDR_ID_PATTERN = Pattern.compile("^(\\d+):.*$");
 
     protected static final String ALARM_ENTITY_ID_KEY = "mdr_id";
     protected static final String ALARM_ENTITY_CREATED_AT = "mdr_created_at";
@@ -301,6 +304,18 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return entities;
     }
 
+    protected static Long getAlarmIdFromAlertMdrId(String alertMdrId) {
+        if (alertMdrId == null) {
+            return null;
+        }
+        final Matcher m = ALARM_ID_FROM_ALERT_MDR_ID_PATTERN.matcher(alertMdrId);
+        if (m.matches()) {
+            return Long.parseLong(m.group(1));
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Updates the specified entity in the domain manager and returns the updated entity.
      *
@@ -324,16 +339,22 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
             throw new NotImplementedException("update(DataObject) not implemented for objects of type: " + clazz);
         }
 
-        final String reductionKey = newValueAsMap.get(ALARM_ENTITY_ID_KEY);
-        if (reductionKey == null) {
+        final String reductionKeyAndMaybeAlarmId = newValueAsMap.get(ALARM_ENTITY_ID_KEY);
+        if (reductionKeyAndMaybeAlarmId == null) {
             LOG.info("Rejecting update for alert with missing entity id.");
             throw new UCFException("Cannot update alert without entity id: " + objectDump(newValue));
         }
 
-        final Long alarmId = alarmIdByReductionKey.get(reductionKey);
+        final Long alarmId;
+        if (!config.shouldIncludeAlarmIdInAlertMdrId()) {
+            alarmId = alarmIdByReductionKey.get(reductionKeyAndMaybeAlarmId);
+        } else {
+            alarmId = getAlarmIdFromAlertMdrId(reductionKeyAndMaybeAlarmId);
+        }
+
         if (alarmId == null) {
-            LOG.warn(String.format("Got update for alarm with reduction key '%s', but not associated alarm id was found. No updated will be performed.",
-                    reductionKey));
+            LOG.warn(String.format("Got update for alarm with alert id '%s', but no associated alarm id was found. No update will be performed.",
+                    reductionKeyAndMaybeAlarmId));
             return newValue;
         }
 
@@ -341,26 +362,26 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         final String shouldAck = newValueAsMap.get("mdr_isacknowledged");
         if (Boolean.TRUE.toString().equalsIgnoreCase(shouldAck)) {
             try {
-                LOG.info(String.format("Acknowledging alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
+                LOG.info(String.format("Acknowledging alarm with id %d (for alert id '%s').", alarmId, reductionKeyAndMaybeAlarmId));
                 restClient.acknowledgeAlarm(alarmId);
                 LOG.info(String.format("Successfully acknowledged alarm with id %d.", alarmId));
                 didPerformAction = true;
             } catch (Exception e) {
-                LOG.error(String.format("Error occurred while acknowledging alarm with id %d (for reduction key '%s'): %s",
-                        alarmId, reductionKey, e.getMessage()), e);
+                LOG.error(String.format("Error occurred while acknowledging alarm with id %d (for alert id '%s'): %s",
+                        alarmId, reductionKeyAndMaybeAlarmId, e.getMessage()), e);
             }
         }
 
         final String shouldClear = newValueAsMap.get(ALARM_ENTITY_IS_CLEARED_KEY);
         if (Boolean.TRUE.toString().equalsIgnoreCase(shouldClear)) {
             try {
-                LOG.info(String.format("Clearing alarm with id %d (for reduction key '%s').", alarmId, reductionKey));
+                LOG.info(String.format("Clearing alarm with id %d (for reduction key '%s').", alarmId, reductionKeyAndMaybeAlarmId));
                 restClient.clearAlarm(alarmId);
                 LOG.info(String.format("Successfully cleared alarm with id %d.", alarmId));
                 didPerformAction = true;
             } catch (Exception e) {
-                LOG.error(String.format("Error occurred while clearing alarm with id %d (for reduction key '%s'): %s",
-                        alarmId, reductionKey, e.getMessage()), e);
+                LOG.error(String.format("Error occurred while clearing alarm with id %d (for alert id '%s'): %s",
+                        alarmId, reductionKeyAndMaybeAlarmId, e.getMessage()), e);
             }
         }
 
@@ -377,9 +398,10 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         }
 
         if (alarm == null) {
+            final Long alarmId = alarmIdByReductionKey.get(reductionKey);
             final String nodeCriteria = nodeCriteriaByReductionKey.get(reductionKey);
             try {
-                deleteEntity(createAlertEntityForDelete(reductionKey, nodeCriteria));
+                deleteEntity(createAlertEntityForDelete(reductionKey, alarmId, nodeCriteria));
                 // Clean up the lookup tables after a successful delete
                 deleteAlarmFromLookupTables(reductionKey);
             } catch (InvalidParameterException e) {
@@ -558,7 +580,11 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
                         alarm.getReductionKey(), nodeCriteria));
             }
         }
-        map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
+        if (config.shouldIncludeAlarmIdInAlertMdrId()) {
+            map.put(ALARM_ENTITY_ID_KEY, alarm.getId() + ":" + alarm.getReductionKey());
+        } else {
+            map.put(ALARM_ENTITY_ID_KEY, alarm.getReductionKey());
+        }
         map.put(ALARM_ENTITY_CREATED_AT, Long.toString(alarm.getFirstEventTime()));
         map.put(ALARM_ENTITY_MESSAGE_KEY, truncateTo(nullSafeTrim(alarm.getDescription()), MAX_ALARM_MESSAGE_LEN));
         map.put(ALARM_ENTITY_MESSAGE_FULL_KEY, alarm.getDescription());
@@ -578,9 +604,19 @@ public class OpennmsConnector extends BaseConnectorLifecycle {
         return USMSiloDataObjectType.extractFromMap(map);
     }
 
-    private static DataObject createAlertEntityForDelete(String reductionKey, String nodeCriteria) throws InvalidParameterException {
+    private DataObject createAlertEntityForDelete(String reductionKey, Long alarmId, String nodeCriteria) throws InvalidParameterException {
         final Map<String, String> map = new LinkedHashMap<>();
-        map.put(ALARM_ENTITY_ID_KEY, reductionKey);
+        if (config.shouldIncludeAlarmIdInAlertMdrId()) {
+            if (alarmId == null) {
+                LOG.warn(String.format("No alarm id for alarm with reduction key: %s. Deleting the entity will fail.",
+                        reductionKey));
+                map.put(ALARM_ENTITY_ID_KEY, reductionKey);
+            } else {
+                map.put(ALARM_ENTITY_ID_KEY, alarmId + ":" + reductionKey);
+            }
+        } else {
+            map.put(ALARM_ENTITY_ID_KEY, reductionKey);
+        }
         map.put(ALARM_ENTITY_SEVERITY_KEY, SOISeverity.NORMAL.getStringValue());
         if (nodeCriteria != null) {
             map.put(ALARM_ENTITY_ALERTED_OBJECT_ID_KEY, nodeCriteria);
