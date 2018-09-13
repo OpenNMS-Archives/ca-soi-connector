@@ -337,6 +337,9 @@
             <Field conditional='ImpactedEntities' input='ImpactedEntities' format='{0}' output='mdr_impactedentities'/>
             <Field conditional='IsClearable' input='IsClearable' format='{0}' output='mdr_isclearable'/>
             <Field conditional='IsCleared' input='IsCleared' format='{0}' output='mdr_iscleared'/>
+	    <!-- In order to avoid proparting the acknowledgement, replace the following line with:
+	         <Field input='false' format='{0}' output='mdr_isacknowledged'/>
+            -->
             <Field conditional='IsAcknowledged' input='IsAcknowledged' format='{0}' output='mdr_isacknowledged'/>
             <Field conditional='IsAcknowledgeable' input='IsAcknowledgeable' format='{0}' output='mdr_isacknowledgeable'/>
             <Field conditional='Assignee' input='Assignee' format='{0}' output='mdr_assignee'/>
