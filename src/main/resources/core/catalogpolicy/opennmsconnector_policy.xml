@@ -84,8 +84,8 @@
             <Field conditional='mdr_id' output='MdrElementID' format='{0}' input='mdr_id'/>
             <Field output="UrlParams" format="http://{0}:8080?id={1}"
                    input="MdrProdInstance,MdrElementID"/>
-            <Field output='OccurrenceTimestamp' format='{0}' input='{xsdateTime(now)}'/>
-            <Field output='ReportTimestamp' format='{0}' input='{xsdateTime(now)}'/>
+            <Field conditional='mdr_created_at' output='OccurrenceTimestamp' format='{0}' input='{xsdateTime(mdr_created_at)}'/>
+            <Field conditional='mdr_created_at' output='ReportTimestamp' format='{0}' input='{xsdateTime(mdr_created_at)}'/>
             <Field conditional='mdr_alerttype' output='AlertType' format='{0}'
                    input='mdr_alerttype'/>
             <Field conditional='mdr_severity' output='Severity' format='{0}' input='mdr_severity'/>
